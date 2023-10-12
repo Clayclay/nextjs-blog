@@ -10,6 +10,7 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.13",
+
     "@mui/material": "^5.14.13",
     "@mui/styled-engine-sc": "^6.0.0-alpha.1",
     "next": "latest",
@@ -19,5 +20,9 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.4",
+    "typescript": "5.2.2"
   }
 }
