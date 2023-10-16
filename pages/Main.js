@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-
 import Markdown from './Markdown';
+
+
+
 
 function Main(props) {
   const { posts, title } = props;
+
 
   return (
     <Grid
@@ -25,9 +28,15 @@ function Main(props) {
       </Typography>
       <Divider />
       {posts.map((post) => (
-        <Markdown className="markdown" key={post.substring(0, 40)}>
+
+post
+
+,console.log("The type of variable is",post)
+
+
+       /* <Markdown className="markdown" key={post.substring(0, 40)}>
           {post}
-        </Markdown>
+        </Markdown>*/
       ))}
     </Grid>
   );

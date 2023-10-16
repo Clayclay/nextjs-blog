@@ -12,10 +12,15 @@ import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import post1 from './blog-post.1.md';
 
-//import post2 from './blog-post.2.md';
-//import post3 from './blog-post.3.md';
+
+import post1 from '../app/content/blog-post.1.mdx';
+import post2 from '../app/content/blog-post.2.mdx';
+import post3 from '../app/content/blog-post.3.mdx';
+
+//import * as Post from '../app/content/';
+
+import Hello from '../app/content/hello.mdx';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -58,7 +63,8 @@ const featuredPosts = [
   },
 ];
 
-const posts = [post1/*, post2, post3*/];
+const posts = [post1, post2, post3];
+
 
 const sidebar = {
   title: 'About',
@@ -101,7 +107,10 @@ export default function Blog() {
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
+
+
             <Main title="From the firehose" posts={posts} />
+
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
@@ -115,6 +124,10 @@ export default function Blog() {
         title="Footer"
         description="Something here to give the footer a purpose!"
       />
+
+
+<Hello />
+
     </ThemeProvider>
   );
 }
