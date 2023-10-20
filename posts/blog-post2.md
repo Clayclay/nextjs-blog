@@ -1,3 +1,8 @@
+---
+title: 'anoter blog post'
+date: '2020-01-01'
+---
+
 # Another blog post
 
 _March 23, 2020 by [Matt](/)_

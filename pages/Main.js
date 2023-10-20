@@ -7,10 +7,11 @@ import Markdown from './Markdown';
 
 
 
-
 function Main(props) {
   const { posts, title } = props;
 
+
+  //console.log("posts",posts[1].object.prototype)
 
   return (
     <Grid
@@ -27,20 +28,41 @@ function Main(props) {
         {title}
       </Typography>
       <Divider />
+
+
       {posts.map((post) => (
 
-post
+<div>
+<li> {post.title} </li>
+ id : {post.id} <br />
+ date : {post.date} <br />
+   <br />
 
-,console.log("The type of variable is",post)
+</div>
 
+     ))}
+   
 
-       /* <Markdown className="markdown" key={post.substring(0, 40)}>
-          {post}
-        </Markdown>*/
-      ))}
     </Grid>
   );
 }
+
+
+
+/* 
+
+
+
+      {posts.map((post) => (
+
+ {post}
+      
+ <Markdown className="markdown" key={post.substring(0, 40)}>
+ {post}
+</Markdown>
+      ))}
+*/
+
 
 Main.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -48,3 +70,13 @@ Main.propTypes = {
 };
 
 export default Main;
+
+
+
+
+
+
+
+
+
+     
