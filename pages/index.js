@@ -22,14 +22,6 @@ import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 
-import { useState } from 'react';
-
-/*
-import post1 from '../posts/blog-post.1.md';
-import post2 from '../posts/blog-post.2.md';
-import post3 from '../posts/blog-post.3.md';
-
-*/
 
 
 
@@ -126,16 +118,25 @@ const theme = createTheme({
 
 
 //* Material Ui *//
-
+ 
 export async function getStaticProps() {
 
   const allPostsData = getSortedPostsData();
  
+ const allPostDataReformed = [] ;
+
+
+  allPostsData.forEach((post) => (
+    allPostDataReformed.push(
+      post.content.toString()
+              )
+))
   
 
   return {
     props: {
-      allPostsData
+     /* allPostsData,*/
+     allPostDataReformed
     },
     
   };
@@ -143,16 +144,9 @@ export async function getStaticProps() {
 
 
 
-export default function Home({ allPostsData }) {
+export default function Home({ /*allPostsData,*/ allPostDataReformed }) {
 
-  const [custom] = useState([]);
-
-  allPostsData.forEach((post) => (
-    custom.push(
-      post.content.toString()
-              )
-))
-
+ 
 
   return (
     <ThemeProvider theme={theme}>
@@ -171,7 +165,7 @@ export default function Home({ allPostsData }) {
 
  
   
-  <Main title="From the allPostData" posts= {custom}  />
+  <Main title="From the allPostData" posts= {allPostDataReformed}  />
 
 
         

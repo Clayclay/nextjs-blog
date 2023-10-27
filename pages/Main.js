@@ -13,7 +13,6 @@ function Main(props) {
 
   const { posts, title } = props;
 
-  const [custom, setCustom] = useState([]);
 
 
   //console.log('main', typeof posts , props )
