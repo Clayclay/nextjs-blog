@@ -3,15 +3,26 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import Markdown from './Markdown';
 
-
+//import Markdown from './Markdown';
+import Markdown from 'markdown-to-jsx'
+import { useState } from 'react';
 
 function Main(props) {
+
+
   const { posts, title } = props;
 
+  const [custom, setCustom] = useState([]);
 
-  //console.log("posts",posts[1].object.prototype)
+
+  //console.log('main', typeof posts , props )
+
+  //const test = posts.toString()
+
+  //console.log('test', typeof test, test )
+  
+  //console.log("posts",posts)
 
   return (
     <Grid
@@ -30,19 +41,23 @@ function Main(props) {
       <Divider />
 
 
-      {posts.map((post) => (
+      
 
-<div>
-<li> {post.title} </li>
- id : {post.id} <br />
- date : {post.date} <br />
-   <br />
 
-</div>
-
-     ))}
+      {
+      posts.map((post,index) => (
    
+        <Markdown  className="markdown"  key={index}>
+        {post}
+        </Markdown>
 
+   ))
+   }
+
+
+  
+
+      
     </Grid>
   );
 }
@@ -52,15 +67,38 @@ function Main(props) {
 /* 
 
 
+      {posts.map((post) => (
+        console.log("post", typeof post.content )
+   ))}
+      {posts.map((post) => (
+        
+    
+        <Markdown  className="markdown" key={post.id}>
+        {post.content}
+        </Markdown>
+      ))}
+ 
+      {posts.map((post) => (
+        
+    
+  <Markdown  className="markdown" key={post.id}>
+  {post.content}
+  </Markdown>
+))}
+
+
+
+
+
 
       {posts.map((post) => (
-
- {post}
-      
- <Markdown className="markdown" key={post.substring(0, 40)}>
- {post}
+<Markdown  className="markdown" key={post.id}>
+{post.content}
 </Markdown>
-      ))}
+))}
+
+
+
 */
 
 

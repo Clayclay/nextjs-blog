@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout';
 import utilStyles from '../styles/utils.module.css';
+
 import { getSortedPostsData } from '../lib/posts';
 
 //* Material Ui *//
@@ -21,15 +22,16 @@ import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 
-
+import { useState } from 'react';
 
 /*
 import post1 from '../posts/blog-post.1.md';
 import post2 from '../posts/blog-post.2.md';
 import post3 from '../posts/blog-post.3.md';
 
-const posts = [post1, post2, post3];
 */
+
+
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -126,11 +128,14 @@ const theme = createTheme({
 //* Material Ui *//
 
 export async function getStaticProps() {
+
   const allPostsData = getSortedPostsData();
+ 
   
+
   return {
     props: {
-      allPostsData,
+      allPostsData
     },
     
   };
@@ -140,7 +145,14 @@ export async function getStaticProps() {
 
 export default function Home({ allPostsData }) {
 
-  
+  const [custom] = useState([]);
+
+  allPostsData.forEach((post) => (
+    custom.push(
+      post.content.toString()
+              )
+))
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -156,31 +168,13 @@ export default function Home({ allPostsData }) {
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
 
-          
 
-          <Main title="From the allPostData" posts={allPostsData} />
-
-
-            <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-      <h2 className={utilStyles.headingLg}>Blog</h2>
-      <ul className={utilStyles.list}>
-        {allPostsData.map(({ id, date, title, fileContents ,content }) => (
-          <li className={utilStyles.listItem} key={id}>
-            {title}
-            <br />
-            {id}
-            <br />
-            {date}
-            <br />
-            test : {content }
-          </li>
-        ))}
-      </ul>
-    </section>
+ 
+  
+  <Main title="From the allPostData" posts= {custom}  />
 
 
-
-
+        
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
@@ -198,5 +192,12 @@ export default function Home({ allPostsData }) {
   );
 
 
-//*<Main title="From the firehose" posts={posts} />*//
 }
+
+
+/* 
+    <Main title="From the allPostData" posts= {allPostsData} />
+
+
+
+*/
