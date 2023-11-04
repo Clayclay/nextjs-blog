@@ -27,7 +27,7 @@ function Header(props) {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Button variant="outlined" size="small">
+        <Button variant="outlined" size="small" LinkComponent={Link}  href="/sign-in"  >
           Sign up
         </Button>
       </Toolbar>
