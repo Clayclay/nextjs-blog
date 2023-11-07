@@ -121,7 +121,7 @@ const theme = createTheme({
 export async function getStaticProps() {
 
   const allPostsData = getSortedPostsData();
- 
+
   
  const allPostDataReformed = [] ;
  
@@ -134,8 +134,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      allPostsData
-      ,allPostDataReformed
+      allPostDataReformed
     },
     
   };
@@ -143,10 +142,7 @@ export async function getStaticProps() {
 
 
 
-export default function Home({ allPostsData, allPostDataReformed }) {
-
-  console.log(allPostsData)
-
+export default function Home({ allPostDataReformed }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -163,7 +159,7 @@ export default function Home({ allPostsData, allPostDataReformed }) {
 
 
  
-  <Main title="From the allPostData" posts= {allPostDataReformed}  />
+          <Main title="From the allPostData" posts= {allPostDataReformed}  />
 
         
             <Sidebar
@@ -192,3 +188,6 @@ export default function Home({ allPostsData, allPostDataReformed }) {
 
 
 */
+
+
+

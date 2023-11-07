@@ -6,22 +6,11 @@ import Divider from '@mui/material/Divider';
 
 //import Markdown from './Markdown';
 import Markdown from 'markdown-to-jsx'
-import { useState } from 'react';
+
 
 function Main(props) {
 
-
   const { posts, title } = props;
-
-
-
-  //console.log('main', typeof posts , props )
-
-  //const test = posts.toString()
-
-  //console.log('test', typeof test, test )
-  
-  //console.log("posts",posts)
 
   return (
     <Grid
@@ -39,67 +28,15 @@ function Main(props) {
       </Typography>
       <Divider />
 
-
-      
-
-
-      {
-      posts.map((post,index) => (
-   
+      { posts.map((post,index) => (
         <Markdown  className="markdown"  key={index}>
-        {post}
+          {post}
         </Markdown>
+      )) }
 
-   ))
-   }
-
-
-  
-
-      
     </Grid>
   );
 }
-
-
-
-/* 
-
-
-      {posts.map((post) => (
-        console.log("post", typeof post.content )
-   ))}
-      {posts.map((post) => (
-        
-    
-        <Markdown  className="markdown" key={post.id}>
-        {post.content}
-        </Markdown>
-      ))}
- 
-      {posts.map((post) => (
-        
-    
-  <Markdown  className="markdown" key={post.id}>
-  {post.content}
-  </Markdown>
-))}
-
-
-
-
-
-
-      {posts.map((post) => (
-<Markdown  className="markdown" key={post.id}>
-{post.content}
-</Markdown>
-))}
-
-
-
-*/
-
 
 Main.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.string).isRequired,
