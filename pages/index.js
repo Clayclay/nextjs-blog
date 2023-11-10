@@ -1,10 +1,11 @@
 import Head from 'next/head';
-import Layout, { siteTitle } from '../components/layout';
+import Layout, { siteTitle } from './layout.js';
 import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts.js';
 
 //* Material Ui *//
 
+import theme from './theme.js';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -13,30 +14,18 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Header from './Header';
-import Main from './Main';
-import MainFeaturedPost from './MainFeaturedPost';
-import FeaturedPost from './FeaturedPost';
 
-import Sidebar from './Sidebar';
-import Footer from './Footer';
+//* Components *//
+
+import Header from '../components/Header';
+import Main from '../components/Main.js';
+import MainFeaturedPost from '../components/MainFeaturedPost.js';
+import FeaturedPost from '../components/FeaturedPost.js';
+import Sidebar from '../components/Sidebar.js';
+import Footer from '../components/Footer';
 
 
-
-
-const sections = [
-  { title: 'Technology', url: '#' },
-  { title: 'Design', url: '#' },
-  { title: 'Culture', url: '#' },
-  { title: 'Business', url: '#' },
-  { title: 'Politics', url: '#' },
-  { title: 'Opinion', url: '#' },
-  { title: 'Science', url: '#' },
-  { title: 'Health', url: '#' },
-  { title: 'Style', url: '#' },
-  { title: 'Travel', url: '#' },
-];
-
+import { sections }  from '../components/menuList.js' ;
 
 
 const mainFeaturedPost = {
@@ -93,6 +82,7 @@ const sidebar = {
   ],
 };
 
+/*
 const theme = createTheme({
   components: {
     // the component name defined in the `name` parameter
@@ -114,7 +104,7 @@ const theme = createTheme({
     },
   },
 });
-
+*/
 
 //* Material Ui *//
  
@@ -149,6 +139,7 @@ export default function Home({ allPostDataReformed }) {
       <Container maxWidth="lg">
         <Header title={siteTitle} sections={sections} />
         <main>
+
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
@@ -169,6 +160,9 @@ export default function Home({ allPostDataReformed }) {
               social={sidebar.social}
             />
           </Grid>
+
+
+          
         </main>
       </Container>
       <Footer
@@ -180,14 +174,3 @@ export default function Home({ allPostDataReformed }) {
 
 
 }
-
-
-/* 
-    <Main title="From the allPostData" posts= {allPostsData} />
-
-
-
-*/
-
-
-
