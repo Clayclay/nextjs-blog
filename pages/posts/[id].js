@@ -1,5 +1,5 @@
 //import Layout, { siteTitle } from '../layout.js';
-import Layout2, { siteTitle } from '../layout2.js';
+import Layout, { siteTitle } from '../layout.js';
 
 import { getAllPostIds, getPostData } from '../../lib/posts.js'
 import Markdown from 'markdown-to-jsx';
@@ -17,15 +17,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { sections }  from '../../components/menuList.js' ;
+import { sections }  from '../../components/sectionsList.js' ;
 
 
 export default function Post({ postData }) {
   return (
 
-    <Layout2>
+    <Layout>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-    </Layout2>
+    </Layout>
    
   );
 }

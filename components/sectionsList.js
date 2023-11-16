@@ -1,3 +1,5 @@
+/* Menu List */
+
 export const sections = [
     { title: 'Technology', url: '#' },
     { title: 'Design', url: '#' },
