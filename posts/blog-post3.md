@@ -1,6 +1,7 @@
 ---
 title: 'New feature'
 date: '2020-01-01'
+fileName: 'blog-post3'
 ---
 
 

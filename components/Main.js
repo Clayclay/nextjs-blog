@@ -28,9 +28,12 @@ function Main(props) {
       </Typography>
       <Divider />
 
+    
       { posts.map((post,index) => (
-        <Markdown  className="markdown"  key={index}>
-          {post}
+  
+  
+        <Markdown  className="markdown"  key={post.id}>
+          {post.content.toString()}
         </Markdown>
       )) }
 
@@ -39,8 +42,10 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  //posts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  posts : PropTypes.arrayOf(Object).isRequired,
   title: PropTypes.string.isRequired,
+  
 };
 
 export default Main;

@@ -1,13 +1,17 @@
 ---
-title: 'anoter blog post'
-date: '2020-01-01'
-fileName: 'blog-post2'
+title: 'Featured post'
+date: 'Nov 12'
+description: 'This is a wider card with supporting text below as a natural lead-in to additional content.'
+image: 'https://source.unsplash.com/random?wallpapers'
+imageLabel: 'Image Text'
+fileName: 'featured-post'
 ---
 
-# Another blog post
+# Featured Post
 
-_March 23, 2020 by [Matt](/)_
+_17 november , 2023 by [Clayclay](/)_
 
+This is a wider card with supporting text below as a natural lead-in to additional content.
 Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
 Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.
@@ -17,7 +21,3 @@ Nullam id dolor id nibh ultricies vehicula ut id elit.
 
 Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum.
 Aenean lacinia bibendum nulla sed consectetur.
-
-Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.

@@ -7,6 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
+
+
 function Header(props) {
   const { sections, title } = props;
 
@@ -27,9 +29,11 @@ function Header(props) {
         <IconButton>
           <SearchIcon />
         </IconButton>
+
         <Button variant="outlined" size="small" LinkComponent={Link}  href="/sign-in"  >
           Sign up
         </Button>
+
       </Toolbar>
       <Toolbar
         component="nav"

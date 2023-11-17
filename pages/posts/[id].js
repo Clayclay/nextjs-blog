@@ -1,5 +1,5 @@
 //import Layout, { siteTitle } from '../layout.js';
-import Layout, { siteTitle } from '../layout.js';
+import Layout, { siteTitle } from '../../app/layout.js';
 
 import { getAllPostIds, getPostData } from '../../lib/posts.js'
 import Markdown from 'markdown-to-jsx';
@@ -7,7 +7,7 @@ import Markdown from 'markdown-to-jsx';
 
 //* Material Ui *//
 
-import theme from '../theme.js';
+import theme from '../../app/theme.js';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
