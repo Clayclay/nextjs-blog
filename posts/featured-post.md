@@ -4,7 +4,7 @@ date: 'Nov 12'
 description: 'This is a wider card with supporting text below as a natural lead-in to additional content.'
 image: 'https://source.unsplash.com/random?wallpapers'
 imageLabel: 'Image Text'
-fileName: 'featured-post'
+section: 'Design'
 ---
 
 # Featured Post

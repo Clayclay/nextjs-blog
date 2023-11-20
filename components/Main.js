@@ -7,6 +7,18 @@ import Divider from '@mui/material/Divider';
 //import Markdown from './Markdown';
 import Markdown from 'markdown-to-jsx'
 
+import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardActionArea from '@mui/material/CardActionArea';
+import { Button , Link } from '@mui/material';
+
+
+function handleClick(e) {
+  e.preventDefault();
+  console.log('The link was clicked.');
+}
 
 function Main(props) {
 
@@ -30,11 +42,15 @@ function Main(props) {
 
     
       { posts.map((post,index) => (
-  
-  
-        <Markdown  className="markdown"  key={post.id}>
-          {post.content.toString()}
-        </Markdown>
+        <div key={post.id}>
+          <Markdown  className="markdown"   >
+            {post.content.toString()}
+          </Markdown>  
+          <Typography variant="subtitle1" color="primary">
+          <Link alignItems="center" href={`/posts/${post.id}`} >Continue reading...</Link>
+        </Typography>
+        </div>
+
       )) }
 
     </Grid>

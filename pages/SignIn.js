@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import theme from '../app/theme.js';
 
+import { useState } from 'react';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,6 +34,10 @@ function Copyright(props) {
 
 
 export default function SignIn() {
+
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,6 +46,19 @@ export default function SignIn() {
       password: data.get('password'),
     });
   };
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    //
+    console.log("test", event.target.value)
+    setEmail(event.target.value)
+  };
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -67,8 +86,10 @@ export default function SignIn() {
               id="email"
               label="Email Address"
               name="email"
+              onChange={handleChange}
               autoComplete="email"
               autoFocus
+              
             />
             <TextField
               margin="normal"
@@ -99,7 +120,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/SignUp" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

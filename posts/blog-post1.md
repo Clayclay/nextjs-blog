@@ -5,7 +5,7 @@ image: 'test.jpg'
 imageText: 'test'
 description: 'This blog post shows a few different types of content that are supported and styled with
 Material styles.'
-fileName: 'blog-post2'
+section: 'Culture'
 
 ---
 

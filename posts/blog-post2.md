@@ -2,6 +2,7 @@
 title: 'anoter blog post'
 date: '2020-01-01'
 fileName: 'blog-post2'
+section: 'Culture'
 ---
 
 # Another blog post

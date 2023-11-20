@@ -32,7 +32,7 @@ import { sections }  from '../components/sectionsList.js' ;
 import { sidebar } from '../components/sidebarList.js';
 
 
-
+import theme from '../app/theme.js'
 //* NextAuth *//
 
 
@@ -95,30 +95,8 @@ export async function getStaticProps() {
   };
 }
 
-const theme = createTheme({
-  components: {
-      // the component name defined in the `name` parameter
-      // of the `styled` API
-      MuiStat: {
-        styleOverrides: {
-          // the slot name defined in the `slot` and `overridesResolver` parameters
-          // of the `styled` API
-          root: {
-            backgroundColor: '#121212',
-          },
-          value: {
-            color: '#fff',
-          },
-          unit: {
-            color: '#888',
-          },
-        },
-      },
-    },
-});
-
 export default function Home({ allPostsData }) {
-  console.log(typeof allPostsData)
+
   return (
    
 
@@ -139,6 +117,7 @@ export default function Home({ allPostsData }) {
           <Grid container spacing={5} sx={{ mt: 3 }}>
 
           <Main title="From the allPostData" posts= {allPostsData}  />
+
 
             <Sidebar
               title={sidebar.title}
