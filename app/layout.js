@@ -12,7 +12,6 @@ export const siteTitle = 'Next.js Sample Website';
 
 //* Material Ui *//
 
-import theme from './theme.js';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -21,6 +20,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import ThemeRegistry from '../utils/ThemeRegistry'
 
 //* Components *//
 
@@ -48,11 +49,28 @@ export default function Layout({ children, home }) {
 <html lang="en">
       <body>
 
+      <ThemeRegistry options={{ key: 'mui-theme' }}>{children}</ThemeRegistry>
+
+
+  </body>
+    </html>
+
+  );
+}
+
+
+
+
+/* 
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <Container maxWidth="lg">
      
       <main>
+
+
+
+        /*
   
       <Header title={siteTitle} sections={sections} />
 
@@ -91,10 +109,4 @@ export default function Layout({ children, home }) {
       title="Footer"
       description="Something here to give the footer a purpose!"
     />
-  </ThemeProvider>
-
-  </body>
-    </html>
-
-  );
-}
+  </ThemeProvider> */

@@ -5,13 +5,9 @@ import { getSortedPostsData } from '../lib/posts.js';
 
 //* Material Ui *//
 
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 //import theme from '../app/theme.js';
 
@@ -25,7 +21,7 @@ import Main from '../components/Main.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';
-import Footer from '../components/Footer.js';
+
 
 
 import { sections }  from '../components/sectionsList.js' ;
@@ -73,7 +69,9 @@ const featuredPosts = [
 
 
 //* Material Ui *//
- 
+
+/* 
+
 export async function getStaticProps() {
 
   const allPostsData = getSortedPostsData();
@@ -93,37 +91,20 @@ export async function getStaticProps() {
     },
     
   };
-}
+}*/
 
-const theme = createTheme({
-  components: {
-      // the component name defined in the `name` parameter
-      // of the `styled` API
-      MuiStat: {
-        styleOverrides: {
-          // the slot name defined in the `slot` and `overridesResolver` parameters
-          // of the `styled` API
-          root: {
-            backgroundColor: '#121212',
-          },
-          value: {
-            color: '#fff',
-          },
-          unit: {
-            color: '#888',
-          },
-        },
-      },
-    },
-});
 
-export default function Home({ allPostsData }) {
+    
+export default async function Home({   }) {
+
+    const allPostsData = await getSortedPostsData();
+
   console.log(typeof allPostsData)
+
+
   return (
    
 
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
     <Container maxWidth="lg">
      
       <main>
@@ -151,11 +132,8 @@ export default function Home({ allPostsData }) {
 
       </main>
     </Container>
-    <Footer
-      title="Footer"
-      description="Something here to give the footer a purpose!"
-    />
-  </ThemeProvider>
+   
+
 
 
 
@@ -164,3 +142,6 @@ export default function Home({ allPostsData }) {
 
 
 }
+
+
+//**//

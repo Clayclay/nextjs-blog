@@ -1,3 +1,4 @@
+"use client"
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,8 +12,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import theme from '../app/theme.js';
+
+
 
 function Copyright(props) {
   return (
@@ -31,6 +32,7 @@ function Copyright(props) {
 
 
 export default function SignUp() {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -41,7 +43,7 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+   
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -128,6 +130,6 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
+
   );
 }
