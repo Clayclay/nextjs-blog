@@ -1,9 +1,3 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
-import Link from 'next/link';
-
 
 
 const name = 'Clayclay';
@@ -12,16 +6,11 @@ export const siteTitle = 'Next.js Sample Website';
 
 //* Material Ui *//
 
+import ThemeRegistry from '../utils/ThemeRegistry'
 
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import ThemeRegistry from '../utils/ThemeRegistry'
 
 //* Components *//
 
@@ -30,11 +19,21 @@ import Main from '../components/Main.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';
-import Footer from '../components/Footer.js';
+
 
 
 import { sections }  from '../components/sectionsList.js' ;
 import { sidebar } from '../components/sidebarList.js';
+
+const mainFeaturedPost = {
+  title: 'Title of a longer featured blog post',
+  description:
+    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+  image: 'https://source.unsplash.com/random?wallpapers',
+  imageText: 'main image description',
+  linkText: 'Continue reading…',
+};
+
   
 export const metadata = {
   title: 'Home',
@@ -42,15 +41,31 @@ export const metadata = {
 }
 
 
+
 export default function Layout({ children, home }) {
+
+
+const name = 'Clayclay';
+const siteTitle = 'Next.js Sample Website';
+
   return (
 
 
 <html lang="en">
-      <body>
+      <body   suppressHydrationWarning={true} >
 
+      <Container maxWidth="lg">
+
+      <main>
+
+      <Header title={siteTitle} sections={sections} />
+        <MainFeaturedPost post={mainFeaturedPost} />
+
+      
       <ThemeRegistry options={{ key: 'mui-theme' }}>{children}</ThemeRegistry>
 
+      </main>
+      </Container>
 
   </body>
     </html>

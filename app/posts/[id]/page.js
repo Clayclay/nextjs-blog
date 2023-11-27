@@ -23,9 +23,9 @@ export default async function Post({ params }) {
 
   return (
 
-    <Layout>
+   
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-    </Layout>
+    
    
   );
 }

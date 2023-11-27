@@ -68,38 +68,11 @@ const featuredPosts = [
 
 
 
-//* Material Ui *//
-
-/* 
-
-export async function getStaticProps() {
-
-  const allPostsData = getSortedPostsData();
-
-  
- const allPostDataReformed = [] ;
- 
-  allPostsData.forEach((post) => (
-    allPostDataReformed.push(
-      post.content.toString()
-              )
-))
-
-  return {
-    props: {
-      allPostsData
-    },
-    
-  };
-}*/
-
-
+//*<Header title={siteTitle} sections={sections} />*//
     
 export default async function Home({   }) {
 
     const allPostsData = await getSortedPostsData();
-
-  console.log(typeof allPostsData)
 
 
   return (
@@ -109,8 +82,6 @@ export default async function Home({   }) {
      
       <main>
   
-      <Header title={siteTitle} sections={sections} />
-
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
@@ -145,3 +116,29 @@ export default async function Home({   }) {
 
 
 //**//
+
+
+//* Material Ui *//
+
+/* 
+
+export async function getStaticProps() {
+
+  const allPostsData = getSortedPostsData();
+
+  
+ const allPostDataReformed = [] ;
+ 
+  allPostsData.forEach((post) => (
+    allPostDataReformed.push(
+      post.content.toString()
+              )
+))
+
+  return {
+    props: {
+      allPostsData
+    },
+    
+  };
+}*/
