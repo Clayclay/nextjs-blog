@@ -1,6 +1,6 @@
 
-"use client"
-import * as React from 'react';
+import React from "react";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,13 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+
+
+//import { validateEmail } from "../../lib/";
+
+
+
+import {  signIn, signOut } from "next-auth/react"
 
 
 function Copyright(props) {
@@ -32,21 +39,33 @@ function Copyright(props) {
 
 
 
-export default function SignIn() {
+export default function LogIn() {
 
-  const handleSubmit = (event) => {
+  
+  async function handleSubmit (event) {
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
-  };
+
+
+  }
+
+ // <Statut />
+ //
 
   return (
+
+
+   
     
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs"> 
+      
+
         <CssBaseline />
         <Box
           sx={{
@@ -110,6 +129,12 @@ export default function SignIn() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
+
+
+     
+        <button onClick={()=>signIn('github')}>Sign in</button>
+        <button onClick={()=> signOut()}>Sign out</button>
+
       </Container>
   
   );

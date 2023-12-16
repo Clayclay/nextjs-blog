@@ -1,5 +1,3 @@
-
-
 const name = 'Clayclay';
 export const siteTitle = 'Next.js Sample Website';
 
@@ -7,23 +5,21 @@ export const siteTitle = 'Next.js Sample Website';
 //* Material Ui *//
 
 import ThemeRegistry from '../utils/ThemeRegistry'
-
-import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
 
 //* Components *//
 
 import Header from '../components/Header.js';
-import Main from '../components/Main.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
-import FeaturedPost from '../components/FeaturedPost.js';
-import Sidebar from '../components/Sidebar.js';
-
-
-
 import { sections }  from '../components/sectionsList.js' ;
-import { sidebar } from '../components/sidebarList.js';
+
+
+//* NextAuth *//
+
+
+
+//* FIN NextAuth *//
 
 const mainFeaturedPost = {
   title: 'Title of a longer featured blog post',
@@ -42,34 +38,40 @@ export const metadata = {
 
 
 
-export default function Layout({ children, home }) {
+export default async function Layout({ children  }  ) {
 
 
 const name = 'Clayclay';
 const siteTitle = 'Next.js Sample Website';
 
-  return (
 
+  return ( 
 
-<html lang="en">
+    
+
+  <html lang="en">
       <body   suppressHydrationWarning={true} >
 
-      <Container maxWidth="lg">
 
-      <main>
 
-      <Header title={siteTitle} sections={sections} />
-        <MainFeaturedPost post={mainFeaturedPost} />
+        <Container maxWidth="lg">
+        <main>
 
-      
-      <ThemeRegistry options={{ key: 'mui-theme' }}>{children}</ThemeRegistry>
+          <Header title={siteTitle} sections={sections} />
+          <MainFeaturedPost post={mainFeaturedPost} />
+          <ThemeRegistry options={{ key: 'mui-theme' }}>
+            {children}
 
-      </main>
-      </Container>
+          </ThemeRegistry>
 
-  </body>
-    </html>
+        </main>
+        </Container>
 
+
+
+    </body>
+  </html>
+  
   );
 }
 

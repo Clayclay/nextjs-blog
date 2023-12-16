@@ -13,7 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-
+// useRouter
+import { useRouter } from 'next/navigation'
 
 function Copyright(props) {
   return (
@@ -31,15 +32,61 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 
-export default function SignUp() {
+export default function Register() {
 
-  const handleSubmit = (event) => {
+
+
+  const  handleSubmit = (event) => {
+    // on recup les data
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+
+// est ce qu il existe 
+
+const exists =  prisma.user.findUnique({
+  where: {
+    email,
+  },
+});
+if (exists) {
+  return NextResponse.json({ error: "User already exists" }, { status: 400 });
+} else {
+
+  
+
+    // On crée le user
+    const user = prisma.user.create({
+      data: {
+        name: data.get('firstName'),
+        email: data.get('email'),
+        password: data.get('password')
+      },
+    })
+
+    console.log( "create succeed",user)
+
+
+
+// création d'une session ?
+
+
+
+
+    // on re orienté sur une route a proteger 
+
+    const router = useRouter()
+    router.push('/setting', { scroll: false })
+
+
+ 
+}
+
+
+
   };
 
   return (
@@ -121,7 +168,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/LogIn" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

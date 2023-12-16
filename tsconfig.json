@@ -29,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
 , "mdx-components.js", "lib/posts.js", "pages/theme.js", "components/auth-component.js" ,
-"**/*.mdx", "app/page.js", "app/api/route.js", ],
+"**/*.mdx", "app/page.js", "app/api/route.js", "app/layoutSecour.tsx", "app/api/auth/[...nextauth]/route.ts", "app/_app.tsx", ],
   "exclude": [
     "node_modules"
   ]

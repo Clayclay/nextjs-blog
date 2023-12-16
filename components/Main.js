@@ -29,10 +29,9 @@ function Main(props) {
       <Divider />
 
     
-      { posts.map((post,index) => (
-  
-  
-        <Markdown  className="markdown"  key={post.id}>
+      { posts.map((post) => (
+
+        <Markdown  className="markdown"  key={post.id}  >
           {post.content.toString()}
         </Markdown>
       )) }
