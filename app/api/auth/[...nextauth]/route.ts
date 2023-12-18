@@ -15,6 +15,9 @@ import { compare } from "bcrypt";
 
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from "next-auth/providers/google";
+
+
 
 
 export const authOptions: NextAuthOptions = {
@@ -25,16 +28,20 @@ export const authOptions: NextAuthOptions = {
       httpOptions: {
         timeout: 10000, // wait for response time, because the local environment often login timeout, so change this configuration
       }
-    })
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID  as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET  as string,
+    }),
   ],
   adapter: PrismaAdapter(prisma),
-  secret: process.env.SECRET, // required for production environments
+  secret: process.env.NEXTAUTH_SECRET, // required for production environments
   callbacks: {
     // triggered by getSession and useSession calls
     // documents https://next-auth.js.org/configuration/callbacks
     async session({ session, user }) {
       if (user.id && session?.user) {
-        session.user.userId = user.id;
+        session.user.userId   = user.id;
       }
       return session;
     }

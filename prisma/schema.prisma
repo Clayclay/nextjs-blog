@@ -19,7 +19,6 @@ model Post {
   authorId  String?
 }
 
-
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("user_id")
