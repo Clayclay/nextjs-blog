@@ -15,7 +15,18 @@ import { sidebar } from '../components/sidebarList.js';
 //* NextAuth *//
 import { signIn, signOut, getSession } from 'next-auth/react'
 
+ 
+const name = 'Clayclay';
+export const siteTitle = 'Next.js Sample Website';
 
+const mainFeaturedPost = {
+  title: 'Title of a longer featured blog post',
+  description:
+    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+  image: 'https://source.unsplash.com/random?wallpapers',
+  imageText: 'main image description',
+  linkText: 'Continue reading…',
+};
 
 //**  Prisma **//
 /* access to prisma client */
@@ -35,7 +46,7 @@ const featuredPosts = [
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
     image: 'https://source.unsplash.com/random?wallpapers',
     imageLabel: 'Image Text',
-    link: 'featured-post'
+    link: 'Featured-post1'
   },
   { 
     title: 'Post title Featured',
@@ -44,7 +55,7 @@ const featuredPosts = [
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
     image: 'https://source.unsplash.com/random?wallpapers',
     imageLabel: 'Image Text',
-    link: 'featured-post'
+    link: 'Post-title-Featured'
   },
 ];
 
@@ -54,6 +65,8 @@ const session = await getSession()
 console.log("session", session)
 
 //*<Header title={siteTitle} sections={sections} />*//
+
+
     
 export default async function Home({ }) {
 
@@ -82,6 +95,11 @@ export default async function Home({ }) {
      
 
 
+        <main>
+
+          <Header title={siteTitle} sections={sections} />
+          <MainFeaturedPost post={mainFeaturedPost} />
+
   {/*  <     MainFeaturedPost post={mainFeaturedPost}          />   */}
        
 
@@ -102,7 +120,7 @@ export default async function Home({ }) {
             />
           </Grid>
 
-
+          </main>
     </Container>
    
 

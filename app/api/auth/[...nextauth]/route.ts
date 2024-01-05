@@ -7,10 +7,11 @@ import NextAuth from "next-auth/next";
 
 
 //import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "../../../../lib/prisma";
-import Credentials from "next-auth/providers/credentials";
 
+import prisma from "../../../../lib/prisma";
+
+import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 
 import { PrismaAdapter } from "@auth/prisma-adapter"
@@ -42,6 +43,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, user }) {
       if (user.id && session?.user) {
         session.user.userId   = user.id;
+        
       }
       return session;
     }

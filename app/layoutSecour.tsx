@@ -1,6 +1,8 @@
 const name = 'Clayclay';
 export const siteTitle = 'Next.js Sample Website';
 
+//* NextAuth *//
+import NextAuthSessionProvider from "../providers/SessionProvider";
 
 //* Material Ui *//
 
@@ -15,7 +17,6 @@ import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import { sections }  from '../components/sectionsList.js' ;
 
 
-//* NextAuth *//
 
 
 
