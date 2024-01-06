@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "./auth/[...nextauth]/route.ts"
+import { authOptions } from "../auth/[...nextauth]/route"
 
 export default async (req, res) => {
   const session = await getServerSession(req, res, authOptions)
