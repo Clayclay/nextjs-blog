@@ -17,7 +17,7 @@ import { signIn, signOut, getSession } from 'next-auth/react'
 
  
 const name = 'Clayclay';
-export const siteTitle = 'Next.js Sample Website';
+const siteTitle = 'Next.js Sample Website';
 
 const mainFeaturedPost = {
   title: 'Title of a longer featured blog post',
