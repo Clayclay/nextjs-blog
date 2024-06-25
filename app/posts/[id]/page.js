@@ -1,5 +1,5 @@
 //import Layout, { siteTitle } from '../layout.js';
-import Layout, { siteTitle } from '../../layout.js';
+//import Layout, { siteTitle } from '../../layout.js';
 
 
 import { getAllPostIds, getPostData } from '../../../lib/posts.js'
