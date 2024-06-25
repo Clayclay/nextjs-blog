@@ -49,7 +49,6 @@ const siteTitle = 'Next.js Sample Website';
   return ( 
 
     
-
   <html lang="en">
       <body   suppressHydrationWarning={true} >
 

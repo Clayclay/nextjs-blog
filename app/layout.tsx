@@ -1,6 +1,6 @@
 
 const name = 'Clayclay';
-export const siteTitle = 'Next.js Sample Website';
+const siteTitle = 'Next.js Sample Website';
 
 //* NextAuth *//
 import NextAuthSessionProvider from "../providers/SessionProvider";
@@ -26,18 +26,11 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
 
 
-
           <ThemeRegistry options={{ key: 'mui-theme' }}>
 
         <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
 
-
-
         </ThemeRegistry>
-
-
-
-
 
 
       </body>
