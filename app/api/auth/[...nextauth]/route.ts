@@ -2,9 +2,11 @@
 //import NextAuth, { NextAuthOptions } from "next-auth";
 //import { authOptions } from "@/utils/authoptions";
 
+/*
 import  { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
+import NextAuth from "next-auth";*/
 
+import NextAuth, { NextAuthOptions } from "next-auth";
 
 //import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
@@ -51,9 +53,9 @@ export const authOptions: NextAuthOptions = {
   }
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions)
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST }
 
 /*
 Behind the scenes, this creates all the relevant OAuth API routes within /api/auth/* so that auth API requests to:
