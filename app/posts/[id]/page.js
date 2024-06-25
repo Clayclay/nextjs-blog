@@ -1,5 +1,5 @@
 //import Layout, { siteTitle } from '../layout.js';
-import Layout, { siteTitle } from '../../layout.tsx';
+//import Layout, { siteTitle } from '../../layout.tsx';
 
 import { getAllPostIds, getPostData } from '../../../lib/posts.js'
 import Markdown from 'markdown-to-jsx';
