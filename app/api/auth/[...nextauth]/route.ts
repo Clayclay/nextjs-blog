@@ -22,7 +22,7 @@ import GoogleProvider from "next-auth/providers/google";
 
 
 //export  remove the export
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
