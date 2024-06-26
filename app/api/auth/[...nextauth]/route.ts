@@ -13,7 +13,7 @@ import { authOptions } from '../../../../lib/auth';
 
 //import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-import prisma from "../../../../lib/prisma";
+/*import prisma from "../../../../lib/prisma";
 
 import Credentials from "next-auth/providers/credentials";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -23,7 +23,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from "next-auth/providers/google";
 
-
+*/
 
 
 const handler = NextAuth(authOptions)
