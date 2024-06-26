@@ -6,7 +6,27 @@ const { PrismaClient } = require('@prisma/client');
 
 //Pour accedder a prisma studio : npx prisma studio
 
-const prisma = new PrismaClient()
+
+//import { PrismaClient } from '@prisma/client'
+
+const prismaClientSingleton = () => {
+  return new PrismaClient()
+}
+
+declare const globalThis: {
+  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
+} & typeof global;
+
+const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+
+export default prisma
+
+if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+
+
+
+
+//const prisma = new PrismaClient()
 
 async function main() {
   /*const user = await prisma.user.create({
