@@ -18,7 +18,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.1",
     "@next-auth/prisma-adapter": "^0.4.4-canary.81",
     "@next/mdx": "^13.5.4",
-    "@prisma/client": "^5.7.0",
+    "@prisma/client": "^5.16.1",
     "@types/mdx": "^2.0.8",
     "@vercel/postgres": "^0.5.1",
     "bcrypt": "^5.1.1",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@types/node": "20.8.4",
-    "prisma": "^5.7.0",
+    "prisma": "^5.16.1",
     "typescript": "5.2.2"
   }
 }
