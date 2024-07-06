@@ -5,6 +5,9 @@
 import { SessionProvider } from "next-auth/react"
 import { Session } from 'next-auth'
 
+
+
+
 interface Props {
   session: Session | null
 }
@@ -17,6 +20,8 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <Component {...pageProps} />
+
+
     </SessionProvider>
   )
 }

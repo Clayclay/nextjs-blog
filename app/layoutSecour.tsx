@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 
 import Header from '../components/Header.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
-import { sections }  from '../components/sectionsList.js' ;
+import { sections }  from '../components/SectionsList.js' ;
 
 
 

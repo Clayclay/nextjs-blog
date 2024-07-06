@@ -2,11 +2,13 @@
 
 import { useSession } from "next-auth/react";
 import {  signIn, signOut } from "next-auth/react"
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 
-export default function Home() {
+
+export default function LogInButton() {
   const { data: session } = useSession();
 
-  console.log("session" , session)
  
 /*
   return (
@@ -17,14 +19,14 @@ export default function Home() {
 */
 
 
-
-
-
   if (session) {
     return (
       <>
         Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+       
+        <Button variant="outlined" size="small"  onClick={() => signOut()}  /* LinkComponent={Link}  href="/sign-in" */ >
+          Sign Out
+        </Button>
       </>
     )
   }
@@ -40,10 +42,9 @@ if (session?.error === "RefreshAccessTokenError") {
 
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-
-      
+      <Button variant="outlined" size="small" onClick={() => signIn()} /* LinkComponent={Link}  href="/sign-in" */ >
+          Sign up
+        </Button>
     </>
   )
 

@@ -1,3 +1,5 @@
+
+
 import { getSortedPostsData } from '../lib/posts.js';
 //* Material Ui *//
 import Grid from '@mui/material/Grid';
@@ -9,11 +11,15 @@ import Main from '../components/Main.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';
-import { sections }  from '../components/sectionsList.js' ;
-import { sidebar } from '../components/sidebarList.js';
+import { sections }  from '../components/SectionsList.js' ;
+import { sidebar } from '../components/SidebarList.js';
 
 //* NextAuth *//
-import { signIn, signOut, getSession } from 'next-auth/react'
+import { signIn, signOut, getSession  } from 'next-auth/react';
+
+
+//* Google *//
+import { GoogleMapsEmbed } from '@next/third-parties/google';
 
  
 const name = 'Clayclay';
@@ -37,6 +43,19 @@ Push data :    npx prisma db push
 
 
 import prisma from '../lib/prisma.ts';
+
+const feed = await prisma.post.findMany({
+  where: { published: true },
+  include: {
+    author: {
+      select: { name: true },
+    },
+  },
+});
+
+//** Fin prisma */
+
+
 //* FIN NextAuth *//
 const featuredPosts = [
   {
@@ -62,7 +81,7 @@ const featuredPosts = [
 
 const session = await getSession()
 
-console.log("session", session)
+
 
 //*<Header title={siteTitle} sections={sections} />*//
 
@@ -70,29 +89,29 @@ console.log("session", session)
     
 export default async function Home({ }) {
 
- 
-
-
     const allPostsData = await getSortedPostsData();
 
     /* A FAIRE voir si on laisse les datas en dur ou si on utilise la BDD */
-    const feed = await prisma.post.findMany({
-      where: { /*published: true */},
-      include: {
-        author: {
-          select: { name: true },
-        },
-      },
-    });
 
-    console.log("feed", /*feed*/)
 
   return (
    
-
+    
  
     <Container maxWidth="lg">
      
+     <GoogleMapsEmbed
+      apiKey={process.env.GOOGLE_MAPS_API_KEY}
+      height={200}
+      width="100%"
+      mode="place"
+      q="Brooklyn+Bridge,New+York,NY"
+    />
+
+{feed.map((feed) => (
+               feed.id, feed.title , feed.content
+              
+            ))}
 
 
         <main>
@@ -102,6 +121,9 @@ export default async function Home({ }) {
 
   {/*  <     MainFeaturedPost post={mainFeaturedPost}          />   */}
        
+ 
+      
+
 
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
