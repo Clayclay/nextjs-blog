@@ -31,23 +31,29 @@ export default function Home() {
   console.log('quill',quill);    // undefined > Quill Object
   console.log('quillref',quillRef); // { current: undefined } > { current: Quill Editor Reference }
 
-
+ 
   /*
   const [content, setContent] = useState('');
- 
-  
   const [editorContent, setEditorContent] = useState('');
-  const [value, setValue] = useState('');
-
 */
 
 
+React.useEffect(() => {
+  if (quill) {
+    quill.on('text-change', (delta, oldDelta, source) => {
+      console.log('Text change!');
+      console.log(quill.getText()); // Get text only
+      console.log(quill.getContents()); // Get delta contents
+      console.log(quill.root.innerHTML); // Get innerHTML using quill
+      console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+    });
+  }
+}, [quill]);
 
-  const submitData = async () => {
 
-
-
-    console.log('value',value, '//content',content,"///edit content",editorContent,'///title',title);
+ function submitData(e) {
+  e.preventDefault();
+    console.log('value',value, '///title',title);
     //e.preventDefault(); 
     /*
     try {
@@ -62,9 +68,7 @@ export default function Home() {
       console.error(error);
     }*/
   };
-  
 
-  
 
   return (
     
@@ -79,7 +83,6 @@ export default function Home() {
           required
           fullWidth
           variant="standard"
-
           label="title"
           value={title}
           onChange={(e)=>{setTitle(e.target.value)}}
