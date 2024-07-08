@@ -1,5 +1,3 @@
-
-
 import { getSortedPostsData } from '../lib/posts.js';
 //* Material Ui *//
 import Grid from '@mui/material/Grid';

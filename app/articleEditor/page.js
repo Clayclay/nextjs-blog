@@ -28,32 +28,56 @@ export default function Home() {
   const [title, setTitle] = useState('');
   const { quill, quillRef } = useQuill();
 
-  console.log('quill',quill);    // undefined > Quill Object
-  console.log('quillref',quillRef); // { current: undefined } > { current: Quill Editor Reference }
+  //console.log('quill',quill);    // undefined > Quill Object
+ 
+ // console.log('quillref',quillRef); // { current: undefined } > { current: Quill Editor Reference }
+
 
  
-  /*
   const [content, setContent] = useState('');
-  const [editorContent, setEditorContent] = useState('');
+   /*const [editorContent, setEditorContent] = useState('');
 */
 
 
 React.useEffect(() => {
   if (quill) {
     quill.on('text-change', (delta, oldDelta, source) => {
-      console.log('Text change!');
-      console.log(quill.getText()); // Get text only
-      console.log(quill.getContents()); // Get delta contents
-      console.log(quill.root.innerHTML); // Get innerHTML using quill
-      console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
-    });
+  //   console.log('Text change!');
+    //  console.log(quill.getText()); // Get text only
+      console.log("delta content" ,quill.getContents()); // Get delta contents
+    //  console.log(quill.root.innerHTML); // Get innerHTML using quill
+    //  console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+    setContent(quill.getContents());
+  
+  });
   }
 }, [quill]);
 
-
- function submitData(e) {
+ async function submitData(e) {
   e.preventDefault();
-    console.log('value',value, '///title',title);
+
+    if (quill && title ) {
+     // quill.on('text-change', (delta, oldDelta, source) => {
+        console.log( '///title',title);
+        console.log("content" ,content); // Get delta contents
+
+        try {
+          const body = { title, content };
+          await fetch('/api/addpost', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+          });
+          await Router.push('/drafts');
+        } catch (error) {
+          console.error(error);
+        }
+
+
+    //  });
+    }
+
+
     //e.preventDefault(); 
     /*
     try {
