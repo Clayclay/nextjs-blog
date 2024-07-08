@@ -1,52 +1,28 @@
 "use client";
+import React,{ useCallback, useMemo, useRef, useState } from "react";
+import dynamic from 'next/dynamic';
+//import fetch from 'isomorphic-unfetch';
 
-import { useSession } from "next-auth/react";
-import {  signIn, signOut } from "next-auth/react"
 
-export default function Home() {
-  const { data: session } = useSession();
 
-  console.log("session" , session)
- 
-/*
+const quill = dynamic(() => import('react-quill'), { ssr: false });
+
+
+import { useQuill } from 'react-quilljs';
+// or const { useQuill } = require('react-quilljs');
+
+import 'quill/dist/quill.snow.css'; // Add css for snow theme
+// or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
+
+export default () => {
+  const { quill, quillRef } = useQuill();
+
+  console.log(quill);    // undefined > Quill Object
+  console.log(quillRef); // { current: undefined } > { current: Quill Editor Reference }
+
   return (
-    <>
-      <div>This is a protected route</div>
-    </>
+    <div style={{ width: 500, height: 300 }}>
+      <div ref={quillRef} />
+    </div>
   );
-*/
-
-
-
-
-
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    )
-  }
-
-if (session?.error === "RefreshAccessTokenError") {
- 
-  signIn(); // Force sign in to hopefully resolve error 
-  <>
-  Not signed in , session error <br /></>
-  console.log('error',session.error)
-}
-
-
-  return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-
-      
-    </>
-  )
-
-
-
-}
+};
