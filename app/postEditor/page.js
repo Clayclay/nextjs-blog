@@ -32,7 +32,6 @@ export default function Home() {
  // console.log('quillref',quillRef); // { current: undefined } > { current: Quill Editor Reference }
 
   const { data: session } = useSession();
-  const [email , setEmail ] = useState('')
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
  
@@ -41,9 +40,9 @@ export default function Home() {
 React.useEffect(() => {
   if (quill) {
     quill.on('text-change', (delta, oldDelta, source) => {
-  //   console.log('Text change!');
+    //  console.log('Text change!');
     //  console.log(quill.getText()); // Get text only
-      console.log("delta content" ,quill.getContents()); // Get delta contents
+    //  console.log("delta content" ,quill.getContents()); // Get delta contents
     //  console.log(quill.root.innerHTML); // Get innerHTML using quill
     //  console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
     setContent(quill.getContents());
@@ -55,12 +54,10 @@ React.useEffect(() => {
  async function submitData(e) {
   e.preventDefault();
 
-    if (quill && title && session ) {
+    if (quill && title && session.user.email ) {
      // quill.on('text-change', (delta, oldDelta, source) => {
      // Get delta contents
      
-     setEmail(session.user.email);
-
      console.log('content', content)
 
      var json = JSON.stringify({ content });
@@ -78,7 +75,7 @@ console.log('obj',obj.content);
               //'API-Key': process.env.DATA_API_KEY!,
               },
             body: //JSON.stringify(body),
-                     JSON.stringify({ title: title , email: email ,  content : json}),
+                     JSON.stringify({ title: title , email: session?.user.email ,  content : json}),
           })
           
           if (!res.ok) {
@@ -105,21 +102,6 @@ console.log('obj',obj.content);
 
     //  });
     }
-
-
-    //e.preventDefault(); 
-    /*
-    try {
-      const body = { title, content };
-      await fetch('/api/post', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      await Router.push('/drafts');
-    } catch (error) {
-      console.error(error);
-    }*/
   };
 
 

@@ -35,14 +35,16 @@ export async function PATCH(request: Request) {}
 
 
 
-
-
-
 export async function GET(request: Request) {
   
+  const { id} = await request.json()
+/*
   const { searchParams } = new URL(request.url)
-
   const id = searchParams.get('id')
+
+ console.log(searchParams,id)
+*/
+ console.log(id)
 
  const post = await prisma.post.findUnique({
   where: {
@@ -55,9 +57,7 @@ export async function GET(request: Request) {
   },
 });
   
- 
   return Response.json({ post })
-
 
 }
 

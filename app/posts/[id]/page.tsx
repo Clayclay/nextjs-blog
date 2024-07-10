@@ -1,16 +1,32 @@
-"use client";
 import React,{ useCallback, useMemo, useRef, useState } from "react";
 import prisma from '../../../lib/prisma';
 
+import { ClientPage } from './clientPage';
 
 
-export default async function Post({params }) {
+/*
+const getServerDataForClient = async () => {
+  console.log('That was executed on the server side')
 
+  const serverData = await new Promise(resolve => {
+    setTimeout(() => resolve({ someData: 'secret' }), 3000)
+  })
+
+  return serverData
+}
+
+*/
+
+
+
+export default async function findData() {
+  //e.preventDefault();
+const id = "1";
   try { 
-  const res = await fetch('/api/post', {
+  const res =  await fetch('/api/post', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', },
-    body:  String(params?.id) 
+    body: JSON.stringify({id: id})  //String(e?.id)
   })
   
 
@@ -21,10 +37,10 @@ export default async function Post({params }) {
   }
  
 
-const reponse = await res.json()
+const reponse = res.json()
 console.log('reponse',reponse)
 
-
+//setContent(reponse)
 
 
 var json = JSON.stringify({ reponse});
@@ -33,24 +49,42 @@ console.log('json',json);
 var obj = JSON.parse(json);
 console.log('obj',obj.content);
 
-
+return reponse
 
 } catch (error) {
 console.error(error);
 }
 
-
+ }
  
+
+/*
+
+
+const Page = async () => {
+  console.log('That also was executed on the server side')
+  const serverData = await getServerDataForClient()
+
+  return <ClientPage serverData={serverData} />
+
+}
+*/
+/*
+
+export default function Home() {
+
+  
 
   return (
    
      <div>
-      </div>
+       
+    </div>
     
 )
 }
 
-
+*/
 
 
 
