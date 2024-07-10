@@ -1,34 +1,51 @@
-import * as React from 'react';
+"use client";
+import React,{ useCallback, useMemo, useRef, useState } from "react";
 import prisma from '../../../lib/prisma';
 
 
 
-
-
 export default async function Post({params }) {
+
+  try { 
+  const res = await fetch('/api/post', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json', },
+    body:  String(params?.id) 
+  })
   
 
- const post = await prisma.post.findUnique({
-    where: {
-      id: String(params?.id),
-    },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
+  if (!res.ok) {
+    console.log('Failed to fetch data')
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+ 
 
-  
-  console.log("post",post, post?.id
+const reponse = await res.json()
+console.log('reponse',reponse)
 
-  )
+
+
+
+var json = JSON.stringify({ reponse});
+console.log('json',json);
+
+var obj = JSON.parse(json);
+console.log('obj',obj.content);
+
+
+
+} catch (error) {
+console.error(error);
+}
+
 
  
 
   return (
    
-      post?.content        
+     <div>
+      </div>
     
 )
 }

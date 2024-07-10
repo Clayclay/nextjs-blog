@@ -5,9 +5,9 @@ import dynamic from 'next/dynamic';
 /*QUILL*/
 import { useQuill } from 'react-quilljs';
 // or const { useQuill } = require('react-quilljs');
-
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
 // or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
+const quill = dynamic(() => import('react-quill'), { ssr: false });
 
 /*MUI*/
 import Typography from '@mui/material/Typography';
@@ -19,24 +19,23 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 
 
-const quill = dynamic(() => import('react-quill'), { ssr: false });
+/* Next Auth */
 
+import { useSession } from "next-auth/react";
 
 
 export default function Home() {
 
-  const [title, setTitle] = useState('');
   const { quill, quillRef } = useQuill();
 
   //console.log('quill',quill);    // undefined > Quill Object
- 
  // console.log('quillref',quillRef); // { current: undefined } > { current: Quill Editor Reference }
 
-
- 
+  const { data: session } = useSession();
+  const [email , setEmail ] = useState('')
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-   /*const [editorContent, setEditorContent] = useState('');
-*/
+ 
 
 
 React.useEffect(() => {
@@ -56,23 +55,53 @@ React.useEffect(() => {
  async function submitData(e) {
   e.preventDefault();
 
-    if (quill && title ) {
+    if (quill && title && session ) {
      // quill.on('text-change', (delta, oldDelta, source) => {
-        console.log( '///title',title);
-        console.log("content" ,content); // Get delta contents
+     // Get delta contents
+     
+     setEmail(session.user.email);
+
+     console.log('content', content)
+
+     var json = JSON.stringify({ content });
+console.log('json',json);
+
+var obj = JSON.parse(json);
+console.log('obj',obj.content);
 
         try {
-          const body = { title, content };
-          await fetch('/api/addpost', {
+
+
+          const res = await fetch('/api/post', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-          });
-          await Router.push('/drafts');
+            headers: { 'Content-Type': 'application/json',  
+              //'API-Key': process.env.DATA_API_KEY!,
+              },
+            body: //JSON.stringify(body),
+                     JSON.stringify({ title: title , email: email ,  content : json}),
+          })
+          
+          if (!res.ok) {
+            console.log('Failed to fetch data')
+            // This will activate the closest `error.js` Error Boundary
+            throw new Error('Failed to fetch data')
+          }
+         
+          const data = await res.json()
+          console.log(data,'data')
+
+          // return Response.json({ data })
+
+
+          //await Router.push('/drafts');
+          //const { message } = await response.json();
+          //alert(message);
+
+
         } catch (error) {
           console.error(error);
         }
-
+ 
 
     //  });
     }
