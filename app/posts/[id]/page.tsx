@@ -4,6 +4,8 @@ import prisma from '../../../lib/prisma';
 import { ClientPage } from './clientPage';
 
 
+
+
 /*
 const getServerDataForClient = async () => {
   console.log('That was executed on the server side')
@@ -17,11 +19,38 @@ const getServerDataForClient = async () => {
 
 */
 
+async function getData() {
+  const res = await fetch('/api/post',
+    {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json',  
+      //'API-Key': process.env.DATA_API_KEY!,
+      },
+ 
+             
+  }
+  )
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+ 
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+ 
+  return res.json()
+}
+ 
+export default async function Page() {
+  const data = await getData()
+ 
+  return <main></main>
+}
 
+ /*
 
-export default async function findData() {
   //e.preventDefault();
-const id = "1";
+
   try { 
   const res =  await fetch('/api/post', {
     method: 'GET',
