@@ -131,7 +131,6 @@ console.log('obj',obj.content);
       
       
       <Button  type="submit" onClick={submitData} variant="contained" sx={{ mt: 2,/*mb: 2*/
-    
     }}>
           Submit
       </Button>

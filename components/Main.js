@@ -8,9 +8,13 @@ import Divider from '@mui/material/Divider';
 import Markdown from 'markdown-to-jsx'
 
 
+
 function Main(props) {
 
+
   const { posts, title } = props;
+
+
 
   return (
     <Grid
@@ -23,6 +27,8 @@ function Main(props) {
         },
       }}
     >
+
+      
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
