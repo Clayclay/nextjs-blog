@@ -106,12 +106,6 @@ export default async function Home({ }) {
       q="Brooklyn+Bridge,New+York,NY"
     />
 
-{feed.map((feed) => (
-               feed.id, feed.title , feed.content
-              
-            ))}
-
-
         <main>
 
           <Header title={siteTitle} sections={sections} />

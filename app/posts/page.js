@@ -1,20 +1,63 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import prisma from '../../lib/prisma';
 
+//* Components *//
+import Header from '../../components/Header.js';
+import { sections }  from '../../components/SectionsList.js' ;
+
+/*  MUI */ 
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 
-function FeaturedPost(props) {
+
+const siteTitle = 'Next.js Sample Website';
+
+const posts = await prisma.post.findMany({
+    where: { published: true },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
   
-  const { post } = props;
 
-  return (
-    <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href={'/posts/' + post.link}>
+export default async function Page ({}){
+
+
+
+    return (
+
+        
+<Container>
+
+<main>
+<Header title={siteTitle} sections={sections} />
+
+<Paper sx={{
+  mb: 4
+}}>
+  <Box>
+  <Grid container>
+  </Grid>
+  </Box>
+</Paper>
+
+    
+        {posts.map((post) => (
+
+
+
+<Grid item xs={12} md={6}>
+      <CardActionArea component="a" href={"/posts/" + post.id}>
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">
@@ -24,7 +67,7 @@ function FeaturedPost(props) {
               {post.date}
             </Typography>
             <Typography variant="subtitle1" paragraph>
-              {post.description}
+              {post.content}
             </Typography>
             <Typography variant="subtitle1" color="primary">
               Continue reading...
@@ -38,18 +81,24 @@ function FeaturedPost(props) {
           />
         </Card>
       </CardActionArea>
+
+
+
     </Grid>
-  );
+
+
+      
+
+
+    
+
+
+
+           
+         ))}
+
+</main>
+</Container>
+       
+    )
 }
-
-FeaturedPost.propTypes = {
-  post: PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    imageLabel: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-export default FeaturedPost;
