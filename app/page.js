@@ -9,8 +9,8 @@ import Main from '../components/Main.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';
-import { sections }  from '../components/SectionsList.js' ;
-import { sidebar } from '../components/SidebarList.js';
+import  {sections}  from '../components/SectionsList.js' ;
+import  {sidebar} from '../components/SidebarList.js';
 
 //* NextAuth *//
 import { signIn, signOut, getSession  } from 'next-auth/react';
@@ -41,7 +41,7 @@ Push data :    npx prisma db push
 
 
 import prisma from '../lib/prisma.ts';
-
+/*
 const feed = await prisma.post.findMany({
   where: { published: true },
   include: {
@@ -50,7 +50,7 @@ const feed = await prisma.post.findMany({
     },
   },
 });
-
+*/
 //** Fin prisma */
 
 

@@ -10,6 +10,7 @@ import Sidebar from '../../../components/Sidebar.js';
 import { sections }  from '../../../components/SectionsList.js' ;
 import { sidebar } from '../../../components/SidebarList.js';
 
+import Postupdate from "./postupdate.js";
 
 /*  MUI */ 
 import Typography from '@mui/material/Typography';
@@ -24,11 +25,16 @@ import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
 
+
+
+
 const siteTitle = 'Next.js Sample Website';
 
 
   export default async function Post({params}){
     const id = params.id
+
+
 
     const post = await prisma.post.findUnique({
       where: {
@@ -36,44 +42,8 @@ const siteTitle = 'Next.js Sample Website';
       },
     })
 
-    async function DeletePost(){
-
-      console.log("on va delete");
-
-      try {
 
 
-        const res = await fetch('/api/post', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json',  
-            //'API-Key': process.env.DATA_API_KEY!,
-            },
-          body: //JSON.stringify(body),
-                   JSON.stringify({ title: title , email: session?.user.email ,  content : json}),
-        })
-        
-        if (!res.ok) {
-          console.log('Failed to fetch data')
-          // This will activate the closest `error.js` Error Boundary
-          throw new Error('Failed to fetch data')
-        }
-       
-        const data = await res.json()
-        console.log(data,'data')
-
-        // return Response.json({ data })
-
-
-        //await Router.push('/drafts');
-        //const { message } = await response.json();
-        //alert(message);
-
-
-      } catch (error) {
-        console.error(error);
-      }
-
-    }
 
 return(
 
@@ -92,8 +62,9 @@ return(
         },
       }}
     >
-    
-          
+  
+    <Postupdate      id={id}   />
+
             <Typography variant="h6" gutterBottom>
               {post.title}
             </Typography>
@@ -101,14 +72,8 @@ return(
               {post.content}
             </Typography>
             <Typography variant="subtitle1" paragraph>
-              {post.description}
+              {post.id}
             </Typography>
-
-
-            <Button variant="contained" onClick={() => { console.log('onClick'); }}>Update</Button>
-            
-            <Button variant="outlined"  onClick={() => { console.log('onClick'); }}>Delete</Button>
-        
      
     </Grid>
     </main>
@@ -117,3 +82,5 @@ return(
 )
 
   }
+
+  

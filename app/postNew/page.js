@@ -2,9 +2,6 @@
 import React,{ useCallback, useMemo, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
 
-import prisma from '../../lib/prisma';
-
-
 /*QUILL*/
 import { useQuill } from 'react-quilljs';
 // or const { useQuill } = require('react-quilljs');
@@ -63,26 +60,14 @@ React.useEffect(() => {
      
      console.log('content', content)
 
-      /*var json = JSON.stringify({ content });
-      console.log('json',json);
+     var json = JSON.stringify({ content });
+console.log('json',json);
 
-      var obj = JSON.parse(json);
-      console.log('obj',obj.content);*/
-
-
-const NewPost = await prisma.post.create({
-  data: {
-    title:title,
-    content:content,
-    author: email,
-  },
-})
-
-console.log("newpost", NewPost)
-
-/*
+var obj = JSON.parse(json);
+console.log('obj',obj.content);
 
         try {
+
 
           const res = await fetch('/api/post', {
             method: 'POST',
@@ -113,7 +98,7 @@ console.log("newpost", NewPost)
         } catch (error) {
           console.error(error);
         }
- */
+ 
 
     //  });
     }
