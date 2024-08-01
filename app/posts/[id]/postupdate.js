@@ -24,7 +24,6 @@ export default function Postupdate (props){
         console.log("on va delete" , id );
   
         try {
-  
           const response =  fetch(`/api/post?id=${id}`, {
             method: 'DELETE',
           })
@@ -45,12 +44,44 @@ export default function Postupdate (props){
   
       }
 
+      async function UpdatePost(){
+
+        console.log("on va Update" , id );
+  
+        try {
+  
+          const response =  fetch(`/api/post?id=${id}`, {
+            method: 'EDIT',
+            headers: { 'Content-Type': 'application/json',  
+              //'API-Key': process.env.DATA_API_KEY!,
+              },
+            body: 
+              JSON.stringify({ title: title , email: session?.user.email ,  content :quill.root.innerHTML}),
+          })
+          
+          if (response.ok) {
+            const responseData = await response.json();
+            console.log('editSupabaseItem - ResponseOK - data Edit', responseData);
+          } else {
+            // Handle the error
+            const responseData = await response.json();
+            console.log('editSupabaseItem - Response not OK', responseData);
+          }
+        } catch (error) {
+          const responseData = await response.json();
+          console.log('editSupabaseItem - try/catch error', responseData);
+          console.error('editSupabaseItem - try/catch error - error', error);
+        }
+  
+      }
+
+
     return (
         
         <div>
-        <Button variant="contained" onClick={() => { console.log('onClick'); }}>Update</Button>
+        <Button variant="contained" onClick={ UpdatePost }>Update</Button>
             
-        <Button variant="outlined"  onClick={ DeletePost}>Delete</Button>
+        <Button variant="outlined"  onClick={ DeletePost }>Delete</Button>
          
          </div>
     )

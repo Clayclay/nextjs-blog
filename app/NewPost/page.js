@@ -1,8 +1,9 @@
 "use client";
 import React,{ useCallback, useMemo, useRef, useState } from "react";
-import dynamic from 'next/dynamic';
+
 
 /*QUILL*/
+import dynamic from 'next/dynamic';
 import { useQuill } from 'react-quilljs';
 // or const { useQuill } = require('react-quilljs');
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
@@ -43,10 +44,14 @@ React.useEffect(() => {
     //  console.log('Text change!');
     //  console.log(quill.getText()); // Get text only
     //  console.log("delta content" ,quill.getContents()); // Get delta contents
-    //  console.log(quill.root.innerHTML); // Get innerHTML using quill
+   //console.log(quill.root.innerHTML); // Get innerHTML using quill
     //  console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
-    setContent(quill.getContents());
-  
+
+
+   setContent(quill.getContents()); 
+   
+
+
   });
   }
 }, [quill]);
@@ -60,11 +65,13 @@ React.useEffect(() => {
      
      console.log('content', content)
 
-     var json = JSON.stringify({ content });
-console.log('json',json);
+   // var json = JSON.stringify({ content });
+    //console.log('json',json);
 
-var obj = JSON.parse(json);
-console.log('obj',obj.content);
+   // var obj = JSON.parse(json);
+    //log('obj',obj.content);
+
+    console.log('innerhgtlm',quill.root.innerHTML);
 
         try {
 
@@ -75,7 +82,7 @@ console.log('obj',obj.content);
               //'API-Key': process.env.DATA_API_KEY!,
               },
             body: //JSON.stringify(body),
-                     JSON.stringify({ title: title , email: session?.user.email ,  content : json}),
+                     JSON.stringify({ title: title , email: session?.user.email ,  content :quill.root.innerHTML}),
           })
           
           if (!res.ok) {

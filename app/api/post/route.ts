@@ -21,31 +21,49 @@ export async function POST(request: Request) {
     },
   });
 
-
   return NextResponse.json({ message: "On va poster" , result });
-
 }
 
 
-
-
-export  async function EDIT(req: NextRequest, res: NextResponse,  {params}) {
+export  async function EDIT(request: NextRequest, response: NextResponse,  {params}) {
   //const postId = req.query.id;
 
   const postId  = params.id
 
-  if (req.method === 'DELETE') {
-    DELETE(postId ,/* res*/)
-  } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
-    )
-  }
+  
+  const searchParams = request.nextUrl.searchParams;
+  console.log(searchParams)
+  const id = searchParams.get('id');
+
+  console.log("step 1 ", id)
+
+  
+  const { title , email , content} = await request.json()
+
+  console.log("step 2 ",'title', title,'mail', email , 'content' ,content)
+  
+    
+  const result = await prisma.post.update({
+    where: {
+      id: String(postId) 
+    },
+    data: {
+      title: title,
+      content: content,
+      //author: { connect: { email: email } },
+    },
+    
+  });
+
+  return NextResponse.json({ message: "On va EDIT" , result , response});
 }
 
 
+
+
+
 // DELETE /api/post/:id
-export  async function DELETE(request :  NextRequest ) {
+export  async function DELETE(request :  NextRequest , response: NextResponse, ) {
 
 
   const searchParams = request.nextUrl.searchParams;
@@ -53,12 +71,14 @@ export  async function DELETE(request :  NextRequest ) {
   const id = searchParams.get('id');
 
   console.log("poop", id)
- /* const post = await prisma.post.delete({
+
+
+ /*= const post = await prisma.post.delete({
     where: { id: String(postId) },
   })
   res.json(post)*/
 
   
-  return NextResponse.json({ message: "On va delete"  });
+  return NextResponse.json({ message: "On va delete" , Response  });
 
 }

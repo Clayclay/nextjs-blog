@@ -22,9 +22,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-
 import Button from '@mui/material/Button';
 
+
+/* QUILL */
+
+import Quilledit from './quillEdit.js';
 
 
 
@@ -32,16 +35,16 @@ const siteTitle = 'Next.js Sample Website';
 
 
   export default async function Post({params}){
+
     const id = params.id
-
-
-
     const post = await prisma.post.findUnique({
       where: {
         id: id ,
       },
     })
 
+ 
+    
 
 
 
@@ -63,7 +66,7 @@ return(
       }}
     >
   
-    <Postupdate      id={id}   />
+    Page Pour le server
 
             <Typography variant="h6" gutterBottom>
               {post.title}
@@ -74,7 +77,11 @@ return(
             <Typography variant="subtitle1" paragraph>
               {post.id}
             </Typography>
-     
+
+<Quilledit postContent={post.content} />
+
+
+     <Postupdate      id={id}   />
     </Grid>
     </main>
 </Container>
