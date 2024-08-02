@@ -26,15 +26,15 @@ import ReactQuill, { Quill } from 'react-quill';
 export default function Quilledit(props) {
 
     const { id, post } = props;
-
-    //console.log('post',post, id )
-
-    const [value, setValue] = useState(post.content);
     const { quill, quillRef } = useQuill();
+    //const { data: session } = useSession();
+    const [title, setTitle] = useState('');
+    const [value, setValue] = useState(post.content);
+
     const [content, setContent] = useState('');
 
     // console.log('value',value)
-
+    //console.log('post',post, id )
     React.useEffect(() => {
 
         if (quill) {
@@ -61,6 +61,13 @@ export default function Quilledit(props) {
         <div>
             <Box sx={{ mt: 2 }} >
                 Le client pour invoquer quill en client :
+
+                <div ref={quillRef}
+                    defaultValue={new Delta()}
+                />
+
+
+
             </Box>
 
 
