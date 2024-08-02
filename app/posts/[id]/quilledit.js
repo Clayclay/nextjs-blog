@@ -70,8 +70,8 @@ export default function Quilledit(props) {
         </div>
 
 
-
-}
+    )
+};
 
 
 /*
