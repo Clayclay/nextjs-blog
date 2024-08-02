@@ -13,67 +13,53 @@ import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
 
-
-
 export default function Postupdate (props){
 
-  const {id} = props;
+  const {id , post , content } = props;
+
+  /*const title = post.title;
+  const content = post.content;*/
 
     async function DeletePost(){
 
-        console.log("on va delete" , id );
+      console.log("on va delete" , id );
   
-        try {
-          const response =  fetch(`/api/post?id=${id}`, {
-            method: 'DELETE',
-          })
+      const res =  fetch(`/api/post?id=${id}`, {
+        method: 'DELETE',
+      })
           
-          if (response.ok) {
-            const responseData = await response.json();
-            console.log('deleteSupabaseItem - ResponseOK - data deleted', responseData);
-          } else {
-            // Handle the error
-            const responseData = await response.json();
-            console.log('deleteSupabaseItem - Response not OK', responseData);
-          }
-        } catch (error) {
-          const responseData = await response.json();
-          console.log('deleteSupabaseItem - try/catch error', responseData);
-          console.error('deleteSupabaseItem - try/catch error - error', error);
-        }
-  
+        
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
       }
+ 
+      return res.json()  
+        
+    }
 
-      async function UpdatePost(){
+    async function UpdatePost(){
 
-        console.log("on va Update" , id );
+      console.log("on va Update" , id );
   
-        try {
-  
-          const response =  fetch(`/api/post?id=${id}`, {
+      const res =  fetch(`/api/post?id=${id}`, {
             method: 'EDIT',
-            headers: { 'Content-Type': 'application/json',  
+            //headers: { 'Content-Type': 'application/json',  
               //'API-Key': process.env.DATA_API_KEY!,
-              },
+             // },
             body: 
-              JSON.stringify({ title: title , email: session?.user.email ,  content :quill.root.innerHTML}),
-          })
-          
-          if (response.ok) {
-            const responseData = await response.json();
-            console.log('editSupabaseItem - ResponseOK - data Edit', responseData);
-          } else {
-            // Handle the error
-            const responseData = await response.json();
-            console.log('editSupabaseItem - Response not OK', responseData);
-          }
-        } catch (error) {
-          const responseData = await response.json();
-          console.log('editSupabaseItem - try/catch error', responseData);
-          console.error('editSupabaseItem - try/catch error - error', error);
-        }
-  
+              JSON.stringify({ /*title: post.title , email: session?.user.email , */ content : content}),
+      })
+
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
       }
+ 
+      return res.json()  
+          
+        
+    }
 
 
     return (

@@ -25,27 +25,22 @@ export async function POST(request: Request) {
 }
 
 
-export  async function EDIT(request: NextRequest, response: NextResponse,  {params}) {
+export  async function EDIT(request: NextRequest, res: NextResponse, ) {
   //const postId = req.query.id;
-
-  const postId  = params.id
-
+  //const postId  = params.id
   
   const searchParams = request.nextUrl.searchParams;
   console.log(searchParams)
   const id = searchParams.get('id');
 
   console.log("step 1 ", id)
-
-  
   const { title , email , content} = await request.json()
-
   console.log("step 2 ",'title', title,'mail', email , 'content' ,content)
   
     
   const result = await prisma.post.update({
     where: {
-      id: String(postId) 
+      id: String(id) 
     },
     data: {
       title: title,
@@ -55,15 +50,16 @@ export  async function EDIT(request: NextRequest, response: NextResponse,  {para
     
   });
 
-  return NextResponse.json({ message: "On va EDIT" , result , response});
+  
+  return res.json()
+
+ // return NextResponse.json({ message: "On va EDIT" , result , response});
 }
 
 
 
-
-
 // DELETE /api/post/:id
-export  async function DELETE(request :  NextRequest , response: NextResponse, ) {
+export  async function DELETE(request :  NextRequest ,res: NextResponse) {
 
 
   const searchParams = request.nextUrl.searchParams;
@@ -73,12 +69,13 @@ export  async function DELETE(request :  NextRequest , response: NextResponse, )
   console.log("poop", id)
 
 
- /*= const post = await prisma.post.delete({
-    where: { id: String(postId) },
+  const post = await prisma.post.delete({
+    where: { id: String(id) },
   })
-  res.json(post)*/
+
+  return res.json()
 
   
-  return NextResponse.json({ message: "On va delete" , Response  });
+  //return   NextResponse.json({ message: "On va delete" , Response  }, {status: 200});
 
 }

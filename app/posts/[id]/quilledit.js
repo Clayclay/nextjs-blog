@@ -1,16 +1,16 @@
 "use client";
 
-import React,{ useCallback, useMemo, useRef, useState , useEffect } from "react";
+import React, { useCallback, useMemo, useRef, useState, useEffect } from "react";
+
+import Postupdate from "./postupdate.js";
 
 /*QUILL*/
 import dynamic from 'next/dynamic';
-
 import { useQuill } from 'react-quilljs';
 // or const { useQuill } = require('react-quilljs');
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
 // or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
 const quill = dynamic(() => import('react-quill'), { ssr: false });
-
 
 /*MUI*/
 import Typography from '@mui/material/Typography';
@@ -20,53 +20,55 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 
-
 import ReactQuill, { Quill } from 'react-quill';
 
-export default function Quilledit(props){
 
-    const {postContent} = props;
+export default function Quilledit(props) {
 
-    console.log('postcontent',postContent)
+    const { id, post } = props;
 
-    const [value, setValue] = useState(postContent);
+    //console.log('post',post, id )
+
+    const [value, setValue] = useState(post.content);
     const { quill, quillRef } = useQuill();
-    //const [content, setContent] = useState('');
+    const [content, setContent] = useState('');
 
-    console.log('value',value)
+    // console.log('value',value)
 
-    React.useEffect(()  =>  {
+    React.useEffect(() => {
 
         if (quill) {
             quill.on('text-change', (delta, oldDelta, source) => {
-            //  console.log('Text change!');
-            //  console.log(quill.getText()); // Get text only
-            //  console.log("delta content" ,quill.getContents()); // Get delta contents
-            //  console.log(quill.root.innerHTML); // Get innerHTML using quill
-            //  console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
-           
-            setContent(quill.getContents());
-          
-          });
+                console.log('Text change!');
+                console.log(quill.getText()); // Get text only
+                console.log("delta content", quill.getContents()); // Get delta contents
+                console.log(quill.root.innerHTML); // Get innerHTML using quill
+                console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+
+
+                setContent(quill.getContents());
+
+            });
         }
-    }, [quill, value]);
+    }, [quill]);
+
+    if (quill) { console.log("quill root inner", !quill.root.innerHTML); }
 
 
-    return(
-        
+
+    return (
+
         <div>
-        <Box sx={{  mt:2 }} >
-     
-
-        </Box>
-        Page client pour invoquer quill en client :
-
-        <ReactQuill  theme="snow" value={value} onChange={setValue} />
-</div>
+            <Box sx={{ mt: 2 }} >
+                Le client pour invoquer quill en client :
+            </Box>
 
 
-    
-    )
+            <ReactQuill theme="snow" value={value} onChange={setValue} />
+
+            <Postupdate id={id} post={post} /* content={content}*/ />
+        </div>
+
 
 
 }

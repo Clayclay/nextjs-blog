@@ -1,5 +1,6 @@
 
 import prisma from "../../../lib/prisma.ts";
+import dynamic from 'next/dynamic';
 
 //* Components *//
 import Header from '../../../components/Header.js';
@@ -7,12 +8,12 @@ import Main from '../../../components/Main.js';
 import MainFeaturedPost from '../../../components/MainFeaturedPost.js';
 import FeaturedPost from '../../../components/FeaturedPost.js';
 import Sidebar from '../../../components/Sidebar.js';
-import { sections }  from '../../../components/SectionsList.js' ;
+import { sections } from '../../../components/SectionsList.js';
 import { sidebar } from '../../../components/SidebarList.js';
 
 import Postupdate from "./postupdate.js";
 
-/*  MUI */ 
+/*  MUI */
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -27,67 +28,64 @@ import Button from '@mui/material/Button';
 
 /* QUILL */
 
-import Quilledit from './quillEdit.js';
+// Importer en dynamic pour coté client quand server
+const Quilledit = dynamic(() => import('./quillEdit.js'), { ssr: false });
 
-
+// COMPOSANT
 
 const siteTitle = 'Next.js Sample Website';
 
 
-  export default async function Post({params}){
+export default async function Post({ params }) {
 
-    const id = params.id
-    const post = await prisma.post.findUnique({
-      where: {
-        id: id ,
-      },
-    })
-
- 
-    
+  const id = params.id
+  const post = await prisma.post.findUnique({
+    where: {
+      id: id,
+    },
+  })
 
 
 
-return(
 
-<Container>
+  return (
 
-<main>
-<Header title={siteTitle} sections={sections} />
+    <Container>
 
-<Grid
-      item
-      xs={12}
-      md={8}
-      sx={{
-        '& .markdown': {
-          py: 3,
-        },
-      }}
-    >
-  
-    Page Pour le server
+      <main>
+        <Header title={siteTitle} sections={sections} />
 
-            <Typography variant="h6" gutterBottom>
-              {post.title}
-            </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
-              {post.content}
-            </Typography>
-            <Typography variant="subtitle1" paragraph>
-              {post.id}
-            </Typography>
+        <Grid
+          item
+          xs={12}
+          md={8}
+          sx={{
+            '& .markdown': {
+              py: 3,
+            },
+          }}
+        >
 
-<Quilledit postContent={post.content} />
+          Page Pour le server
 
 
-     <Postupdate      id={id}   />
-    </Grid>
-    </main>
-</Container>
+          <Typography variant="h6" gutterBottom>
+            {post.title}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            {post.content}
+          </Typography>
+          <Typography variant="subtitle1" paragraph>
+            {post.id}
+          </Typography>
 
-)
+          <Quilledit id={id} post={post} />
 
-  }
+        </Grid>
+      </main>
+    </Container>
 
-  
+  )
+
+}
+
