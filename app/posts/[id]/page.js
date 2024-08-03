@@ -8,8 +8,7 @@ import Main from '../../../components/Main.js';
 import MainFeaturedPost from '../../../components/MainFeaturedPost.js';
 import FeaturedPost from '../../../components/FeaturedPost.js';
 import Sidebar from '../../../components/Sidebar.js';
-import { sections } from '../../../components/SectionsList.js';
-import { sidebar } from '../../../components/SidebarList.js';
+
 
 import Postupdate from "./postupdate.js";
 
@@ -53,7 +52,6 @@ export default async function Post({ params }) {
     <Container>
 
       <main>
-        <Header title={siteTitle} sections={sections} />
 
         <Grid
           item

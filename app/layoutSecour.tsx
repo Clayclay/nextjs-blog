@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 
 import Header from '../components/Header.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
-import { sections }  from '../components/SectionsList.js' ;
+import { sections } from '../components/SectionsList.js';
 
 
 
@@ -31,7 +31,7 @@ const mainFeaturedPost = {
   linkText: 'Continue reading…',
 };
 
-  
+
 export const metadata = {
   title: 'Home',
   description: 'Welcome to Next.js',
@@ -39,39 +39,39 @@ export const metadata = {
 
 
 
-export default async function Layout({ children  }  ) {
+export default async function Layout({ children }) {
 
 
-const name = 'Clayclay';
-const siteTitle = 'Next.js Sample Website';
+  const name = 'Clayclay';
+  const siteTitle = 'Next.js Sample Website';
 
 
-  return ( 
+  return (
 
-    
-  <html lang="en">
-      <body   suppressHydrationWarning={true} >
+
+    <html lang="en">
+      <body suppressHydrationWarning={true} >
 
 
 
         <Container maxWidth="lg">
-        <main>
+          <main>
 
-          <Header title={siteTitle} sections={sections} />
-          <MainFeaturedPost post={mainFeaturedPost} />
-          <ThemeRegistry options={{ key: 'mui-theme' }}>
-            {children}
+            <Header title={siteTitle} sections={sections} />
+            <MainFeaturedPost post={mainFeaturedPost} />
+            <ThemeRegistry options={{ key: 'mui-theme' }}>
+              {children}
 
-          </ThemeRegistry>
+            </ThemeRegistry>
 
-        </main>
+          </main>
         </Container>
 
 
 
-    </body>
-  </html>
-  
+      </body>
+    </html>
+
   );
 }
 

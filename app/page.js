@@ -1,27 +1,75 @@
 import { getSortedPostsData } from '../lib/posts.js';
+
 //* Material Ui *//
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 //import theme from '../app/theme.js';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+
+
 //* Components *//
 import Header from '../components/Header.js';
 import Main from '../components/Main.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';
-import  {sections}  from '../components/SectionsList.js' ;
-import  {sidebar} from '../components/SidebarList.js';
+
+
 
 //* NextAuth *//
-import { signIn, signOut, getSession  } from 'next-auth/react';
+import { signIn, signOut, getSession } from 'next-auth/react';
 
 
 //* Google *//
 import { GoogleMapsEmbed } from '@next/third-parties/google';
 
- 
-const name = 'Clayclay';
-const siteTitle = 'Next.js Sample Website';
+
+
+/* Menu List */
+
+export const sections = [
+  { title: 'Technology', url: '#' },
+  { title: 'Design', url: '#' },
+  { title: 'Culture', url: '#' },
+  { title: 'Business', url: '#' },
+  { title: 'Politics', url: '#' },
+  { title: 'Opinion', url: '#' },
+  { title: 'Science', url: '#' },
+  { title: 'Health', url: '#' },
+  { title: 'Style', url: '#' },
+  { title: 'Travel', url: '#' },
+];
+
+
+
+export const sidebar = {
+  title: 'About',
+  description:
+    'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
+  archives: [
+    { title: 'March 2020', url: '#' },
+    { title: 'February 2020', url: '#' },
+    { title: 'January 2020', url: '#' },
+    { title: 'November 1999', url: '#' },
+    { title: 'October 1999', url: '#' },
+    { title: 'September 1999', url: '#' },
+    { title: 'August 1999', url: '#' },
+    { title: 'July 1999', url: '#' },
+    { title: 'June 1999', url: '#' },
+    { title: 'May 1999', url: '#' },
+    { title: 'April 1999', url: '#' },
+  ],
+  social: [
+    { name: 'GitHub', icon: GitHubIcon },
+    { name: 'Twitter', icon: TwitterIcon },
+    { name: 'Facebook', icon: FacebookIcon },
+  ],
+};
+
+
+
 
 const mainFeaturedPost = {
   title: 'Title of a longer featured blog post',
@@ -65,7 +113,7 @@ const featuredPosts = [
     imageLabel: 'Image Text',
     link: 'Featured-post1'
   },
-  { 
+  {
     title: 'Post title Featured',
     date: 'Nov 11',
     description:
@@ -84,61 +132,55 @@ const session = await getSession()
 //*<Header title={siteTitle} sections={sections} />*//
 
 
-    
+
 export default async function Home({ }) {
 
-    const allPostsData = await getSortedPostsData();
+  const allPostsData = await getSortedPostsData();
 
-    /* A FAIRE voir si on laisse les datas en dur ou si on utilise la BDD */
+  /* A FAIRE voir si on laisse les datas en dur ou si on utilise la BDD */
 
 
   return (
-   
-    
- 
-    <Container maxWidth="lg">
-     
-     <GoogleMapsEmbed
-      apiKey={process.env.GOOGLE_MAPS_API_KEY}
-      height={200}
-      width="100%"
-      mode="place"
-      q="Brooklyn+Bridge,New+York,NY"
-    />
 
-        <main>
-
-          <Header title={siteTitle} sections={sections} />
-          <MainFeaturedPost post={mainFeaturedPost} />
-
-  {/*  <     MainFeaturedPost post={mainFeaturedPost}          />   */}
-       
- 
-      
+    <div>
 
 
-          <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
-            ))}
-          </Grid>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
 
-          <Main title="From the allPostData" posts= {allPostsData}  />
+      <GoogleMapsEmbed
+        apiKey={process.env.GOOGLE_MAPS_API_KEY}
+        height={200}
+        width="100%"
+        mode="place"
+        q="Brooklyn+Bridge,New+York,NY"
+      />
 
-            <Sidebar
-              title={sidebar.title}
-              description={sidebar.description}
-              archives={sidebar.archives}
-              social={sidebar.social}
-            />
-          </Grid>
 
-          </main>
-    </Container>
-   
 
-   
+
+      <MainFeaturedPost post={mainFeaturedPost} />
+
+      {/*  <     MainFeaturedPost post={mainFeaturedPost}          />   */}
+
+
+      <Grid container spacing={4}>
+        {featuredPosts.map((post) => (
+          <FeaturedPost key={post.title} post={post} />
+        ))}
+      </Grid>
+      <Grid container spacing={5} sx={{ mt: 3 }}>
+
+        <Main title="From the allPostData" posts={allPostsData} />
+
+        <Sidebar
+          title={sidebar.title}
+          description={sidebar.description}
+          archives={sidebar.archives}
+          social={sidebar.social}
+        />
+      </Grid>
+
+
+    </div>
 
 
 
