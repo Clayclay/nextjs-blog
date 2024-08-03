@@ -51,36 +51,34 @@ export default async function Post({ params }) {
 
     <Container>
 
-      <main>
+      <Grid
+        item
+        xs={12}
+        md={8}
+        sx={{
+          '& .markdown': {
+            py: 3,
+          },
+        }}
+      >
 
-        <Grid
-          item
-          xs={12}
-          md={8}
-          sx={{
-            '& .markdown': {
-              py: 3,
-            },
-          }}
-        >
-
-          Page Pour le server
+        Page Pour le server
 
 
-          <Typography variant="h6" gutterBottom>
-            {post.title}
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            {post.content}
-          </Typography>
-          <Typography variant="subtitle1" paragraph>
-            {post.id}
-          </Typography>
+        <Typography variant="h6" gutterBottom>
+          {post.title}
+        </Typography>
+        <Typography variant="subtitle1" color="text.secondary">
+          {post.content}
+        </Typography>
+        <Typography variant="subtitle1" paragraph>
+          {post.id}
+        </Typography>
 
-          <Quilledit id={id} post={post} />
+        <Quilledit id={id} post={post} />
 
-        </Grid>
-      </main>
+      </Grid>
+
     </Container>
 
   )

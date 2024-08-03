@@ -3,12 +3,14 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useRouter } from 'next/navigation'
 
 /*QUILL*/
-import dynamic from 'next/dynamic';
-import { useQuill } from 'react-quilljs';
+//import dynamic from 'next/dynamic';
+//
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
 //import from server to client component
-const quill = dynamic(() => import('react-quill'), { ssr: false });
+//const quill = dynamic(() => import('react-quill'), { ssr: false });
 
+import ReactQuill from "react-quill";
+import { useQuill } from 'react-quilljs';
 
 /*MUI*/
 import Typography from '@mui/material/Typography';
@@ -25,30 +27,31 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useSession } from "next-auth/react";
 
 
+
 export default function Home() {
 
   const { quill, quillRef } = useQuill({
-
-
-    formats: [
+    /*formats: [
       'bold', 'italic', 'underline', 'strike',
       'align', 'list', 'indent',
       'size', 'header',
       'link', 'image', 'video',
       'color', 'background',
       //'clean',
-    ],
-
+    ],*/
   });
 
+
+  const [value, setValue] = useState();
   const { data: session } = useSession();
   const [title, setTitle] = useState('');
   const router = useRouter()
 
+
   async function submitData(e) {
     e.preventDefault();
 
-    if (quill && title && session.user.email) {
+    if (title && session.user.email) {
 
       try {
 
@@ -60,7 +63,7 @@ export default function Home() {
             //'API-Key': process.env.DATA_API_KEY!,
           },
           body: //JSON.stringify(body),
-            JSON.stringify({ title: title, email: session?.user.email, content: quill.root.innerHTML }),
+            JSON.stringify({ title: title, email: session?.user.email, content: value }),
         })
 
         if (!res.ok) {
@@ -108,9 +111,8 @@ export default function Home() {
 
         />
 
-        <Box sx={{ mt: 2 }} >
-          <div ref={quillRef} />
-        </Box>
+
+        <ReactQuill theme="snow" value={value} onChange={setValue} />
 
 
         <Button type="submit" onClick={submitData} variant="contained" sx={{
