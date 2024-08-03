@@ -28,7 +28,7 @@ import Button from '@mui/material/Button';
 /* QUILL */
 
 // Importer en dynamic pour coté client quand server
-const Quilledit = dynamic(() => import('./quillEdit.js'), { ssr: false });
+const Quilledit = dynamic(() => import('./quilledit.js'), { ssr: false });
 
 // COMPOSANT
 

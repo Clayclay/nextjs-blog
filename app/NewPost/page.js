@@ -29,7 +29,8 @@ import { useSession } from "next-auth/react";
 
 
 export default function Home() {
-
+  const { data: session } = useSession()
+  const router = useRouter()
   const { quill, quillRef } = useQuill({
     /*formats: [
       'bold', 'italic', 'underline', 'strike',
@@ -43,9 +44,7 @@ export default function Home() {
 
 
   const [value, setValue] = useState();
-  const { data: session } = useSession();
   const [title, setTitle] = useState('');
-  const router = useRouter()
 
 
   async function submitData(e) {
