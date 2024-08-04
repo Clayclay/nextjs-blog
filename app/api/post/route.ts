@@ -25,9 +25,12 @@ export async function POST(request: Request) {
 }
 
 
-export async function EDIT(request: NextRequest, res: NextResponse,) {
+export async function UPDATE(request: NextRequest, res: NextResponse,) {
   //const postId = req.query.id;
   //const postId  = params.id
+
+  console.log('poops')
+
 
   const searchParams = request.nextUrl.searchParams;
   console.log(searchParams)

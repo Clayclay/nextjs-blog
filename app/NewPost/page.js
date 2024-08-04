@@ -31,16 +31,16 @@ import { useSession } from "next-auth/react";
 export default function Home() {
   const { data: session } = useSession()
   const router = useRouter()
-  const { quill, quillRef } = useQuill({
-    /*formats: [
-      'bold', 'italic', 'underline', 'strike',
-      'align', 'list', 'indent',
-      'size', 'header',
-      'link', 'image', 'video',
-      'color', 'background',
-      //'clean',
-    ],*/
-  });
+  /*const { quill, quillRef } = useQuill({
+  formats: [
+     'bold', 'italic', 'underline', 'strike',
+     'align', 'list', 'indent',
+     'size', 'header',
+     'link', 'image', 'video',
+     'color', 'background',
+     //'clean',
+   ],
+ });*/
 
 
   const [value, setValue] = useState();

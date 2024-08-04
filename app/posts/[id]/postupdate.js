@@ -1,6 +1,6 @@
 "use client";
 
-/*  MUI */ 
+/*  MUI */
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -13,62 +13,61 @@ import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
 
-export default function Postupdate (props){
+export default function Postupdate(props) {
 
-  const {id , post , content } = props;
+  const { id, title, content, publish } = props;
 
-  /*const title = post.title;
-  const content = post.content;*/
+  console.log('title', title, content, publish)
 
-    async function DeletePost(){
+  async function DeletePost() {
 
-      console.log("on va delete" , id );
-  
-      const res =  fetch(`/api/post?id=${id}`, {
-        method: 'DELETE',
-      })
-          
-        
-      if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
-      }
- 
-      return res.json()  
-        
+    console.log("on va delete", id);
+
+    const res = fetch(`/api/post?id=${id}`, {
+      method: 'DELETE',
+    })
+
+
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
     }
 
-    async function UpdatePost(){
+    return res.json()
 
-      console.log("on va Update" , id );
-  
-      const res =  fetch(`/api/post?id=${id}`, {
-            method: 'EDIT',
-            //headers: { 'Content-Type': 'application/json',  
-              //'API-Key': process.env.DATA_API_KEY!,
-             // },
-            body: 
-              JSON.stringify({ /*title: post.title , email: session?.user.email , */ content : content}),
-      })
+  }
 
-      if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
-      }
- 
-      return res.json()  
-          
-        
+  async function UpdatePost() {
+
+    console.log("on va Update", id);
+
+    const res = fetch(`/api/post?id=${id}`, {
+      method: 'UPDATE',
+      //headers: { 'Content-Type': 'application/json',  
+      //'API-Key': process.env.DATA_API_KEY!,
+      // },
+      body:
+        JSON.stringify({ title: title /*, content: content, published: publish */ }),
+    })
+
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
     }
 
+    return res.json()
 
-    return (
-        
-        <div>
-        <Button variant="contained" onClick={ UpdatePost }>Update</Button>
-            
-        <Button variant="outlined"  onClick={ DeletePost }>Delete</Button>
-         
-         </div>
-    )
+
+  }
+
+
+  return (
+
+    <div>
+      <Button variant="contained" onClick={UpdatePost}>Update</Button>
+
+      <Button variant="outlined" onClick={DeletePost}>Delete</Button>
+
+    </div>
+  )
 }
