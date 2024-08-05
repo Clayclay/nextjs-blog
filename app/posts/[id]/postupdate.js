@@ -17,8 +17,6 @@ export default function Postupdate(props) {
 
   const { id, title, content, publish } = props;
 
-  console.log('title', title, content, publish)
-
   async function DeletePost() {
 
     console.log("on va delete", id);

@@ -20,7 +20,7 @@ import Sidebar from '../components/Sidebar.js';
 
 //* NextAuth *//
 import { signIn, signOut, getSession } from 'next-auth/react';
-
+//* FIN NextAuth *//
 
 //* Google *//
 import { GoogleMapsEmbed } from '@next/third-parties/google';
@@ -69,8 +69,6 @@ export const sidebar = {
 };
 
 
-
-
 const mainFeaturedPost = {
   title: 'Title of a longer featured blog post',
   description:
@@ -80,29 +78,8 @@ const mainFeaturedPost = {
   linkText: 'Continue reading…',
 };
 
-//**  Prisma **//
-/* access to prisma client */
-/*need to update it every time your Prisma:         npx prisma generate
-some initial dummy data using Prisma Studio. Run the following command:               npx prisma studio            ADD DUMMY DATA
-Push data :    npx prisma db push
-*/
 
 
-import prisma from '../lib/prisma.ts';
-/*
-const feed = await prisma.post.findMany({
-  where: { published: true },
-  include: {
-    author: {
-      select: { name: true },
-    },
-  },
-});
-*/
-//** Fin prisma */
-
-
-//* FIN NextAuth *//
 const featuredPosts = [
   {
     title: 'Featured post1',

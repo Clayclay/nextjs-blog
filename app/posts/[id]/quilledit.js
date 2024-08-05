@@ -36,39 +36,91 @@ export default function Quilledit(props) {
 
     const [publish, setPublish] = useState(post.published);
 
+    const formats = [
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "indent",
+        "link",
+        "image",
+        "color",
+        "clean",
+    ];
+
+    const modules = {
+        toolbar: {
+            container: [
+                [{ header: [2, 3, 4, false] }],
+                ["bold", "italic", "underline", "blockquote"],
+                [{ color: [] }],
+                [
+                    { list: "ordered" },
+                    { list: "bullet" },
+                    { indent: "-1" },
+                    { indent: "+1" },
+                ],
+                ["link", "image"],
+                ["clean"],
+            ],
+            handlers: {
+                // image: imageHandler,
+            },
+        },
+        clipboard: {
+            matchVisual: true,
+        },
+    }
+
     const handlePublish = (event) => {
         setPublish(event.target.value === "true" ? true : false);
     };
 
 
-
-
     return (
 
-        <div>
+        <div>   <form>
             <Box sx={{ mt: 2 }} >
                 Le client pour invoquer quill en client :
-
-
             </Box>
+
+
 
             <TextField
                 required
                 fullWidth
-                variant="standard"
-                label="title"
+                //variant="standard"
+
+                variant="outlined"
+                margin="normal"
+
+
+                label="Title"
                 value={title}
                 onChange={(e) => { setTitle(e.target.value) }}
                 sx={{ mt: 4 }}
 
+
             />
+            <br />
 
-
-            <ReactQuill theme="snow" value={content} onChange={setContent} />
+            <ReactQuill
+                theme="snow"
+                value={content}
+                onChange={setContent}
+                formats={formats}
+                modules={modules}
+            />
+            <br />
 
             <FormControl>
                 <FormLabel id="demo-controlled-radio-buttons-group">Publish</FormLabel>
                 <RadioGroup
+                    row
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
                     value={publish}
@@ -78,12 +130,12 @@ export default function Quilledit(props) {
                     <FormControlLabel value={false} control={<Radio />} label="unpublish" />
                 </RadioGroup>
             </FormControl>
-
-
-
+            <br />
 
             <Postupdate id={id} title={title} content={content} publish={publish} />
-        </div>
+        </form>
+
+        </div >
 
 
     )
