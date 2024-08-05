@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from 'next/navigation'
 
 /*QUILL*/
@@ -10,7 +10,7 @@ import 'quill/dist/quill.snow.css'; // Add css for snow theme
 //const quill = dynamic(() => import('react-quill'), { ssr: false });
 
 import ReactQuill from "react-quill";
-import { useQuill } from 'react-quilljs';
+
 
 /*MUI*/
 import Typography from '@mui/material/Typography';

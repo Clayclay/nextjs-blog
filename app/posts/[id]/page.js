@@ -32,7 +32,6 @@ const Quilledit = dynamic(() => import('./quilledit.js'), { ssr: false });
 
 // COMPOSANT
 
-const siteTitle = 'Next.js Sample Website';
 
 
 export default async function Post({ params }) {

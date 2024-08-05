@@ -12,7 +12,7 @@ import Postupdate from "./postupdate.js";
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
 // or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
 //const Quill = dynamic(() => import('react-quill'), { ssr: false });
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 
 
 /*MUI*/
