@@ -10,7 +10,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 
 
 //* Components *//
-import Header from '../components/Header.js';
 import Main from '../components/Main.js';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
@@ -25,10 +24,7 @@ import { signIn, signOut, getSession } from 'next-auth/react';
 //* Google *//
 import { GoogleMapsEmbed } from '@next/third-parties/google';
 
-
-
 /* Menu List */
-
 export const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -41,7 +37,6 @@ export const sections = [
   { title: 'Style', url: '#' },
   { title: 'Travel', url: '#' },
 ];
-
 
 
 export const sidebar = {
@@ -101,14 +96,7 @@ const featuredPosts = [
   },
 ];
 
-
 const session = await getSession()
-
-
-
-//*<Header title={siteTitle} sections={sections} />*//
-
-
 
 export default async function Home({ }) {
 
@@ -121,8 +109,6 @@ export default async function Home({ }) {
 
     <div>
 
-
-
       <GoogleMapsEmbed
         apiKey={process.env.GOOGLE_MAPS_API_KEY}
         height={200}
@@ -131,13 +117,7 @@ export default async function Home({ }) {
         q="Brooklyn+Bridge,New+York,NY"
       />
 
-
-
-
       <MainFeaturedPost post={mainFeaturedPost} />
-
-      {/*  <     MainFeaturedPost post={mainFeaturedPost}          />   */}
-
 
       <Grid container spacing={4}>
         {featuredPosts.map((post) => (

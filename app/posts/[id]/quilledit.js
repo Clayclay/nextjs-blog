@@ -25,7 +25,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-
+import Stack from '@mui/material/Stack';
 
 export default function Quilledit(props) {
 
@@ -83,30 +83,19 @@ export default function Quilledit(props) {
 
     return (
 
-        <div>   <form>
-            <Box sx={{ mt: 2 }} >
-                Le client pour invoquer quill en client :
-            </Box>
-
-
+        <Stack spacing={2} mt={2}>
 
             <TextField
                 required
                 fullWidth
                 //variant="standard"
-
                 variant="outlined"
                 margin="normal"
-
-
                 label="Title"
                 value={title}
                 onChange={(e) => { setTitle(e.target.value) }}
                 sx={{ mt: 4 }}
-
-
             />
-            <br />
 
             <ReactQuill
                 theme="snow"
@@ -115,10 +104,9 @@ export default function Quilledit(props) {
                 formats={formats}
                 modules={modules}
             />
-            <br />
 
             <FormControl>
-                <FormLabel id="demo-controlled-radio-buttons-group">Publish</FormLabel>
+
                 <RadioGroup
                     row
                     aria-labelledby="demo-controlled-radio-buttons-group"
@@ -130,13 +118,10 @@ export default function Quilledit(props) {
                     <FormControlLabel value={false} control={<Radio />} label="unpublish" />
                 </RadioGroup>
             </FormControl>
-            <br />
 
             <Postupdate id={id} title={title} content={content} publish={publish} />
-        </form>
 
-        </div >
-
+        </Stack>
 
     )
 };

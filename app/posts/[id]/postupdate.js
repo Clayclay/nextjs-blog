@@ -1,16 +1,9 @@
 "use client";
 
 /*  MUI */
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Paper from '@mui/material/Paper';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 export default function Postupdate(props) {
@@ -69,11 +62,14 @@ export default function Postupdate(props) {
   }
   return (
 
-    <div>
-      <Button variant="contained" onClick={UpdatePost}>Update</Button>
 
-      <Button variant="outlined" onClick={DeletePost}>Delete</Button>
+    <Box sx={{ '& button': { m: 1 } }}>
+      <Stack direction="row" spacing={2}>
+        <Button variant="contained" onClick={UpdatePost}>Update</Button>
 
-    </div>
+        <Button variant="outlined" onClick={DeletePost}>Delete</Button>
+      </Stack>
+    </Box>
+
   )
 }
