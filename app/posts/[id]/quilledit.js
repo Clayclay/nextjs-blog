@@ -5,27 +5,19 @@ import React, { useState } from "react";
 import Postupdate from "./postupdate.js";
 
 /*QUILL*/
-
-//import dynamic from 'next/dynamic';
-//import { useQuill } from 'react-quilljs';
-// or const { useQuill } = require('react-quilljs');
-import 'quill/dist/quill.snow.css'; // Add css for snow theme
-// or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
-//const Quill = dynamic(() => import('react-quill'), { ssr: false });
+import 'quill/dist/quill.snow.css';
 import ReactQuill from "react-quill";
 
 
 /*MUI*/
-
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-
 import Stack from '@mui/material/Stack';
+
+
 
 export default function Quilledit(props) {
 

@@ -2,8 +2,6 @@ import { getSortedPostsData } from '../lib/posts.js';
 
 //* Material Ui *//
 import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-//import theme from '../app/theme.js';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -15,7 +13,14 @@ import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';
 
+//**  Prisma **//
+/* access to prisma client */
+/*need to update it every time your Prisma:         npx prisma generate
+some initial dummy data using Prisma Studio. Run the following command:               npx prisma studio            ADD DUMMY DATA
+Push data :    npx prisma db push
+*/
 
+import prisma from '../lib/prisma.ts';
 
 //* NextAuth *//
 import { signIn, signOut, getSession } from 'next-auth/react';
@@ -102,7 +107,18 @@ export default async function Home({ }) {
 
   const allPostsData = await getSortedPostsData();
 
+
   /* A FAIRE voir si on laisse les datas en dur ou si on utilise la BDD */
+  const feed = await prisma.post.findMany({
+    where: { /*published: true */ },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
+
+  console.log("feed", /*feed*/)
 
 
   return (
