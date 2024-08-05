@@ -37,7 +37,7 @@ export default function Quilledit(props) {
     const [publish, setPublish] = useState(post.published);
 
     const handlePublish = (event) => {
-        setPublish(event.target.value);
+        setPublish(event.target.value === "true" ? true : false);
     };
 
 
@@ -74,8 +74,8 @@ export default function Quilledit(props) {
                     value={publish}
                     onChange={handlePublish}
                 >
-                    <FormControlLabel value="true" control={<Radio />} label="publish" />
-                    <FormControlLabel value="false" control={<Radio />} label="unpublish" />
+                    <FormControlLabel value={true} control={<Radio />} label="publish" />
+                    <FormControlLabel value={false} control={<Radio />} label="unpublish" />
                 </RadioGroup>
             </FormControl>
 

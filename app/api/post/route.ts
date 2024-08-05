@@ -25,38 +25,31 @@ export async function POST(request: Request) {
 }
 
 
-export async function UPDATE(request: NextRequest, res: NextResponse,) {
+export async function PUT(request: NextRequest, res: NextResponse,) {
   //const postId = req.query.id;
   //const postId  = params.id
-
   console.log('poops')
-
 
   const searchParams = request.nextUrl.searchParams;
   console.log(searchParams)
   const id = searchParams.get('id');
 
-  console.log("step 1 ", id)
-  const { title, email, content } = await request.json()
-  console.log("step 2 ", 'title', title, 'mail', email, 'content', content)
+  const { title, email, content, published } = await request.json()
 
-
-  const result = await prisma.post.update({
+  const post = await prisma.post.update({
     where: {
       id: String(id)
     },
     data: {
       title: title,
       content: content,
+      published: published
       //author: { connect: { email: email } },
     },
 
   });
 
-
-  return res.json()
-
-  // return NextResponse.json({ message: "On va EDIT" , result , response});
+  return NextResponse.json({ message: "On va EDIT", post });
 }
 
 

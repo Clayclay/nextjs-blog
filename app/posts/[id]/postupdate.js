@@ -39,28 +39,36 @@ export default function Postupdate(props) {
 
   async function UpdatePost() {
 
-    console.log("on va Update", id);
+    try {
 
-    const res = fetch(`/api/post?id=${id}`, {
-      method: 'UPDATE',
-      //headers: { 'Content-Type': 'application/json',  
-      //'API-Key': process.env.DATA_API_KEY!,
-      // },
-      body:
-        JSON.stringify({ title: title /*, content: content, published: publish */ }),
-    })
+      const res = await fetch(`/api/post?id=${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          //'API-Key': process.env.DATA_API_KEY!,
+        },
+        body:
+          JSON.stringify({ title: title, content: content, published: publish }),
+      })
 
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error('Failed to fetch data')
+
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
+      }
+
+      const response = await res.json()
+      console.log('reponse', response, 'data')
+
+      //return res.json()
+
+
+    }
+    catch (error) {
+      console.error(error);
     }
 
-    return res.json()
-
-
   }
-
-
   return (
 
     <div>
