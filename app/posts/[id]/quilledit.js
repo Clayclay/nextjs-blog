@@ -10,13 +10,17 @@ import ReactQuill from "react-quill";
 
 
 /*MUI*/
+import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import Stack from '@mui/material/Stack';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import Stack from '@mui/material/Stack';
-
 
 
 export default function Quilledit(props) {
@@ -75,46 +79,55 @@ export default function Quilledit(props) {
 
     return (
 
-        <Stack spacing={2} mt={2}>
+        <Container maxWidth="sm">
+            <CssBaseline />
+            <Box sx={{ marginTop: 8 }} >
 
-            <TextField
-                required
-                fullWidth
-                //variant="standard"
-                variant="outlined"
-                margin="normal"
-                label="Title"
-                value={title}
-                onChange={(e) => { setTitle(e.target.value) }}
-                sx={{ mt: 4 }}
-            />
+                <Stack spacing={2} mt={2}>
+                    <Typography component="h1" variant="h5">
+                        Edit Post
+                    </Typography>
 
-            <ReactQuill
-                theme="snow"
-                value={content}
-                onChange={setContent}
-                formats={formats}
-                modules={modules}
-            />
+                    <TextField
+                        required
+                        fullWidth
+                        //variant="standard"
+                        variant="outlined"
+                        margin="normal"
+                        label="Title"
+                        value={title}
+                        onChange={(e) => { setTitle(e.target.value) }}
+                        sx={{ mt: 4 }}
+                    />
 
-            <FormControl>
+                    <ReactQuill
+                        theme="snow"
+                        value={content}
+                        onChange={setContent}
+                        formats={formats}
+                        modules={modules}
+                    />
 
-                <RadioGroup
-                    row
-                    aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={publish}
-                    onChange={handlePublish}
-                >
-                    <FormControlLabel value={true} control={<Radio />} label="publish" />
-                    <FormControlLabel value={false} control={<Radio />} label="unpublish" />
-                </RadioGroup>
-            </FormControl>
+                    <FormControl>
 
-            <Postupdate id={id} title={title} content={content} publish={publish} />
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-controlled-radio-buttons-group"
+                            name="controlled-radio-buttons-group"
+                            value={publish}
+                            onChange={handlePublish}
+                        >
+                            <FormControlLabel value={true} control={<Radio />} label="publish" />
+                            <FormControlLabel value={false} control={<Radio />} label="unpublish" />
+                        </RadioGroup>
+                    </FormControl>
 
-        </Stack>
+                    <Postupdate id={id} title={title} content={content} publish={publish} />
 
+                </Stack>
+
+            </Box>
+        </Container>
     )
 };
 

@@ -59,6 +59,7 @@ model User {
   sessions      Session[]
   posts         Post[]
   password      String?
+  role  Role   @default(USER)
 
   @@map("users")
 }
@@ -70,4 +71,9 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+enum Role {
+  USER
+  ADMIN
 }

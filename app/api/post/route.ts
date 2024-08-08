@@ -8,7 +8,7 @@ import prisma from '../../../lib/prisma';
 export async function POST(request: Request) {
 
 
-  const { title, email, content } = await request.json()
+  const { title, email, content, publish } = await request.json()
 
   console.log(' OBJET CREER : title', title, 'mail', email, 'content', content)
 
@@ -18,6 +18,7 @@ export async function POST(request: Request) {
       title: title,
       content: content,
       author: { connect: { email: email } },
+      published: publish
     },
   });
 
