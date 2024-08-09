@@ -9,6 +9,9 @@ import { withAuth } from "next-auth/middleware"
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
+}
+
+/*
     const session = await getSession({
         req: {
             ...req,
@@ -17,10 +20,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
             },
         },
     });
-
+*/
     //console.log('session', session, 'user', session?.user)
-    }
-
+   
 
 /*
 

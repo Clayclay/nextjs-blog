@@ -15,8 +15,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 
 import { PrismaAdapter } from "@auth/prisma-adapter"
+
+
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from "next-auth/providers/google";
+import { Adapter } from "next-auth/adapters";
+
+
 
 
 
@@ -36,7 +41,7 @@ const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   secret: process.env.NEXTAUTH_SECRET, // required for production environments
   callbacks: {
     // triggered by getSession and useSession calls
