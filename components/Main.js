@@ -4,10 +4,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
-//import Markdown from './Markdown';
-import Markdown from 'markdown-to-jsx'
+
+//import Markdown from 'markdown-to-jsx'
 
 
+import MainPost from './MainPost';
 
 function Main(props) {
 
@@ -15,6 +16,7 @@ function Main(props) {
   const { posts, title } = props;
 
 
+  console.log('mainproblm', posts)
 
   return (
     <Grid
@@ -28,19 +30,17 @@ function Main(props) {
       }}
     >
 
-      
+
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
       <Divider />
 
-    
-      { posts.map((post) => (
+      {posts.map((post, index) => (
+        <MainPost post={post} key={post.id} />
+      ))}
 
-        <Markdown  className="markdown"  key={post.id}  >
-          {post.content.toString()}
-        </Markdown>
-      )) }
+
 
     </Grid>
   );
@@ -48,9 +48,9 @@ function Main(props) {
 
 Main.propTypes = {
   //posts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  posts : PropTypes.arrayOf(Object).isRequired,
+  posts: PropTypes.arrayOf(Object).isRequired,
   title: PropTypes.string.isRequired,
-  
+
 };
 
 export default Main;
@@ -63,4 +63,3 @@ export default Main;
 
 
 
-     

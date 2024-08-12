@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import Postupdate from "./postupdate.js";
+
 
 /*QUILL*/
 import 'quill/dist/quill.snow.css';
@@ -26,9 +26,11 @@ import FormControl from '@mui/material/FormControl';
 export default function Quilledit(props) {
 
     const { id, post } = props;
-    const [title, setTitle] = useState(post.title);
+
     const [content, setContent] = useState(post.content);
     const [publish, setPublish] = useState(post.published);
+    const [readOnly, setReadOnly] = useState(true);
+
     const formats = [
         "header",
         "bold",
@@ -69,10 +71,6 @@ export default function Quilledit(props) {
         },
     }
 
-    const handlePublish = (event) => {
-        setPublish(event.target.value === "true" ? true : false);
-    };
-
 
     return (
 
@@ -82,20 +80,9 @@ export default function Quilledit(props) {
 
                 <Stack spacing={2} mt={2}>
                     <Typography component="h1" variant="h5">
-                        Edit Post
+                        {post.title}
                     </Typography>
 
-                    <TextField
-                        required
-                        fullWidth
-                        //variant="standard"
-                        variant="outlined"
-                        margin="normal"
-                        label="Title"
-                        value={title}
-                        onChange={(e) => { setTitle(e.target.value) }}
-                        sx={{ mt: 4 }}
-                    />
 
                     <ReactQuill
                         theme="snow"
@@ -103,23 +90,12 @@ export default function Quilledit(props) {
                         onChange={setContent}
                         formats={formats}
                         modules={modules}
+                        readOnly={readOnly}
                     />
 
-                    <FormControl>
 
-                        <RadioGroup
-                            row
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="controlled-radio-buttons-group"
-                            value={publish}
-                            onChange={handlePublish}
-                        >
-                            <FormControlLabel value={true} control={<Radio />} label="publish" />
-                            <FormControlLabel value={false} control={<Radio />} label="unpublish" />
-                        </RadioGroup>
-                    </FormControl>
 
-                    <Postupdate id={id} title={title} content={content} publish={publish} />
+
 
                 </Stack>
 

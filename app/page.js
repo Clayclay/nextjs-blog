@@ -1,4 +1,4 @@
-import { getSortedPostsData } from '../lib/posts.js';
+//import { getSortedPostsData } from '../lib/TEMPOposts.js/index.js';
 
 //* Material Ui *//
 import Grid from '@mui/material/Grid';
@@ -82,7 +82,7 @@ const mainFeaturedPost = {
 
 const featuredPosts = [
   {
-    title: 'Featured post1',
+    title: 'Featured post1erteg',
     date: 'Nov 12',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
@@ -105,26 +105,29 @@ const session = await getSession()
 
 export default async function Home({ }) {
 
-  const allPostsData = await getSortedPostsData();
+  //const allPostsData = await getSortedPostsData();
 
 
   /* A FAIRE voir si on laisse les datas en dur ou si on utilise la BDD */
-  const feed = await prisma.post.findMany({
-    where: { /*published: true */ },
+  const allPosts = await prisma.post.findMany({
+    where: {
+      published: true
+    },
     include: {
+      //published: { select: true },
       author: {
         select: { name: true },
       },
+
     },
   });
 
-  console.log("feed", /*feed*/)
+  console.log("allPosts", allPosts)
 
 
   return (
 
     <div>
-
       <GoogleMapsEmbed
         apiKey={process.env.GOOGLE_MAPS_API_KEY}
         height={200}
@@ -133,6 +136,7 @@ export default async function Home({ }) {
         q="Brooklyn+Bridge,New+York,NY"
       />
 
+
       <MainFeaturedPost post={mainFeaturedPost} />
 
       <Grid container spacing={4}>
@@ -140,9 +144,13 @@ export default async function Home({ }) {
           <FeaturedPost key={post.title} post={post} />
         ))}
       </Grid>
+
+
+
       <Grid container spacing={5} sx={{ mt: 3 }}>
 
-        <Main title="From the allPostData" posts={allPostsData} />
+        <Main title="From the allPostData" posts={allPosts} />
+
 
         <Sidebar
           title={sidebar.title}
@@ -164,6 +172,10 @@ export default async function Home({ }) {
 
 
 //**//
+
+
+
+
 
 
 //* Material Ui *//
