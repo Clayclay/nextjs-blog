@@ -30,7 +30,7 @@ import { signIn, signOut, getSession } from 'next-auth/react';
 import { GoogleMapsEmbed } from '@next/third-parties/google';
 
 /* Menu List */
-export const sections = [
+const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
   { title: 'Culture', url: '#' },
@@ -44,7 +44,7 @@ export const sections = [
 ];
 
 
-export const sidebar = {
+const sidebar = {
   title: 'About',
   description:
     'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
@@ -121,8 +121,6 @@ export default async function Home({ }) {
 
     },
   });
-
-  console.log("allPosts", allPosts)
 
 
   return (
