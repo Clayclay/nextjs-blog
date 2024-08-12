@@ -8,7 +8,14 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 
 
 //* Components *//
-import Main from '../components/Main.js';
+//import Main from '../components/Main.js';
+/* QUILL */
+// Importer en dynamic pour coté client quand SERVER 
+import dynamic from 'next/dynamic';
+const Main = dynamic(() => import('../components/Main.js'), { ssr: false });
+
+
+
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';

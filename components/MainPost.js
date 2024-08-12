@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 
 
@@ -11,33 +11,16 @@ import ReactQuill from "react-quill";
 
 /*MUI*/
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
+
 
 
 export default function Quilledit(props) {
 
-    const { id, post } = props;
-
-    const [content, setContent] = useState(post.content);
-    const [publish, setPublish] = useState(post.published);
-    const [readOnly, setReadOnly] = useState(true);
-
-    const formats = [
-
-    ];
-
-    const modules = {
-
-    }
+    const { post } = props;
 
 
     return (
@@ -55,7 +38,7 @@ export default function Quilledit(props) {
 
                     <ReactQuill
                         theme="bubble"
-                        value={content}
+                        value={post.content}
                         readOnly={true}
                     />
 

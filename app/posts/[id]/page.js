@@ -1,6 +1,6 @@
 
 import prisma from "../../../lib/prisma.ts";
-import dynamic from 'next/dynamic';
+
 /******  SERVER ******/
 /*  MUI */
 import Container from '@mui/material/Container';
@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 /* QUILL */
 // Importer en dynamic pour coté client quand SERVER 
+import dynamic from 'next/dynamic';
 const Quilledit = dynamic(() => import('./quilledit.js'), { ssr: false });
 
 /*NEXT-AUTH*/
