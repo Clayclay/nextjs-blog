@@ -13,11 +13,7 @@ import MainPost from './MainPost';
 
 function Main(props) {
 
-
   const { posts, title } = props;
-
-
-  console.log('mainproblm', posts)
 
   return (
     <Grid

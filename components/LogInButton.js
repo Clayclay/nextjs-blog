@@ -12,7 +12,6 @@ import Link from '@mui/material/Link';
 export default function LogInButton() {
   const { data: session } = useSession();
 
-
   /*
     return (
       <>
@@ -25,7 +24,11 @@ export default function LogInButton() {
   if (session) {
     return (
       <>
-        Signed in as {session.user.email} <br />
+        Signed in as {session.user.name} <br />
+
+        <Button variant="outlined" size="small" LinkComponent={Link} href="/dashboard"  >
+          Dashboard
+        </Button>
 
         <Button variant="outlined" size="small" onClick={() => signOut()}  /* LinkComponent={Link}  href="/sign-in" */ >
           Sign Out

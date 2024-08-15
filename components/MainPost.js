@@ -25,29 +25,28 @@ export default function Quilledit(props) {
 
     return (
 
-        <Container maxWidth="sm">
-            <CssBaseline />
-            <Box sx={{ marginTop: 8 }} >
-
-                <Stack spacing={2} mt={2}>
-                    <Typography component="h1" variant="h5">
-                        {post.title}
-                    </Typography>
 
 
 
-                    <ReactQuill
-                        theme="bubble"
-                        value={post.content}
-                        readOnly={true}
-                    />
+        <Stack spacing={2} mt={2}>
+            <Typography component="h1" variant="h5">
+                {post.title}
+            </Typography>
 
 
 
-                </Stack>
+            <ReactQuill
+                theme="bubble"
+                value={post.content}
+                readOnly={true}
+            />
 
-            </Box>
-        </Container>
+
+
+        </Stack>
+
+
+
     )
 };
 
