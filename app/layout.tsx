@@ -40,10 +40,11 @@ export default function RootLayout({
 
           <NextAuthSessionProvider>
 
-            <Container maxWidth="lg">
+            <Container maxWidth="lg"  >
+              <Header title={siteTitle} />
               <main>
 
-                <Header title={siteTitle} />
+
 
                 {children}
 

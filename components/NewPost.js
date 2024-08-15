@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { useRouter } from 'next/navigation'
 
 /*QUILL*/
-//import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 //
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
 //import from server to client component
-//const quill = dynamic(() => import('react-quill'), { ssr: false });
 
-import ReactQuill from "react-quill";
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
+//import ReactQuill from "react-quill";
 
 
 /*MUI*/

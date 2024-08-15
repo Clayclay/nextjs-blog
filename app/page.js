@@ -96,7 +96,7 @@ const featuredPosts = [
   },
 ];
 
-const session = await getSession()
+//const session = await getSession()
 
 export default async function Home({ }) {
 

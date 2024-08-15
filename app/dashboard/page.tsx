@@ -1,31 +1,20 @@
 "use client";
 import * as React from 'react';
-import { useState } from 'react';
 
 import DashboardUser from '../../components/DashboardUser';
 import DashboardAdmin from '../../components/DashboardAdmin';
 
 /*MUI*/
-
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { mainListItems, secondaryListItems } from './listItems';
-import { AppBar, Badge, Box, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 
 
 /*NEXT-AUTH*/
 import { useSession } from "next-auth/react";
-import { signIn, signOut } from "next-auth/react"
+import { signIn } from "next-auth/react"
 
 /*Pour edit SESSION necessite modif dans type next auth et pas prisma"é */
 
-const drawerWidth: number = 240;
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
 
 
 export default function Dashboard() {
@@ -33,14 +22,6 @@ export default function Dashboard() {
   const { data: session } = useSession();
 
   const role = session?.user.role;
-
-
-  const [open, setOpen] = useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
-  console.log('role', role)
 
 
   if (role === 'ADMIN') {
