@@ -1,18 +1,17 @@
 
-
-
 //* NextAuth *//
 import NextAuthSessionProvider from "../providers/SessionProvider";
 
 //* Material Ui *//
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../src/theme';
 
-import ThemeRegistry from '../utils/ThemeRegistry';
-import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
 //* Components *//
 import Header from '../components/Header';
-import Sidebar from '../components/Sidebar.js';
+
 
 
 const name = 'Clayclay';
@@ -35,27 +34,21 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
 
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <NextAuthSessionProvider>
+              <Container maxWidth="lg"  >
+                <Header title={siteTitle} />
+                <main>
 
-        <ThemeRegistry options={{ key: 'mui-theme' }}>
+                  {children}
 
-          <NextAuthSessionProvider>
+                </main>
 
-            <Container maxWidth="lg"  >
-              <Header title={siteTitle} />
-              <main>
-
-
-
-                {children}
-
-              </main>
-
-            </Container>
-
-          </NextAuthSessionProvider>
-
-        </ThemeRegistry>
-
+              </Container>
+            </NextAuthSessionProvider>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
 
       </body>
     </html>
