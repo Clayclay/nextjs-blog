@@ -126,5 +126,6 @@ export default function Quilledit(props) {
             </Box>
         </Container>
     )
+
 };
 

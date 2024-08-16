@@ -36,7 +36,7 @@ export default async function Page({ }) {
 
         <Grid item xs={12} sx={{ backgroundColor: 'blue', marginTop: 1 }} key={post.id} spacing={2}>
           <CardActionArea component="a" href={"/posts/" + post.id} >
-            <Card sx={{ display: 'flex', backgroundColor: 'red' }}>
+            <Card sx={{ display: 'flex' }}>
               <CardContent sx={{ flex: 1 }}>
                 <Typography component="h2" variant="h5">
                   {post.title}

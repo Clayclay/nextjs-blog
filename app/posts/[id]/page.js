@@ -4,10 +4,7 @@ import prisma from "../../../lib/prisma.ts";
 /******  SERVER ******/
 /*  MUI */
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Stack from '@mui/material/Stack';
+
 
 
 /* QUILL */
@@ -24,28 +21,33 @@ export default async function Post({ params }) {
 
 
   const id = params.id
-  const post = await prisma.post.findUnique({
-    where: {
-      id: id,
-    },
-  })
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: id,
+      },
+    })
+
+    return (
+      <Container maxWidth="sm">
+
+        Page server
+        <Quilledit id={id} post={post} />
+
+      </Container>
+
+    )
+
+  } catch (error) {
+    return { message: 'Database Error: Failed ', };
+  }
 
 
-  return (
-
-    <Container maxWidth="sm">
-
-
-      Page server
-
-
-      <Quilledit id={id} post={post} />
 
 
 
-    </Container>
 
-  )
 
 }
 

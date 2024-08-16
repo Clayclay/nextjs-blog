@@ -28,9 +28,23 @@
     "**/*.ts",
     "app/types/types.d.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "mdx-components.js", "lib/TEMPOposts.js", "pages/theme.js", "components/auth-component.js" ,
-"**/*.mdx", "app/page.js", "app/api/route.js", "app/layoutSecour.tsx", "app/api/auth/[...nextauth]/route.js", "app/_app.tsx", "app/test/page.js", "app/postNew/page.js", "app/postNew/page.js", "app/posts/[id]/page.js", ],
+    ".next/types/**/*.ts",
+    "mdx-components.js",
+    "lib/TEMPOposts.js",
+    "pages/theme.js",
+    "components/auth-component.js",
+    "**/*.mdx",
+    "app/page.js",
+    "app/api/route.js",
+    "app/layoutSecour.tsx",
+    "app/api/auth/[...nextauth]/route.js",
+    "app/_app.tsx",
+    "app/test/page.js",
+    "app/postNew/page.js",
+    "app/postNew/page.js",
+    "app/posts/[id]/page.js",
+    "app/register/error.tsx",
+  ],
   "exclude": [
     "node_modules"
   ]
