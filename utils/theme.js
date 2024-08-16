@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+
+
+
 // Create a theme instance.
 const theme = createTheme({
   palette: {
@@ -10,26 +12,26 @@ const theme = createTheme({
       main: '#edf2ff',
     },
   },
- 
-    
-    components: {
-        // the component name defined in the `name` parameter
+
+
+  components: {
+    // the component name defined in the `name` parameter
+    // of the `styled` API
+    MuiStat: {
+      styleOverrides: {
+        // the slot name defined in the `slot` and `overridesResolver` parameters
         // of the `styled` API
-        MuiStat: {
-          styleOverrides: {
-            // the slot name defined in the `slot` and `overridesResolver` parameters
-            // of the `styled` API
-            root: {
-              backgroundColor: '#FFD000',
-            },
-            value: {
-              color: '#fff',
-            },
-            unit: {
-              color: '#888',
-            },
-          },
+        root: {
+          backgroundColor: '#FFD000',
+        },
+        value: {
+          color: '#fff',
+        },
+        unit: {
+          color: '#888',
         },
       },
+    },
+  },
 });
 export default theme;

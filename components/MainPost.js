@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
-
+import Link from '@mui/material/Link';
 
 
 export default function Quilledit(props) {
@@ -29,10 +29,16 @@ export default function Quilledit(props) {
 
 
         <Stack spacing={2} mt={2}>
-            <Typography component="h1" variant="h5">
-                {post.title}
-            </Typography>
 
+            <Link href={"/posts/" + post.id} sx={{
+                color: 'black',
+                textDecoration: 'none',
+                display: 'inline'
+            }}>
+                <Typography component="h1" variant="h5">
+                    {post.title}
+                </Typography>
+            </Link>
 
 
             <ReactQuill

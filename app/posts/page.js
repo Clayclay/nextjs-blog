@@ -28,28 +28,15 @@ export default async function Page({ }) {
 
   return (
 
-
-    <Container>
-
-
-
-      <Paper sx={{
-        mb: 4
-      }}>
-        <Box>
-          <Grid container>
-          </Grid>
-        </Box>
-      </Paper>
+    <Container sx={{ backgroundColor: 'blue' }}>
 
 
       {posts.map((post) => (
 
 
-
-        <Grid item xs={12} md={6}>
-          <CardActionArea component="a" href={"/posts/" + post.id}>
-            <Card sx={{ display: 'flex' }}>
+        <Grid item xs={12} sx={{ backgroundColor: 'blue', marginTop: 1 }} key={post.id} spacing={2}>
+          <CardActionArea component="a" href={"/posts/" + post.id} >
+            <Card sx={{ display: 'flex', backgroundColor: 'red' }}>
               <CardContent sx={{ flex: 1 }}>
                 <Typography component="h2" variant="h5">
                   {post.title}
@@ -73,20 +60,10 @@ export default async function Page({ }) {
             </Card>
           </CardActionArea>
 
-
-
         </Grid>
 
-
-
-
-
-
-
-
-
-
       ))}
+
 
 
     </Container>
