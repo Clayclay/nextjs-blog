@@ -11,12 +11,6 @@ import Link from '@mui/material/Link';
 import 'react-quill/dist/quill.bubble.css'
 import ReactQuill from "react-quill";
 
-
-//import Markdown from 'markdown-to-jsx'
-
-
-import MainPost from './MainPost';
-
 function Main(props) {
 
   const { posts, title } = props;
@@ -43,7 +37,7 @@ function Main(props) {
 
         <Stack spacing={2} mt={2}>
 
-          <MainPost post={post} key={post.id} />
+
 
           <Link href={"/posts/" + post.id} sx={{
             color: 'black',
