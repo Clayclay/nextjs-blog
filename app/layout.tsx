@@ -6,7 +6,7 @@ import NextAuthSessionProvider from "../providers/SessionProvider";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../src/theme';
-
+import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 
 //* Components *//
@@ -35,7 +35,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
 
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}><CssBaseline />
             <NextAuthSessionProvider>
               <Container maxWidth="lg"  >
                 <Header title={siteTitle} />

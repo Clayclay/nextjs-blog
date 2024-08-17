@@ -1,8 +1,5 @@
 "use client";
-
 import React from "react";
-
-
 
 /*QUILL*/
 import 'react-quill/dist/quill.bubble.css'
