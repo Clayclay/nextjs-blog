@@ -117,17 +117,19 @@ export default async function Home({ }) {
     },
   });
 
-
-  return (
-
-    <div>
-      <GoogleMapsEmbed
+  /*  <GoogleMapsEmbed
         apiKey={process.env.GOOGLE_MAPS_API_KEY}
         height={200}
         width="100%"
         mode="place"
         q="Brooklyn+Bridge,New+York,NY"
-      />
+      /> */
+
+
+  return (
+
+    <div>
+
 
 
       <MainFeaturedPost post={mainFeaturedPost} />
