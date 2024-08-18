@@ -46,28 +46,14 @@ export default function Quilledit(props) {
     ];
 
     const modules = {
-        toolbar: {
-            container: [
-                [{ header: [2, 3, 4, false] }],
-                ["bold", "italic", "underline", "blockquote"],
-                [{ color: [] }],
-                [
-                    { list: "ordered" },
-                    { list: "bullet" },
-                    { indent: "-1" },
-                    { indent: "+1" },
-                ],
-                ["link", "image"],
-                ["clean"],
-            ],
-            handlers: {
-                // image: imageHandler,
-            },
-        },
-        clipboard: {
-            matchVisual: true,
-        },
-    }
+        toolbar: [
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [{ align: ["right", "center", "justify"] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+        ],
+    };
 
     const handlePublish = (event) => {
         setPublish(event.target.value === "true" ? true : false);

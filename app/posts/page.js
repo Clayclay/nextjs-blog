@@ -19,7 +19,7 @@ const QuillRead = dynamic(() => import('./QuillRead.js'), { ssr: false });
 
 
 const posts = await prisma.post.findMany({
-  where: { published: true },
+  where: { /*published: true*/ },
   include: {
     author: {
       select: { name: true },
