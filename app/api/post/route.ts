@@ -8,7 +8,7 @@ import prisma from '../../../lib/prisma';
 export async function POST(request: Request) {
 
 
-  const { title, email, content, publish } = await request.json()
+  const { title, email, content, publish, tag } = await request.json()
 
   console.log(' OBJET CREER : title', title, 'mail', email, 'content', content)
 
@@ -18,7 +18,8 @@ export async function POST(request: Request) {
       title: title,
       content: content,
       author: { connect: { email: email } },
-      published: publish
+      published: publish,
+      tags: { create: [{ name: 'dev' }, { name: 'prisma' }] },
     },
   });
 
@@ -34,7 +35,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
   console.log(searchParams)
   const id = searchParams.get('id');
 
-  const { title, email, content, published } = await request.json()
+  const { title, email, content, published, tag } = await request.json()
 
   const post = await prisma.post.update({
     where: {
@@ -43,8 +44,9 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
     data: {
       title: title,
       content: content,
-      published: published
+      published: published,
       //author: { connect: { email: email } },
+      tags: { set: [{ id: 1 }, { id: 2 }], create: { name: 'typescript' } },
     },
 
   });

@@ -52,7 +52,7 @@ export default function Postupdate(props) {
       console.log('reponse', response, 'data')
 
       //return res.json()
-
+      alert(post.message);
 
     }
     catch (error) {

@@ -17,6 +17,8 @@ model Post {
   published Boolean @default(false)
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  tags      Tag[]
 }
 
 model Account {
@@ -76,4 +78,11 @@ model VerificationToken {
 enum Role {
   USER
   ADMIN
+}
+
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[]
 }
