@@ -48,17 +48,19 @@ function Header(props) {
 
 
         {isLoggedIn ? (
-          <Button size="small" href={'dashboard'} >Dashboard</Button>
+          <Button size="small" href={'/dashboard'} >Dashboard</Button>
         ) : (
-          <Button size="small" href={'register'} >Subscribe</Button>
+          <Button size="small" href={'/register'} >Subscribe</Button>
         )}
 
 
-        <Link href="/" sx={{
-          color: 'black',
-          textDecoration: 'none',
-          display: 'inline'
-        }}>
+        <Link href="/"
+          sx={{
+            color: 'black',
+            textDecoration: 'none',
+            display: 'inline'
+          }}>
+
           <Typography
             component="h2"
             variant="h5"

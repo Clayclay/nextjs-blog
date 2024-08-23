@@ -7,6 +7,8 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 
+import { Box } from '@mui/material/';
+
 /*QUILL*/
 import 'react-quill/dist/quill.bubble.css'
 import ReactQuill from "react-quill";
@@ -14,6 +16,10 @@ import ReactQuill from "react-quill";
 function Main(props) {
 
   const { posts, title } = props;
+
+  const PostArray = posts.sort((a, b) => a.createdAt - b.createdAt)
+
+  console.log(PostArray)
 
   return (
     <Grid
@@ -33,34 +39,46 @@ function Main(props) {
       </Typography>
       <Divider />
 
-      {posts.map((post, index) => (
+      {PostArray.reverse().map((post) => {
 
-        <Stack spacing={2} mt={2}>
+        //console.log(post),
 
+        // console.log('date', new Date(post.createdAt).toString()),
 
+        return (
 
-          <Link href={"/posts/" + post.id} sx={{
-            color: 'black',
-            textDecoration: 'none',
-            display: 'inline'
-          }}>
-            <Typography component="h1" variant="h5">
-              {post.title}
-            </Typography>
-          </Link>
+          <Stack spacing={2} mt={2} key={post.id}   >
 
-
-          <ReactQuill
-            theme="bubble"
-            value={post.content}
-            readOnly={true}
-          />
+            <Link href={"/posts/" + post.id} sx={{
+              color: 'black',
+              textDecoration: 'none',
+              display: 'inline'
+            }}>
+              <Typography component="h1" variant="h5">
+                {post.title}
+              </Typography>
+            </Link>
 
 
-        </Stack>
+            <Box sx={{ fontStyle: 'italic' }}>
+              <Typography variant="body1" gutterBottom >
+                {new Date(post.createdAt).toLocaleDateString()} by {post.author.name}
+              </Typography>
+            </Box>
 
 
-      ))}
+            <ReactQuill
+              theme="bubble"
+              value={post.content}
+              readOnly={true}
+            />
+
+
+          </Stack>
+
+
+        )
+      })}
 
 
 

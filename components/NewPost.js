@@ -25,13 +25,34 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-
+import Chip from '@mui/material/Chip';
+import Paper from '@mui/material/Paper';
+import TagFacesIcon from '@mui/icons-material/TagFaces';
+import { styled } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 
 
 /* Next Auth */
 
 import { useSession } from "next-auth/react";
 
+const Tags = ['Cuisine', 'Culture', 'Ramen', 'Shinjuku']
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 
 export default function NewPost() {
@@ -41,6 +62,11 @@ export default function NewPost() {
   const [value, setValue] = useState();
   const [title, setTitle] = useState('');
   const [publish, setPublish] = useState(false);
+
+
+  const [TagList, setTagList] = useState([])
+
+  /* QUILL */
 
   const formats = [
     "header",
@@ -68,11 +94,28 @@ export default function NewPost() {
     ],
   };
 
-
-
+  /* PUBLISH */
   const handlePublish = (event) => {
     setPublish(event.target.value === "true" ? true : false);
   };
+
+
+
+  /*  TAGS  */
+  const handleTagChange = (event) => {
+
+    const { target: { value } } = event;
+
+    setTagList(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+
+
+  };
+
+
+  /* POST */
 
 
   async function submitData(e) {
@@ -90,7 +133,7 @@ export default function NewPost() {
             //'API-Key': process.env.DATA_API_KEY!,
           },
           body: //JSON.stringify(body),
-            JSON.stringify({ title: title, email: session?.user.email, content: value, publish: publish }),
+            JSON.stringify({ title: title, email: session?.user.email, content: value, publish: publish, tag: TagList }),
         })
 
         if (!res.ok) {
@@ -123,13 +166,10 @@ export default function NewPost() {
     <Container maxWidth="sm">
       <CssBaseline />
       <Box sx={{ marginTop: 8 }} >
-        <Typography component="h1" variant="h5">
-          New Post
-        </Typography>
-
-
-
         <Stack spacing={2} mt={2}>
+          <Typography component="h1" variant="h5">
+            New Post
+          </Typography>
 
           <TextField
             required
@@ -143,6 +183,27 @@ export default function NewPost() {
             sx={{ mt: 4 }}
           />
 
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value={TagList}
+              onChange={handleTagChange}
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(', ')}
+              MenuProps={MenuProps}
+            >
+              {Tags.map((Tag) => (
+                <MenuItem key={Tag} value={Tag}>
+                  <Checkbox checked={TagList.indexOf(Tag) > -1} />
+                  <ListItemText primary={Tag} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
           <ReactQuill
             theme="snow"
             value={value}
@@ -150,6 +211,7 @@ export default function NewPost() {
             formats={formats}
             modules={modules}
           />
+
 
           <FormControl>
 
@@ -166,16 +228,16 @@ export default function NewPost() {
           </FormControl>
 
 
+
+
+          <Button type="submit" onClick={submitData} variant="contained" sx={{
+            mt: 2,/*mb: 2*/
+          }}>
+            Submit
+          </Button>
         </Stack>
-
-        <Button type="submit" onClick={submitData} variant="contained" sx={{
-          mt: 2,/*mb: 2*/
-        }}>
-          Submit
-        </Button>
-
       </Box>
-    </Container>
+    </Container >
   );
 }
 

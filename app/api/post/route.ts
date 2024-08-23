@@ -4,13 +4,14 @@ import prisma from '../../../lib/prisma';
 
 
 
+
 // Handles POST requests to /api
 export async function POST(request: Request) {
 
-
   const { title, email, content, publish, tag } = await request.json()
 
-  console.log(' OBJET CREER : title', title, 'mail', email, 'content', content)
+  //console.log(' OBJET CREER : title', title, 'mail', email, 'content', content, 'tag', tag)
+  console.log('tag', tag, typeof tag)
 
 
   const result = await prisma.post.create({
@@ -19,11 +20,30 @@ export async function POST(request: Request) {
       content: content,
       author: { connect: { email: email } },
       published: publish,
-      tags: { create: [{ name: 'dev' }, { name: 'prisma' }] },
+      tags: {
+        connectOrCreate:
+
+          tag.map((element) => {
+            return {
+              where: { name: element },
+              create: { name: element },
+            };
+
+
+          }),
+
+      },
     },
+    /* categories: {
+       connectOrCreate: [{ name: 'Databases' }, { name: 'Tutorials' }],
+ 
+     },*/
+
   });
 
   return NextResponse.json({ message: "Post Publish", result });
+
+
 }
 
 
@@ -32,7 +52,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
   //const postId  = params.id
 
   const searchParams = request.nextUrl.searchParams;
-  console.log(searchParams)
+  //console.log(searchParams)
   const id = searchParams.get('id');
 
   const { title, email, content, published, tag } = await request.json()
@@ -46,7 +66,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
       content: content,
       published: published,
       //author: { connect: { email: email } },
-      tags: { set: [{ id: 1 }, { id: 2 }], create: { name: 'typescript' } },
+      //tags: { set: [{ id: 1 }, { id: 2 }], create: { name: 'typescript' } },
     },
 
   });
@@ -55,17 +75,12 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
 }
 
 
-
 // DELETE /api/post/:id
 export async function DELETE(request: NextRequest, res: NextResponse) {
 
-
   const searchParams = request.nextUrl.searchParams;
-  console.log(searchParams)
+  // console.log(searchParams)
   const id = searchParams.get('id');
-
-  console.log("poop", id)
-
 
   const post = await prisma.post.delete({
     where: { id: String(id) },

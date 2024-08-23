@@ -22,6 +22,28 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+
+/*TAGS*/
+const Tags = ['Cuisine', 'Culture', 'Ramen', 'Shinjuku']
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+
+
+
 
 export default function Quilledit(props) {
 
@@ -29,6 +51,17 @@ export default function Quilledit(props) {
     const [title, setTitle] = useState(post.title);
     const [content, setContent] = useState(post.content);
     const [publish, setPublish] = useState(post.published);
+
+
+
+    const arrTags = post.tags.map((element) => element.name)
+    console.log('post', arrTags)
+
+    const [TagList, setTagList] = useState(arrTags)
+
+
+    // console.log('arr', TagList.map((element) => element.name))
+
     const formats = [
         "header",
         "bold",
@@ -59,6 +92,20 @@ export default function Quilledit(props) {
         setPublish(event.target.value === "true" ? true : false);
     };
 
+    /*  TAGS  */
+    const handleTagChange = (event) => {
+
+        const { target: { value } } = event;
+
+        setTagList(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+
+
+    };
+
+
 
     return (
 
@@ -82,7 +129,26 @@ export default function Quilledit(props) {
                         onChange={(e) => { setTitle(e.target.value) }}
                         sx={{ mt: 4 }}
                     />
-
+                    <FormControl sx={{ m: 1, width: 300 }}>
+                        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+                        <Select
+                            labelId="demo-multiple-checkbox-label"
+                            id="demo-multiple-checkbox"
+                            multiple
+                            value={TagList}
+                            onChange={handleTagChange}
+                            input={<OutlinedInput label="Tag" />}
+                            renderValue={(selected) => selected.join(', ')}
+                            MenuProps={MenuProps}
+                        >
+                            {Tags.map((Tag) => (
+                                <MenuItem key={Tag} value={Tag}>
+                                    <Checkbox checked={TagList.indexOf(Tag) > -1} />
+                                    <ListItemText primary={Tag} />
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <ReactQuill
                         theme="snow"
                         value={content}
@@ -105,7 +171,7 @@ export default function Quilledit(props) {
                         </RadioGroup>
                     </FormControl>
 
-                    <Postupdate id={id} title={title} content={content} publish={publish} />
+                    <Postupdate id={id} title={title} content={content} publish={publish} tags={TagList} />
 
                 </Stack>
 

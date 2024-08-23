@@ -24,6 +24,14 @@ export default async function Post({ params }) {
 
   try {
     const post = await prisma.post.findUnique({
+      select: {
+        authorId: true, content: true,
+        createdAt: true,
+        id: true,
+        published: true,
+        title: true,
+        tags: true // The password field is now selected.
+      },
       where: {
         id: id,
       },

@@ -19,6 +19,7 @@ model Post {
   authorId  String?
   createdAt DateTime @default(now()) @db.Timestamp(6)
   tags      Tag[]
+   categories Category[]
 }
 
 model Account {
@@ -84,5 +85,11 @@ enum Role {
 model Tag {
   id    Int    @id @default(autoincrement())
   name  String @unique
+  posts Post[]
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
   posts Post[]
 }
