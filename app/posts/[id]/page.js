@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 /* QUILL */
 // Importer en dynamic pour coté client quand SERVER 
 import dynamic from 'next/dynamic';
-const Quilledit = dynamic(() => import('./quilledit.js'), { ssr: false });
+const ClientQuill = dynamic(() => import('./clientquill.js'), { ssr: false });
 
 
 /*NEXT-AUTH*/
@@ -30,24 +30,32 @@ export default async function Post({ params }) {
         id: true,
         published: true,
         title: true,
-        tags: true // The password field is now selected.
+        tags: true, // The password field is now selected.
+        author: true,
       },
       where: {
         id: id,
       },
+
     })
 
+
     return (
+
       <Container maxWidth="sm">
 
         Page server
-        <Quilledit id={id} post={post} />
+
+        <ClientQuill id={id} post={post} />
 
       </Container>
 
     )
 
-  } catch (error) {
+  }
+
+
+  catch (error) {
     return { message: 'Database Error: Failed ', };
   }
 

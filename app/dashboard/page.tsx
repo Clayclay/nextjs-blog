@@ -20,7 +20,6 @@ import { signIn } from "next-auth/react"
 export default function Dashboard() {
 
   const { data: session } = useSession();
-
   const role = session?.user.role;
 
 

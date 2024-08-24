@@ -62,9 +62,13 @@ export default function NewPost() {
   const [value, setValue] = useState();
   const [title, setTitle] = useState('');
   const [publish, setPublish] = useState(false);
-
-
   const [TagList, setTagList] = useState([])
+
+  const [category, setCategory] = useState('');
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
 
   /* QUILL */
 
@@ -133,7 +137,7 @@ export default function NewPost() {
             //'API-Key': process.env.DATA_API_KEY!,
           },
           body: //JSON.stringify(body),
-            JSON.stringify({ title: title, email: session?.user.email, content: value, publish: publish, tag: TagList }),
+            JSON.stringify({ title: title, email: session?.user.email, content: value, publish: publish, tag: TagList, categories: category }),
         })
 
         if (!res.ok) {
@@ -182,6 +186,21 @@ export default function NewPost() {
             onChange={(e) => { setTitle(e.target.value) }}
             sx={{ mt: 4 }}
           />
+
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              label="category"
+              onChange={handleCategoryChange}
+            >
+              <MenuItem value={Cuisine}>Cuisine</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
 
           <FormControl sx={{ m: 1, width: 300 }}>
             <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>

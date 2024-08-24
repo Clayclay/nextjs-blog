@@ -16,8 +16,6 @@ import dynamic from 'next/dynamic';
 import 'quill/dist/quill.snow.css';
 const QuillRead = dynamic(() => import('./QuillRead.js'), { ssr: false });
 
-
-
 const posts = await prisma.post.findMany({
   where: { /*published: true*/ },
   include: {
@@ -30,20 +28,12 @@ const posts = await prisma.post.findMany({
 
 export default async function Page({ }) {
 
-
-
   return (
 
     <Container sx={{ paddingTop: '15px' }}>
-
-
-      {posts.map((post) => (
+      {posts.reverse().map((post) => (
         <QuillRead post={post} />
-
       ))}
-
-
-
     </Container>
 
   )

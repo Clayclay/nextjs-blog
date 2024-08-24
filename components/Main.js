@@ -19,7 +19,7 @@ function Main(props) {
 
   const PostArray = posts.sort((a, b) => a.createdAt - b.createdAt)
 
-  console.log(PostArray)
+
 
   return (
     <Grid
@@ -40,6 +40,7 @@ function Main(props) {
       <Divider />
 
       {PostArray.reverse().map((post) => {
+
 
         //console.log(post),
 

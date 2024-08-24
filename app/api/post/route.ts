@@ -8,7 +8,7 @@ import prisma from '../../../lib/prisma';
 // Handles POST requests to /api
 export async function POST(request: Request) {
 
-  const { title, email, content, publish, tag } = await request.json()
+  const { title, email, content, publish, tag, categories } = await request.json()
 
   //console.log(' OBJET CREER : title', title, 'mail', email, 'content', content, 'tag', tag)
   console.log('tag', tag, typeof tag)
@@ -22,17 +22,26 @@ export async function POST(request: Request) {
       published: publish,
       tags: {
         connectOrCreate:
-
           tag.map((element) => {
             return {
               where: { name: element },
               create: { name: element },
             };
-
-
           }),
-
       },
+      categories: {
+        connectOrCreate:
+          categories.map((element) => {
+            return {
+              where: { name: element },
+              create: { name: element },
+            };
+          }),
+      },
+
+
+
+
     },
     /* categories: {
        connectOrCreate: [{ name: 'Databases' }, { name: 'Tutorials' }],
@@ -55,7 +64,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
   //console.log(searchParams)
   const id = searchParams.get('id');
 
-  const { title, email, content, published, tag } = await request.json()
+  const { title, email, content, published, tag, categories } = await request.json()
 
   const post = await prisma.post.update({
     where: {
@@ -66,7 +75,24 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
       content: content,
       published: published,
       //author: { connect: { email: email } },
-      //tags: { set: [{ id: 1 }, { id: 2 }], create: { name: 'typescript' } },
+      tags: {
+        connectOrCreate:
+          tag.map((element) => {
+            return {
+              where: { name: element },
+              create: { name: element },
+            };
+          }),
+      },
+      categories: {
+        connectOrCreate:
+          categories.map((element) => {
+            return {
+              where: { name: element },
+              create: { name: element },
+            };
+          }),
+      },
     },
 
   });
