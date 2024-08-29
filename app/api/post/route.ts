@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   const { title, email, content, publish, tag, categories } = await request.json()
 
   //console.log(' OBJET CREER : title', title, 'mail', email, 'content', content, 'tag', tag)
-  console.log('tag', tag, typeof tag)
+  console.log('cat', categories, typeof categories)
 
 
   const result = await prisma.post.create({
@@ -31,12 +31,13 @@ export async function POST(request: Request) {
       },
       categories: {
         connectOrCreate:
-          categories.map((element) => {
-            return {
-              where: { name: element },
-              create: { name: element },
-            };
-          }),
+
+        {
+          where: { name: categories },
+          create: { name: categories },
+        }
+
+
       },
 
 
@@ -75,6 +76,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
       content: content,
       published: published,
       //author: { connect: { email: email } },
+      /*
       tags: {
         connectOrCreate:
           tag.map((element) => {
@@ -92,7 +94,9 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
               create: { name: element },
             };
           }),
-      },
+      },*/
+
+
     },
 
   });

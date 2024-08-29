@@ -14,7 +14,8 @@ import { signIn } from "next-auth/react"
 import 'quill/dist/quill.snow.css';
 import ReactQuill from "react-quill";
 
-import ReadQuill from '../../../components/ReadQuill.js';
+import ReadPost from '../../../components/ReadPost.js';
+
 /*MUI*/
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -51,7 +52,7 @@ const MenuProps = {
 
 
 
-export default function ClientQuill(props) {
+export default function ClientPost(props) {
 
     const { data: session } = useSession();
     const role = session?.user.role;
@@ -66,32 +67,72 @@ export default function ClientQuill(props) {
 
 
     // console.log('arr', TagList.map((element) => element.name))
-
     const formats = [
-        "header",
-        "bold",
-        "italic",
-        "underline",
-        "strike",
-        "blockquote",
-        "list",
-        "bullet",
-        "indent",
-        "link",
-        "image",
-        "color",
-        "clean",
-    ];
+        'header',
+        'font',
+        'size',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'blockquote',
+        'list',
+        'bullet',
+        'indent',
+        'link',
+        'image',
+        'video'];
 
     const modules = {
         toolbar: [
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            ["bold", "italic", "underline", "strike", "blockquote"],
-            [{ align: ["right", "center", "justify"] }],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image"],
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+            ['link', 'image', 'video', 'formula'],
+
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+
+            ['clean']                                         // remove formatting button
         ],
+
+        clipboard: {
+            // toggle to add extra line breaks when pasting HTML:
+            matchVisual: false,
+        }
     };
+
+    const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video', 'formula'],
+
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+
+        ['clean']                                         // remove formatting button
+    ];
+
+
 
     const handlePublish = (event) => {
         setPublish(event.target.value === "true" ? true : false);
@@ -188,12 +229,12 @@ export default function ClientQuill(props) {
     } else if (role === 'USER') {
         return (
 
-            <ReadQuill post={post} />
+            <ReadPost post={post} />
         )
     } else {
         return (
 
-            <ReadQuill post={post} />
+            <ReadPost post={post} />
 
         )
 
