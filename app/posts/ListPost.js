@@ -1,40 +1,30 @@
 "use client";
-
 import React, { useState } from "react";
 
-import Postupdate from "../app/posts/[id]/postupdate.js";
-
 /*  TIPTAP  */
-
 import { useEditor, EditorContent, Editor, BubbleMenu } from "@tiptap/react";
-import styles from './Tiptap.module.css';
-
+import styles from '../../components/Tiptap.module.css';
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { Color } from '@tiptap/extension-color'
 import StarterKit from '@tiptap/starter-kit'
 import Strike from '@tiptap/extension-strike'
-
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 
-/*MUI*/
-import PropTypes from 'prop-types';
-import Grid from '@mui/material/Grid';
+/*  MUI */
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 
-import { Box } from '@mui/material/';
 
-
-export default function ReadPost(props) {
+export default function ListPost(props) {
 
     const { post } = props;
-
-    console.log(post.content)
 
     const editor = useEditor({
         extensions: [
@@ -59,49 +49,48 @@ export default function ReadPost(props) {
         immediatelyRender: true,
         shouldRerenderOnTransaction: false,
         content: post.content,
-
         editable: false,
-
-
     })
 
-    /*
-     
-        const arrTags = post.tags.map((element) => element.name)
-        const [TagList, setTagList] = useState(arrTags)
-     
-    */
 
     return (
 
-        <Stack spacing={2} mt={2} key={post.id}   >
+        <Grid item xs={12} sx={{ marginTop: 1 }} key={post.id} spacing={2}>
+            <CardActionArea component="a" href={"/posts/" + post.id} >
+                <Card sx={{ display: 'flex' }}>
+                    <CardContent sx={{ flex: 1 }}>
+                        <Typography component="h2" variant="h5">
+                            {post.title}
+                        </Typography>
+                        <Typography variant="subtitle1" color="text.secondary">
+                            {post.date}
+                        </Typography>
 
-            <Link href={"/posts/" + post.id} sx={{
-                color: 'black',
-                textDecoration: 'none',
-                display: 'inline'
-            }}>
-                <Typography component="h1" variant="h5">
-                    {post.title}
-                </Typography>
-            </Link>
-
-
-            <Box sx={{ fontStyle: 'italic' }}>
-                <Typography variant="body1" gutterBottom >
-                    {new Date(post.createdAt).toLocaleDateString()} by {post.author.name}
-                </Typography>
-            </Box>
-// need ml={1}
-            <div className={styles.tiptap} >
-                <EditorContent editor={editor} />
-            </div >
+                        <div className={styles.tiptap} >
+                            <EditorContent editor={editor} />
+                        </div >
 
 
 
-        </Stack>)
+                        <Typography variant="subtitle1" color="primary">
+                            Continue reading...
+                        </Typography>
+                    </CardContent>
+                    <CardMedia
+                        component="img"
+                        sx={{ width: 160, display: { xs: 'none', sm: 'block', margin: 10 } }}
+                        image={post.image}
+                        alt={post.imageLabel}
 
-}
+                    />
+                </Card>
+            </CardActionArea>
+
+        </Grid>
 
 
+
+
+    )
+};
 

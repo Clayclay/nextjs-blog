@@ -7,7 +7,6 @@ import Container from '@mui/material/Container';
 
 
 
-/* QUILL */
 // Importer en dynamic pour coté client quand SERVER 
 import dynamic from 'next/dynamic';
 const ClientPost = dynamic(() => import('./clientpost.js'), { ssr: false });

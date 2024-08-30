@@ -9,9 +9,10 @@ import Link from '@mui/material/Link';
 
 import { Box } from '@mui/material/';
 
-/*QUILL*/
-import 'react-quill/dist/quill.bubble.css'
-import ReactQuill from "react-quill";
+
+
+/* TIPTAP*/
+import ReadPost from './ReadPost';
 
 function Main(props) {
 
@@ -49,32 +50,7 @@ function Main(props) {
         return (
 
           <Stack spacing={2} mt={2} key={post.id}   >
-
-            <Link href={"/posts/" + post.id} sx={{
-              color: 'black',
-              textDecoration: 'none',
-              display: 'inline'
-            }}>
-              <Typography component="h1" variant="h5">
-                {post.title}
-              </Typography>
-            </Link>
-
-
-            <Box sx={{ fontStyle: 'italic' }}>
-              <Typography variant="body1" gutterBottom >
-                {new Date(post.createdAt).toLocaleDateString()} by {post.author.name}
-              </Typography>
-            </Box>
-
-
-            <ReactQuill
-              theme="bubble"
-              value={post.content}
-              readOnly={true}
-            />
-
-
+            <ReadPost post={post} />
           </Stack>
 
 

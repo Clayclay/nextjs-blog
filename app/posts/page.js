@@ -11,10 +11,8 @@ import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-/*QUILL*/
 import dynamic from 'next/dynamic';
-import 'quill/dist/quill.snow.css';
-const QuillRead = dynamic(() => import('./QuillRead.js'), { ssr: false });
+const ListPost = dynamic(() => import('./ListPost.js'), { ssr: false });
 
 const posts = await prisma.post.findMany({
   where: { /*published: true*/ },
@@ -32,7 +30,7 @@ export default async function Page({ }) {
 
     <Container sx={{ paddingTop: '15px' }}>
       {posts.reverse().map((post) => (
-        <QuillRead post={post} />
+        <ListPost post={post} />
       ))}
     </Container>
 
