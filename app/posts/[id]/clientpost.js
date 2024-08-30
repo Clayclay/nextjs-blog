@@ -9,12 +9,6 @@ import Postupdate from "./postupdate.js";
 import { useSession } from "next-auth/react";
 import { signIn } from "next-auth/react"
 
-
-/*QUILL
-import 'quill/dist/quill.snow.css';
-import ReactQuill from "react-quill";
-*/
-
 import ReadPost from '../../../components/ReadPost.js';
 /* TIPTAP */
 
@@ -74,79 +68,9 @@ export default function ClientPost(props) {
     const arrTags = post.tags.map((element) => element.name)
     const [TagList, setTagList] = useState(arrTags)
 
-    /*
-        // console.log('arr', TagList.map((element) => element.name))
-        const formats = [
-            'header',
-            'font',
-            'size',
-            'bold',
-            'italic',
-            'underline',
-            'strike',
-            'blockquote',
-            'list',
-            'bullet',
-            'indent',
-            'link',
-            'image',
-            'video'];
-    
-        const modules = {
-            toolbar: [
-                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                ['blockquote', 'code-block'],
-                ['link', 'image', 'video', 'formula'],
-    
-                [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-                [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-                [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-                [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-                [{ 'direction': 'rtl' }],                         // text direction
-    
-                [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    
-                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                [{ 'font': [] }],
-                [{ 'align': [] }],
-    
-                ['clean']                                         // remove formatting button
-            ],
-    
-            clipboard: {
-                // toggle to add extra line breaks when pasting HTML:
-                matchVisual: false,
-            }
-        };
-    
-        const toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-            ['blockquote', 'code-block'],
-            ['link', 'image', 'video', 'formula'],
-    
-            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-            [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-            [{ 'direction': 'rtl' }],                         // text direction
-    
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    
-            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-            [{ 'font': [] }],
-            [{ 'align': [] }],
-    
-            ['clean']                                         // remove formatting button
-        ];
-    
-    */
 
 
     /* TIP TAP */
-
-
 
     const MenuBar = ({ editor }) => {
         //const { editor } = useCurrentEditor()

@@ -12,6 +12,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Strike from '@tiptap/extension-strike'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
+import ReadPost from "../../components/ReadPost";
 
 /*  MUI */
 import Typography from '@mui/material/Typography';
@@ -59,6 +60,9 @@ export default function ListPost(props) {
             <CardActionArea component="a" href={"/posts/" + post.id} >
                 <Card sx={{ display: 'flex' }}>
                     <CardContent sx={{ flex: 1 }}>
+
+
+
                         <Typography component="h2" variant="h5">
                             {post.title}
                         </Typography>
@@ -66,9 +70,9 @@ export default function ListPost(props) {
                             {post.date}
                         </Typography>
 
-                        <div className={styles.tiptap} >
-                            <EditorContent editor={editor} />
-                        </div >
+
+
+                        {post.content}
 
 
 

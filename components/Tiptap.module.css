@@ -2,6 +2,7 @@
 .tiptap :first-child {
     margin-top: 0;
     /* List styles */
+    /*  color: red;*/
 }
 
 .tiptap ul,
@@ -88,4 +89,14 @@
     border: none;
     border-top: 1px solid var(--gray-2);
     margin: 2rem 0;
+}
+
+/* EDIT */
+
+
+
+.tiptap :focus-visible {
+    color: rgb(107, 77, 96);
+
+    outline: none;
 }

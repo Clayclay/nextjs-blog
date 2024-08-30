@@ -36,6 +36,18 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import IconButton from '@mui/material/IconButton';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Toolbar from '@mui/material/Toolbar';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+
+
 /* Next Auth */
 
 import { useSession } from "next-auth/react";
@@ -81,9 +93,17 @@ export default function NewPost() {
     }
 
     return (
-      <div className="control-group"        >
-        <div className="button-group">
-          <button
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& > *': {
+          m: 1,
+        },
+      }}>
+
+        <Stack spacing={1} direction="row">
+          <IconButton aria-label="FormatBold" size="small"
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={
               !editor.can()
@@ -94,9 +114,9 @@ export default function NewPost() {
             }
             className={editor.isActive('bold') ? 'is-active' : ''}
           >
-            Bold
-          </button>
-          <button
+            <FormatBoldIcon />
+          </IconButton>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleItalic().run()}
             disabled={
               !editor.can()
@@ -108,8 +128,8 @@ export default function NewPost() {
             className={editor.isActive('italic') ? 'is-active' : ''}
           >
             Italic
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleStrike().run()}
             disabled={
               !editor.can()
@@ -121,8 +141,8 @@ export default function NewPost() {
             className={editor.isActive('strike') ? 'is-active' : ''}
           >
             Strike
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleCode().run()}
             disabled={
               !editor.can()
@@ -134,86 +154,88 @@ export default function NewPost() {
             className={editor.isActive('code') ? 'is-active' : ''}
           >
             Code
-          </button>
-          <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
+          </Button>
+          <Button variant="outlined" size="small"
+            onClick={() => editor.chain().focus().unsetAllMarks().run()}>
             Clear marks
-          </button>
-          <button onClick={() => editor.chain().focus().clearNodes().run()}>
+          </Button>
+          <Button variant="outlined" size="small"
+            onClick={() => editor.chain().focus().clearNodes().run()}>
             Clear nodes
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().setParagraph().run()}
             className={editor.isActive('paragraph') ? 'is-active' : ''}
           >
             Paragraph
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
             className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
           >
             H1
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
             className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
           >
             H2
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
             className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
           >
             H3
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
             className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
           >
             H4
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
             className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
           >
             H5
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
             className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
           >
             H6
-          </button>
-          <button
+          </Button>   </Stack>
+        <Stack spacing={1} direction="row">
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={editor.isActive('bulletList') ? 'is-active' : ''}
           >
             Bullet list
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             className={editor.isActive('orderedList') ? 'is-active' : ''}
           >
             Ordered list
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            className={editor.isActive('codeBlock') ? 'is-active' : ''}
-          >
-            Code block
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             className={editor.isActive('blockquote') ? 'is-active' : ''}
           >
             Blockquote
-          </button>
-          <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+          </Button>
+
+
+
+          <Button variant="outlined" size="small"
+            onClick={() => editor.chain().focus().setHorizontalRule().run()}>
             Horizontal rule
-          </button>
-          <button onClick={() => editor.chain().focus().setHardBreak().run()}>
+          </Button>
+          <Button variant="outlined" size="small"
+            onClick={() => editor.chain().focus().setHardBreak().run()}>
             Hard break
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().undo().run()}
             disabled={
               !editor.can()
@@ -224,8 +246,8 @@ export default function NewPost() {
             }
           >
             Undo
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().redo().run()}
             disabled={
               !editor.can()
@@ -236,15 +258,15 @@ export default function NewPost() {
             }
           >
             Redo
-          </button>
-          <button
+          </Button>
+          <Button variant="outlined" size="small"
             onClick={() => editor.chain().focus().setColor('#958DF1').run()}
             className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}
           >
             Purple
-          </button>
-        </div>
-      </div>
+          </Button>
+        </Stack>
+      </Box >
     )
   }
 
@@ -264,12 +286,17 @@ export default function NewPost() {
     }),
   ]
 
-  const content = 'content init test'
-  console.log('value', value)
+  const content = ' Tape Here'
+
 
   const editor = useEditor({
     extensions,
     content,
+    editorProps: {
+      attributes: {
+        class: `text-editor__editor`,
+      },
+    },
 
     /**
      * This option gives us the control to enable the default behavior of rendering the editor immediately.
@@ -284,7 +311,13 @@ export default function NewPost() {
         //editor.getJSON()
         editor.getHTML()
       );
-    }
+    },
+
+    editorProps: {
+      attributes: {
+        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+      },
+    },
   })
 
   /* FIN TIPTAP*/
@@ -418,10 +451,15 @@ export default function NewPost() {
 
           {/*<Tiptap />*/}
 
-          <div className={styles.tiptap} >
-            <MenuBar editor={editor} />
+          <MenuBar editor={editor} />
+          <Card variant="outlined" className={styles.tiptap} >
+
+
             <EditorContent editor={editor} />
-          </div >
+          </Card>
+
+
+
 
           <FormControl>
 

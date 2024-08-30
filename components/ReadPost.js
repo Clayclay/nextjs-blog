@@ -29,6 +29,9 @@ import Link from '@mui/material/Link';
 
 import { Box } from '@mui/material/';
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
 
 export default function ReadPost(props) {
 
@@ -38,7 +41,6 @@ export default function ReadPost(props) {
 
     const editor = useEditor({
         extensions: [
-            Text,
             Color.configure({ types: [TextStyle.name, ListItem.name] }),
             TextStyle.configure({ types: [ListItem.name] }),
             StarterKit.configure({
@@ -51,10 +53,7 @@ export default function ReadPost(props) {
                     keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
                 },
             }),
-            Strike,
-            Document, // required
-            Paragraph,
-            Text,
+
         ],
         immediatelyRender: true,
         shouldRerenderOnTransaction: false,
@@ -93,9 +92,12 @@ export default function ReadPost(props) {
                 </Typography>
             </Box>
 // need ml={1}
-            <div className={styles.tiptap} >
+
+            <Card variant="outlined" className={styles.tiptap}>
+
                 <EditorContent editor={editor} />
-            </div >
+            </Card>
+
 
 
 
