@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useRouter } from 'next/navigation'
 
 
@@ -11,6 +11,15 @@ import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 
+import Document from '@tiptap/extension-document'
+import Dropcursor from '@tiptap/extension-dropcursor'
+import Image from '@tiptap/extension-image'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
+import Youtube from '@tiptap/extension-youtube'
+
+//import Iframe from './iframe.ts'
 
 /*MUI*/
 import Typography from '@mui/material/Typography';
@@ -45,8 +54,14 @@ import AlarmIcon from '@mui/icons-material/Alarm';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Toolbar from '@mui/material/Toolbar';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import Input from '@mui/material/Input';
 
+/*ICONS*/
+import ImageIcon from '@mui/icons-material/Image';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import CodeIcon from '@mui/icons-material/Code';
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import VideoCallIcon from '@mui/icons-material/VideoCall';
 
 /* Next Auth */
 
@@ -64,6 +79,273 @@ const MenuProps = {
     },
   },
 };
+
+
+
+const MenuBar = ({ editor }) => {
+  //const { editor } = useCurrentEditor()
+  const [height, setHeight] = React.useState(480)
+  const [width, setWidth] = React.useState(640)
+
+  if (!editor) {
+    return null
+  }
+
+
+  const addImage = useCallback(() => {
+    const url = window.prompt('URL')
+
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run()
+    }
+  }, [editor])
+
+  /*
+      const addIframe = useCallback(() => {
+        const url = window.prompt('URL')
+  
+        if (url) {
+          editor.chain().focus().setIframe({ src: url }).run()
+        }
+      }, [editor])
+  */
+  const addYoutubeVideo = () => {
+    const url = prompt('Enter YouTube URL')
+
+    if (url) {
+      editor.commands.setYoutubeVideo({
+        src: url,
+        width: Math.max(320, parseInt(width, 10)) || 640,
+        height: Math.max(180, parseInt(height, 10)) || 480,
+      })
+    }
+  }
+
+
+  return (
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      '& > *': {
+        m: 1,
+      },
+    }}>
+
+      <Stack spacing={1} direction="row">
+        <IconButton aria-label="FormatBold" size="small"
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          disabled={
+            !editor.can()
+              .chain()
+              .focus()
+              .toggleBold()
+              .run()
+          }
+          className={editor.isActive('bold') ? 'is-active' : ''}
+        >
+          <FormatBoldIcon />
+        </IconButton>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          disabled={
+            !editor.can()
+              .chain()
+              .focus()
+              .toggleItalic()
+              .run()
+          }
+          className={editor.isActive('italic') ? 'is-active' : ''}
+        >
+          Italic
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          disabled={
+            !editor.can()
+              .chain()
+              .focus()
+              .toggleStrike()
+              .run()
+          }
+          className={editor.isActive('strike') ? 'is-active' : ''}
+        >
+          Strike
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleCode().run()}
+          disabled={
+            !editor.can()
+              .chain()
+              .focus()
+              .toggleCode()
+              .run()
+          }
+          className={editor.isActive('code') ? 'is-active' : ''}
+        >
+          Code
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().unsetAllMarks().run()}>
+          Clear marks
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().clearNodes().run()}>
+          Clear nodes
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().setParagraph().run()}
+          className={editor.isActive('paragraph') ? 'is-active' : ''}
+        >
+          Paragraph
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
+        >
+          H1
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
+        >
+          H2
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
+        >
+          H3
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+          className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
+        >
+          H4
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+          className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
+        >
+          H5
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+          className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
+        >
+          H6
+        </Button>   </Stack>
+      <Stack spacing={1} direction="row">
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={editor.isActive('bulletList') ? 'is-active' : ''}
+        >
+          Bullet list
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          className={editor.isActive('orderedList') ? 'is-active' : ''}
+        >
+          Ordered list
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().toggleBlockquote().run()}
+          className={editor.isActive('blockquote') ? 'is-active' : ''}
+        >
+          Blockquote
+        </Button>
+
+        <IconButton aria-label="FormatBold" size="small"
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+          <HorizontalRuleIcon />
+        </IconButton>
+
+
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().setHardBreak().run()}>
+          Hard break
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().undo().run()}
+          disabled={
+            !editor.can()
+              .chain()
+              .focus()
+              .undo()
+              .run()
+          }
+        >
+          Undo
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().redo().run()}
+          disabled={
+            !editor.can()
+              .chain()
+              .focus()
+              .redo()
+              .run()
+          }
+        >
+          Redo
+        </Button>
+        <Button variant="outlined" size="small"
+          onClick={() => editor.chain().focus().setColor('#958DF1').run()}
+          className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}
+        >
+          Purple
+        </Button>
+
+        <IconButton aria-label="FormatBold" size="small"
+          onClick={addImage}          >
+          <ImageIcon />
+        </IconButton>
+
+        { /*  <IconButton aria-label="FormatBold" size="small"
+          onClick={addIframe}          >
+          <CodeIcon />
+        </IconButton>*/}
+
+        <Box component="section"
+          sx={{
+            p: 1, border: '1px solid grey', display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            '& > *': {
+              m: 1,
+            },
+          }}>
+          <Input
+            id="width"
+            type="number"
+            min="320"
+            max="1024"
+            placeholder="width"
+            value={width}
+            onChange={event => setWidth(event.target.value)}
+          />
+          <Input
+            id="height"
+            type="number"
+            min="180"
+            max="720"
+            placeholder="height"
+            value={height}
+            onChange={event => setHeight(event.target.value)}
+          />
+
+          <IconButton aria-label="FormatBold" size="small"
+            onClick={addYoutubeVideo}          >
+            <VideoCallIcon />
+          </IconButton>
+        </Box >
+
+      </Stack>
+    </Box >
+  )
+}
+
+
 
 
 export default function NewPost() {
@@ -85,193 +367,21 @@ export default function NewPost() {
 
 
 
-  const MenuBar = ({ editor }) => {
-    //const { editor } = useCurrentEditor()
-
-    if (!editor) {
-      return null
-    }
-
-    return (
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '& > *': {
-          m: 1,
-        },
-      }}>
-
-        <Stack spacing={1} direction="row">
-          <IconButton aria-label="FormatBold" size="small"
-            onClick={() => editor.chain().focus().toggleBold().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .toggleBold()
-                .run()
-            }
-            className={editor.isActive('bold') ? 'is-active' : ''}
-          >
-            <FormatBoldIcon />
-          </IconButton>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleItalic().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .toggleItalic()
-                .run()
-            }
-            className={editor.isActive('italic') ? 'is-active' : ''}
-          >
-            Italic
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleStrike().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .toggleStrike()
-                .run()
-            }
-            className={editor.isActive('strike') ? 'is-active' : ''}
-          >
-            Strike
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleCode().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .toggleCode()
-                .run()
-            }
-            className={editor.isActive('code') ? 'is-active' : ''}
-          >
-            Code
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().unsetAllMarks().run()}>
-            Clear marks
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().clearNodes().run()}>
-            Clear nodes
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().setParagraph().run()}
-            className={editor.isActive('paragraph') ? 'is-active' : ''}
-          >
-            Paragraph
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-            className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
-          >
-            H1
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-            className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-          >
-            H2
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-            className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
-          >
-            H3
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-            className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
-          >
-            H4
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-            className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
-          >
-            H5
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-            className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
-          >
-            H6
-          </Button>   </Stack>
-        <Stack spacing={1} direction="row">
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={editor.isActive('bulletList') ? 'is-active' : ''}
-          >
-            Bullet list
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={editor.isActive('orderedList') ? 'is-active' : ''}
-          >
-            Ordered list
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            className={editor.isActive('blockquote') ? 'is-active' : ''}
-          >
-            Blockquote
-          </Button>
-
-
-
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().setHorizontalRule().run()}>
-            Horizontal rule
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().setHardBreak().run()}>
-            Hard break
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().undo().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .undo()
-                .run()
-            }
-          >
-            Undo
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().redo().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .redo()
-                .run()
-            }
-          >
-            Redo
-          </Button>
-          <Button variant="outlined" size="small"
-            onClick={() => editor.chain().focus().setColor('#958DF1').run()}
-            className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}
-          >
-            Purple
-          </Button>
-        </Stack>
-      </Box >
-    )
-  }
 
   const extensions = [
     Text,
+    Document,
+    Paragraph,
+    Image.configure({
+      allowBase64: true,
+    }),
+    //Iframe, //Not working
+    HorizontalRule,
+    Youtube.configure({
+      controls: false,
+      nocookie: true,
+    }),
+    Dropcursor,
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
     StarterKit.configure({
@@ -294,6 +404,7 @@ export default function NewPost() {
     content,
     editorProps: {
       attributes: {
+        spellcheck: 'false',
         class: `text-editor__editor`,
       },
     },
@@ -319,6 +430,9 @@ export default function NewPost() {
       },
     },
   })
+
+
+
 
   /* FIN TIPTAP*/
 

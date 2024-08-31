@@ -86,9 +86,16 @@
 }
 
 .tiptap hr {
-    border: none;
+    /* border: none;*/
     border-top: 1px solid var(--gray-2);
-    margin: 2rem 0;
+    margin: 2rem;
+    cursor: pointer;
+
+
+}
+
+.tiptap hr .ProseMirror-selectednode {
+    border-top: 1px solid var(--purple);
 }
 
 /* EDIT */
@@ -99,4 +106,28 @@
     color: rgb(107, 77, 96);
 
     outline: none;
+}
+
+
+
+
+.tiptap .iframe-wrapper {
+    position: relative;
+
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+
+    &.ProseMirror-selectednode {
+        outline: 3px solid #68CEF8;
+    }
+
+    .tiptap .iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }

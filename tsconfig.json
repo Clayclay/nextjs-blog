@@ -44,6 +44,8 @@
     "app/postNew/page.js",
     "app/posts/[id]/page.js",
     "app/register/error.tsx",
+    "components/iframe.ts",
+    "components/iframe.ts",
   ],
   "exclude": [
     "node_modules"
