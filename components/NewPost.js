@@ -12,14 +12,22 @@ import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
 import Document from '@tiptap/extension-document'
-import Dropcursor from '@tiptap/extension-dropcursor'
+import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
+import Youtube from '@tiptap/extension-youtube'
+/*
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
-import Youtube from '@tiptap/extension-youtube'
 import Blockquote from '@tiptap/extension-blockquote'
-import Placeholder from '@tiptap/extension-placeholder'
+import BulletList from "@tiptap/extension-bullet-list";
+import CodeBlock from "@tiptap/extension-code-block";
+import HardBreak from '@tiptap/extension-hard-break'
+import Heading from '@tiptap/extension-heading'
+import OrderedList from '@tiptap/extension-ordered-list'
+import Bold from '@tiptap/extension-bold'
+import Italic from "@tiptap/extension-italic";
+import Dropcursor from '@tiptap/extension-dropcursor'*/
 //import Iframe from './iframe.ts'
 
 /*MUI*/
@@ -35,7 +43,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Chip from '@mui/material/Chip';
-
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { styled } from '@mui/material/styles';
 import Input from '@mui/material/Input';
@@ -45,19 +52,10 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
-
-import DeleteIcon from '@mui/icons-material/Delete';
-import AlarmIcon from '@mui/icons-material/Alarm';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Toolbar from '@mui/material/Toolbar';
-
-
-
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -66,6 +64,9 @@ import ToggleButtonGroup, {
 } from '@mui/material/ToggleButtonGroup';
 
 /*ICONS*/
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
 import ImageIcon from '@mui/icons-material/Image';
 import CodeIcon from '@mui/icons-material/Code';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
@@ -474,23 +475,26 @@ export default function NewPost() {
   };
 
   /* TIP TAP */
-
-
-
+  const CustomDocument = Document.extend({
+    content: 'heading block*',
+  })
 
   const extensions = [
-
     TextAlign.configure({
       types: ['heading', 'paragraph'],
     }),
-    //Text,
-    //Blockquote,
-    //Document,
-    //not working paragraphe
-    Paragraph,
-    //Iframe, //Not working
-    //HorizontalRule,
-    //Dropcursor,
+    /* 
+    BulletList,
+    Blockquote, 
+    Bold,
+    CodeBlock, 
+    Document,  Dropcursor,
+    HardBreak,
+    Heading,Italic, Iframe, ListItem,
+    OrderedList,
+   Paragraph,
+   Text,  
+   */
     Underline,
     Image.configure({
       allowBase64: true,
@@ -512,16 +516,17 @@ export default function NewPost() {
     // not working
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
-    StarterKit.configure({
-      bulletList: {
-        keepMarks: true,
-        keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-      },
-      orderedList: {
-        keepMarks: true,
-        keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-      },
-    }),
+    StarterKit
+      .configure({
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+      }),
   ]
 
   const content = `
@@ -657,7 +662,9 @@ export default function NewPost() {
             sx={{ mt: 4 }}
           />
 
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+          >
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -693,18 +700,13 @@ export default function NewPost() {
             </Select>
           </FormControl>
 
-
           {/*<Tiptap />*/}
 
           <MenuBar editor={editor} />
-          <Card variant="outlined" className={styles.tiptap} >
-
+          <Card variant="outlined" className={styles.tiptap}   >
 
             <EditorContent editor={editor} />
           </Card>
-
-
-
 
           <FormControl>
 
@@ -719,9 +721,6 @@ export default function NewPost() {
               <FormControlLabel value={false} control={<Radio />} label="unpublish" />
             </RadioGroup>
           </FormControl>
-
-
-
 
           <Button type="submit" onClick={submitData} variant="contained" sx={{
             mt: 2,/*mb: 2*/

@@ -3,7 +3,6 @@
     margin-top: 0;
     /* List styles */
     /*  color: red;*/
-    min-height: 250px;
 }
 
 .tiptap ul,
@@ -28,7 +27,6 @@
     line-height: 1.1;
     margin-top: 2.5rem;
     text-wrap: pretty;
-
 }
 
 .tiptap h1,
@@ -91,8 +89,6 @@
     border-top: 1px solid #eeeeee;
     margin: 2rem;
     cursor: pointer;
-
-
 }
 
 .tiptap hr .ProseMirror-selectednode {
@@ -101,20 +97,14 @@
 
 /* EDIT */
 
-
-
 .tiptap :focus-visible {
     color: rgb(107, 77, 96);
 
     outline: none;
 }
 
-
-
-
 .tiptap .iframe-wrapper {
     position: relative;
-
     height: 0;
     overflow: hidden;
     width: 100%;
@@ -149,4 +139,17 @@
     float: left;
     height: 0;
     pointer-events: none;
+}
+
+.tiptap {
+    /*min-height: 250px;*/
+    background-color: red;
+
+}
+
+.tiptap mark {
+    background-color: #FAF594;
+    border-radius: 0.4rem;
+    box-decoration-break: clone;
+    padding: 0.1rem 0.3rem;
 }
