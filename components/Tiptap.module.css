@@ -3,6 +3,7 @@
     margin-top: 0;
     /* List styles */
     /*  color: red;*/
+    min-height: 250px;
 }
 
 .tiptap ul,
@@ -56,17 +57,17 @@
 }
 
 .tiptap code {
-    background-color: var(--purple-light);
+    background-color: #e1bee7;
     border-radius: 0.4rem;
-    color: var(--black);
+    color: black;
     font-size: 0.85rem;
     padding: 0.25em 0.3em;
 }
 
 .tiptap pre {
-    background: var(--black);
+    background: black;
     border-radius: 0.5rem;
-    color: var(--white);
+    color: white;
     font-family: 'JetBrainsMono', monospace;
     margin: 1.5rem 0;
     padding: 0.75rem 1rem;
@@ -80,14 +81,14 @@
 }
 
 .tiptap blockquote {
-    border-left: 3px solid var(--gray-3);
+    border-left: 3px solid #e0e0e0;
     margin: 1.5rem 0;
     padding-left: 1rem;
 }
 
 .tiptap hr {
     /* border: none;*/
-    border-top: 1px solid var(--gray-2);
+    border-top: 1px solid #eeeeee;
     margin: 2rem;
     cursor: pointer;
 
@@ -95,7 +96,7 @@
 }
 
 .tiptap hr .ProseMirror-selectednode {
-    border-top: 1px solid var(--purple);
+    border-top: 1px solid #800080;
 }
 
 /* EDIT */
@@ -130,4 +131,22 @@
         width: 100%;
         height: 100%;
     }
+}
+
+/* Placeholder (at the top) */
+/* p.is-editor-empty:first-child::before {
+    color: var(--gray-4);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }*/
+
+/* Placeholder (on every new line) */
+.tiptap .is-empty::before {
+    color: #bdbdbd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
 }

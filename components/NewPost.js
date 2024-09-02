@@ -19,6 +19,7 @@ import Text from '@tiptap/extension-text'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Youtube from '@tiptap/extension-youtube'
 import Blockquote from '@tiptap/extension-blockquote'
+import Placeholder from '@tiptap/extension-placeholder'
 //import Iframe from './iframe.ts'
 
 /*MUI*/
@@ -173,7 +174,6 @@ const MenuBar = ({ editor }) => {
       },
     }}>
 
-
       <Paper
         elevation={0}
         sx={(theme) => ({
@@ -182,7 +182,6 @@ const MenuBar = ({ editor }) => {
           flexWrap: 'wrap',
         })}
       >
-
         <StyledToggleButtonGroup
           size="small"
           // value={alignment}
@@ -210,8 +209,14 @@ const MenuBar = ({ editor }) => {
             className={editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}>
             <FormatAlignJustifyIcon />
           </ToggleButton>
-
-
+        </StyledToggleButtonGroup>
+        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
+        <StyledToggleButtonGroup
+          size="small"
+          // value={formats}
+          //onChange={handleFormat}
+          aria-label="text formatting"
+        >
           <ToggleButton value="bulletList" aria-label="bulletList"
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={editor.isActive('bulletList') ? 'is-active' : ''}>
@@ -222,62 +227,37 @@ const MenuBar = ({ editor }) => {
             className={editor.isActive('orderedList') ? 'is-active' : ''}>
             <FormatListNumberedIcon />
           </ToggleButton>
+        </StyledToggleButtonGroup>
+        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
+        <StyledToggleButtonGroup
+          size="small"
+          // value={formats}
+          //onChange={handleFormat}
+          aria-label="text formatting"
+        >
           <ToggleButton value="blockquote" aria-label="blockquote"
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             className={editor.isActive('blockquote') ? 'is-active' : ''}>
             <FormatQuoteIcon />
           </ToggleButton>
-
-
           <ToggleButton value="horizontalRule" aria-label="horizontalRule"
             onClick={() => editor.chain().focus().setHorizontalRule().run()}>
             <HorizontalRuleIcon />
           </ToggleButton>
-
-
-
-
-
         </StyledToggleButtonGroup>
-
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
+
         <StyledToggleButtonGroup
           size="small"
           // value={formats}
           //onChange={handleFormat}
           aria-label="text formatting"
         >
-
-
-          <ToggleButton value="undo" aria-label="undo"
-            onClick={() => editor.chain().focus().undo().run()}
-            disabled={!editor.can().chain().focus().undo().run()}>
-            <UndoIcon />
-          </ToggleButton>
-          <ToggleButton value="redo" aria-label="redo"
-            onClick={() => editor.chain().focus().redo().run()}
-            disabled={!editor.can().chain().focus().redo().run()}>
-            <RedoIcon />
-          </ToggleButton>
-
-
-        </StyledToggleButtonGroup>
-
-        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
-        <StyledToggleButtonGroup
-          size="small"
-          // value={formats}
-          //onChange={handleFormat}
-          aria-label="text formatting"
-        >
-
           <ToggleButton value="Clearnodes" aria-label="Clearnodes"
             onClick={() => editor.chain().focus().clearNodes().run()} >
             <ClearIcon />
           </ToggleButton>
-
         </StyledToggleButtonGroup>
-
       </Paper>
       <Paper
         elevation={0}
@@ -288,70 +268,50 @@ const MenuBar = ({ editor }) => {
         })}
       >
 
-
-
-
-
         <StyledToggleButtonGroup
           size="small"
           // value={formats}
           //onChange={handleFormat}
           aria-label="text formatting"
         >
-
-          <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
           <ToggleButton value="h1" aria-label="h1"
             onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
             className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}>
             h1
           </ToggleButton>
-
-
-
           <ToggleButton value="h2" aria-label="h2"
             onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
             className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}>
             h2
           </ToggleButton>
-
           <ToggleButton value="h3" aria-label="h3"
             onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
             className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}>
             h3
           </ToggleButton>
-
           <ToggleButton value="h4" aria-label="h4"
             onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
             className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}>
             h4
           </ToggleButton>
-
           <ToggleButton value="h5" aria-label="h5"
             onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
             className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}>
             h5
           </ToggleButton>
-
           <ToggleButton value="h6" aria-label="h6"
             onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
             className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}>
             h6
           </ToggleButton>
         </StyledToggleButtonGroup>
-
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
-
-
         <StyledToggleButtonGroup
           size="small"
           // value={formats}
           //onChange={handleFormat}
           aria-label="text formatting"
         >
-
-
-
-
           <ToggleButton value="bold" aria-label="bold"
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -376,34 +336,49 @@ const MenuBar = ({ editor }) => {
             className={editor.isActive('strike') ? 'is-active' : ''}>
             <FormatStrikethroughIcon />
           </ToggleButton>
-
           <input
             type="color"
             onInput={event => editor.chain().focus().setColor(event.target.value).run()}
             value={editor.getAttributes('textStyle').color}
             data-testid="setColor"
-          />
+            id='colorPicker'
+            style={{ margin: "auto" }}
 
+          />
         </StyledToggleButtonGroup>
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
-
-
         <StyledToggleButtonGroup
           size="small"
           // value={formats}
           //onChange={handleFormat}
           aria-label="text formatting"
         >
-
           <ToggleButton value="FormatBold" aria-label="FormatBold"
             onClick={() => editor.chain().focus().unsetAllMarks().run()}  >
             <FormatClearIcon />
           </ToggleButton>
-
-
         </StyledToggleButtonGroup>
-
-
+      </Paper>
+      <Paper
+        elevation={0}
+        sx={(theme) => ({
+          display: 'flex',
+          border: `1px solid ${theme.palette.divider}`,
+          flexWrap: 'wrap',
+        })}
+      >
+        <StyledToggleButtonGroup
+          size="small"
+          // value={formats}
+          //onChange={handleFormat}
+          aria-label="text formatting"
+        >
+          <ToggleButton value="addImage" aria-label="addImage"
+            onClick={addImage}          >
+            <ImageIcon />
+          </ToggleButton>
+        </StyledToggleButtonGroup>
+        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
 
         <StyledToggleButtonGroup
           size="small"
@@ -411,76 +386,71 @@ const MenuBar = ({ editor }) => {
           //onChange={handleFormat}
           aria-label="text formatting"
         >
+          <div
+            style={{
+              // borderSpacing: '10px',
+              //float: 'left',
+              margin: 'auto'
+            }}>
+            <input
+              id="width"
+              type="numeric"
+              min="320"
+              max="1024"
+              placeholder="width"
+              value={width}
+              onChange={event => setWidth(event.target.value)}
+              style={{
+                border: 'none',
+                borderBottom: ' 1px solid #e0e0e0',
+                padding: ' 5px ',
+                margin: '5px',
+                width: ' 3em',
+              }}
 
-
-          <ToggleButton value="addImage" aria-label="addImage"
-            onClick={addImage}          >
-            <ImageIcon />
-          </ToggleButton>
-
-
-        </StyledToggleButtonGroup>
-
-      </Paper>
-
-
-
-
-
-
-      <Button variant="outlined" size="small"
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        className={editor.isActive('paragraph') ? 'is-active' : ''}
-      >
-        Paragraph
-      </Button>
-
-
-
-
-
-
-      <Stack spacing={1} direction="row">
-
-
-
-
-
-        <Box component="section"
-          sx={{
-            p: 1, border: '1px solid grey', display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            '& > *': {
-              m: 1,
-            },
-          }}>
-          <Input
-            id="width"
-            type="number"
-            min="320"
-            max="1024"
-            placeholder="width"
-            value={width}
-            onChange={event => setWidth(event.target.value)}
-          />
-          <Input
-            id="height"
-            type="number"
-            min="180"
-            max="720"
-            placeholder="height"
-            value={height}
-            onChange={event => setHeight(event.target.value)}
-          />
-
-          <IconButton aria-label="FormatBold" size="small"
+            />
+            <input
+              id="height"
+              type="numeric"
+              min="180"
+              max="720"
+              placeholder="height"
+              value={height}
+              onChange={event => setHeight(event.target.value)}
+              style={{
+                border: 'none',
+                borderBottom: ' 1px solid #e0e0e0',
+                padding: ' 5px ',
+                margin: '5px',
+                width: '3em',
+              }}
+            />
+          </div>
+          <ToggleButton aria-label="addYoutube" size="addYoutube"
             onClick={addYoutubeVideo}          >
             <VideoCallIcon />
-          </IconButton>
-        </Box >
+          </ToggleButton>
+        </StyledToggleButtonGroup>
+        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
+        <StyledToggleButtonGroup
+          size="small"
+          // value={formats}
+          //onChange={handleFormat}
+          aria-label="text formatting"
+        >
+          <ToggleButton value="undo" aria-label="undo"
+            onClick={() => editor.chain().focus().undo().run()}
+            disabled={!editor.can().chain().focus().undo().run()}>
+            <UndoIcon />
+          </ToggleButton>
+          <ToggleButton value="redo" aria-label="redo"
+            onClick={() => editor.chain().focus().redo().run()}
+            disabled={!editor.can().chain().focus().redo().run()}>
+            <RedoIcon />
+          </ToggleButton>
 
-      </Stack>
+        </StyledToggleButtonGroup>
+      </Paper>
     </Box >
   )
 }
@@ -515,8 +485,9 @@ export default function NewPost() {
     }),
     //Text,
     //Blockquote,
-    // Document,
-    //Paragraph,
+    //Document,
+    //not working paragraphe
+    Paragraph,
     //Iframe, //Not working
     //HorizontalRule,
     //Dropcursor,
@@ -524,12 +495,21 @@ export default function NewPost() {
     Image.configure({
       allowBase64: true,
     }),
-
     Youtube.configure({
       controls: false,
       nocookie: true,
     }),
+    //not working ?
+    Placeholder.configure({
+      placeholder: ({ node }) => {
+        if (node.type.name === 'heading') {
+          return 'What’s the title?'
+        }
 
+        return 'Can you add some further context?'
+      },
+    }),
+    // not working
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
     StarterKit.configure({
@@ -544,7 +524,9 @@ export default function NewPost() {
     }),
   ]
 
-  const content = ' Tape Here'
+  const content = `
+   
+    `
 
 
   const editor = useEditor({
@@ -556,6 +538,7 @@ export default function NewPost() {
         class: `text-editor__editor`,
       },
     },
+
 
     /**
      * This option gives us the control to enable the default behavior of rendering the editor immediately.
