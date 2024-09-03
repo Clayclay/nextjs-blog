@@ -31,6 +31,10 @@ import Dropcursor from '@tiptap/extension-dropcursor'*/
 //import Iframe from './iframe.ts'
 
 /*MUI*/
+
+import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
+
+
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -95,6 +99,7 @@ import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { useSession } from "next-auth/react";
 import { ClickAwayListener } from "@mui/material";
 import Undo from "@mui/icons-material/Undo";
+import { red } from "@mui/material/colors";
 
 const Tags = ['Cuisine', 'Culture', 'Ramen', 'Shinjuku']
 
@@ -337,15 +342,6 @@ const MenuBar = ({ editor }) => {
             className={editor.isActive('strike') ? 'is-active' : ''}>
             <FormatStrikethroughIcon />
           </ToggleButton>
-          <input
-            type="color"
-            onInput={event => editor.chain().focus().setColor(event.target.value).run()}
-            value={editor.getAttributes('textStyle').color}
-            data-testid="setColor"
-            id='colorPicker'
-            style={{ margin: "auto" }}
-
-          />
         </StyledToggleButtonGroup>
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
         <StyledToggleButtonGroup
@@ -374,6 +370,37 @@ const MenuBar = ({ editor }) => {
           //onChange={handleFormat}
           aria-label="text formatting"
         >
+          <ToggleButton          >
+            <Input type="number" id="width" placeholder="width" value={width} size='small' sx={{ width: '2em', padding: '0', height: 24 }}
+              inputProps={{ min: 320, max: 1024 }} InputProps={{ inputProps: { min: 320, max: 1024 } }} onChange={event => setWidth(event.target.value)} />
+          </ToggleButton>
+          <ToggleButton>
+            <Input type="number" id="height" placeholder="height" value={height} size='small' sx={{ width: '2em', height: 24 }}
+              InputProps={{ inputProps: { min: 180, max: 720 } }} onChange={event => setHeight(event.target.value)} />
+          </ToggleButton>
+          <ToggleButton value="addYoutube" aria-label="addYoutube"
+            onClick={addYoutubeVideo}
+          >
+            <VideoCallIcon />
+          </ToggleButton>
+        </StyledToggleButtonGroup>
+        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
+        <StyledToggleButtonGroup
+          size="small"
+          // value={formats}
+          //onChange={handleFormat}
+          aria-label="text formatting"
+        >
+          <ToggleButton>
+            <Input type="color"
+              onInput={event => editor.chain().focus().setColor(event.target.value).run()}
+              value={editor.getAttributes('textStyle').color}
+              data-testid="setColor"
+              id='colorPicker'
+              sx={{ width: '2em', '&::before': { borderBottom: 'none' }, height: 24 }}
+
+            /></ToggleButton>
+
           <ToggleButton value="addImage" aria-label="addImage"
             onClick={addImage}          >
             <ImageIcon />
@@ -381,58 +408,6 @@ const MenuBar = ({ editor }) => {
         </StyledToggleButtonGroup>
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
 
-        <StyledToggleButtonGroup
-          size="small"
-          // value={formats}
-          //onChange={handleFormat}
-          aria-label="text formatting"
-        >
-          <div
-            style={{
-              // borderSpacing: '10px',
-              //float: 'left',
-              margin: 'auto'
-            }}>
-            <input
-              id="width"
-              type="numeric"
-              min="320"
-              max="1024"
-              placeholder="width"
-              value={width}
-              onChange={event => setWidth(event.target.value)}
-              style={{
-                border: 'none',
-                borderBottom: ' 1px solid #e0e0e0',
-                padding: ' 5px ',
-                margin: '5px',
-                width: ' 3em',
-              }}
-
-            />
-            <input
-              id="height"
-              type="numeric"
-              min="180"
-              max="720"
-              placeholder="height"
-              value={height}
-              onChange={event => setHeight(event.target.value)}
-              style={{
-                border: 'none',
-                borderBottom: ' 1px solid #e0e0e0',
-                padding: ' 5px ',
-                margin: '5px',
-                width: '3em',
-              }}
-            />
-          </div>
-          <ToggleButton aria-label="addYoutube" size="addYoutube"
-            onClick={addYoutubeVideo}          >
-            <VideoCallIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
-        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
         <StyledToggleButtonGroup
           size="small"
           // value={formats}
@@ -452,7 +427,23 @@ const MenuBar = ({ editor }) => {
 
         </StyledToggleButtonGroup>
       </Paper>
+
+
+      <Box id="divinput" style={{
+        margin: 'auto', backgroundColor: '#d50000'
+      }}>
+
+
+
+
+
+      </Box>
     </Box >
+
+
+
+
+
   )
 }
 
@@ -529,10 +520,7 @@ export default function NewPost() {
       }),
   ]
 
-  const content = `
-   
-    `
-
+  const content = ` `
 
   const editor = useEditor({
     extensions,
@@ -543,8 +531,6 @@ export default function NewPost() {
         class: `text-editor__editor`,
       },
     },
-
-
     /**
      * This option gives us the control to enable the default behavior of rendering the editor immediately.
      */
@@ -620,12 +606,10 @@ export default function NewPost() {
           // This will activate the closest `error.js` Error Boundary
           throw new Error('Failed to fetch data')
         }
-
         const data = await res.json()
         console.log('reponse', data, 'data')
 
         // return Response.json({ data })
-
 
         alert(data.message);
         await router.push(`/posts/${data.result.id}`);
@@ -638,7 +622,6 @@ export default function NewPost() {
       //  });
     }
   };
-
 
   return (
 
@@ -667,8 +650,8 @@ export default function NewPost() {
           >
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="demo-simple-select-category"
+              id="select-category"
               value={category}
               label="category"
               onChange={handleCategoryChange}
@@ -682,8 +665,8 @@ export default function NewPost() {
           <FormControl sx={{ m: 1, width: 300 }}>
             <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
             <Select
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
+              labelId="demo-multiple-checkbox-tag"
+              id="checkbox-Tag"
               multiple
               value={TagList}
               onChange={handleTagChange}
@@ -703,8 +686,10 @@ export default function NewPost() {
           {/*<Tiptap />*/}
 
           <MenuBar editor={editor} />
-          <Card variant="outlined" className={styles.tiptap}   >
+          {/*  */}
 
+
+          <Card variant="outlined" className={styles.tiptap}   >
             <EditorContent editor={editor} />
           </Card>
 
