@@ -372,11 +372,11 @@ const MenuBar = ({ editor }) => {
         >
           <ToggleButton          >
             <Input type="number" id="width" placeholder="width" value={width} size='small' sx={{ width: '2em', padding: '0', height: 24 }}
-              inputProps={{ min: 320, max: 1024 }} InputProps={{ inputProps: { min: 320, max: 1024 } }} onChange={event => setWidth(event.target.value)} />
+              onChange={event => setWidth(event.target.value)} inputProps={{ min: 320, max: 1024 }} /> {/*min= 320, max= 1024 */}
           </ToggleButton>
           <ToggleButton>
             <Input type="number" id="height" placeholder="height" value={height} size='small' sx={{ width: '2em', height: 24 }}
-              InputProps={{ inputProps: { min: 180, max: 720 } }} onChange={event => setHeight(event.target.value)} />
+              onChange={event => setHeight(event.target.value)} inputProps={{ min: 180, max: 720 }} />{/* min= 180, max= 720*/}
           </ToggleButton>
           <ToggleButton value="addYoutube" aria-label="addYoutube"
             onClick={addYoutubeVideo}
@@ -427,22 +427,7 @@ const MenuBar = ({ editor }) => {
 
         </StyledToggleButtonGroup>
       </Paper>
-
-
-      <Box id="divinput" style={{
-        margin: 'auto', backgroundColor: '#d50000'
-      }}>
-
-
-
-
-
-      </Box>
     </Box >
-
-
-
-
 
   )
 }
