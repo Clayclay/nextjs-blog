@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 
 
 /*  TIPTAP  */
-import styles from './Tiptap.module.css';
+import "./Tiptap.scss";
 import { useEditor, EditorContent, Editor, BubbleMenu } from "@tiptap/react";
 import StarterKit from '@tiptap/starter-kit'
 import { Color } from '@tiptap/extension-color'
@@ -15,6 +15,7 @@ import Document from '@tiptap/extension-document'
 import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
 import Youtube from '@tiptap/extension-youtube'
+import Underline from '@tiptap/extension-underline'
 /*
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
@@ -89,10 +90,13 @@ import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
-import Underline from '@tiptap/extension-underline'
+
 import RedoIcon from '@mui/icons-material/Redo';
 import UndoIcon from '@mui/icons-material/Undo';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+
 
 /* Next Auth */
 
@@ -100,6 +104,8 @@ import { useSession } from "next-auth/react";
 import { ClickAwayListener } from "@mui/material";
 import Undo from "@mui/icons-material/Undo";
 import { red } from "@mui/material/colors";
+
+/*  TAGS */
 
 const Tags = ['Cuisine', 'Culture', 'Ramen', 'Shinjuku']
 
@@ -113,6 +119,9 @@ const MenuProps = {
     },
   },
 };
+
+
+/* TOGGLEBUTTON */
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   [`& .${toggleButtonGroupClasses.grouped}`]: {
@@ -129,6 +138,8 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     borderLeft: '1px solid transparent',
   },
 }));
+
+/*  TIPTAP MENU*/
 
 const MenuBar = ({ editor }) => {
   //const { editor } = useCurrentEditor()
@@ -280,11 +291,11 @@ const MenuBar = ({ editor }) => {
           //onChange={handleFormat}
           aria-label="text formatting"
         >
-          <ToggleButton value="h1" aria-label="h1"
+          {/*<ToggleButton value="h1" aria-label="h1"
             onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
             className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}>
             h1
-          </ToggleButton>
+          </ToggleButton>*/}
           <ToggleButton value="h2" aria-label="h2"
             onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
             className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}>
@@ -299,7 +310,7 @@ const MenuBar = ({ editor }) => {
             onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
             className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}>
             h4
-          </ToggleButton>
+          </ToggleButton>{/*
           <ToggleButton value="h5" aria-label="h5"
             onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
             className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}>
@@ -309,7 +320,7 @@ const MenuBar = ({ editor }) => {
             onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
             className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}>
             h6
-          </ToggleButton>
+          </ToggleButton>*/}
         </StyledToggleButtonGroup>
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
         <StyledToggleButtonGroup
@@ -381,7 +392,7 @@ const MenuBar = ({ editor }) => {
           <ToggleButton value="addYoutube" aria-label="addYoutube"
             onClick={addYoutubeVideo}
           >
-            <VideoCallIcon />
+            <YouTubeIcon />
           </ToggleButton>
         </StyledToggleButtonGroup>
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
@@ -403,7 +414,7 @@ const MenuBar = ({ editor }) => {
 
           <ToggleButton value="addImage" aria-label="addImage"
             onClick={addImage}          >
-            <ImageIcon />
+            <AddPhotoAlternateIcon />
           </ToggleButton>
         </StyledToggleButtonGroup>
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
@@ -454,8 +465,25 @@ export default function NewPost() {
   const CustomDocument = Document.extend({
     content: 'heading block*',
   })
-
   const extensions = [
+    StarterKit
+      .configure({
+        heading: {
+          levels: [2, 3, 4, 5]
+        },
+        document: false,
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+      }),
+    Image.configure({
+      allowBase64: true,
+    }),
     TextAlign.configure({
       types: ['heading', 'paragraph'],
     }),
@@ -472,50 +500,32 @@ export default function NewPost() {
    Text,  
    */
     Underline,
-    Image.configure({
-      allowBase64: true,
-    }),
     Youtube.configure({
       controls: false,
       nocookie: true,
     }),
-    //not working ?
+    CustomDocument,
     Placeholder.configure({
       placeholder: ({ node }) => {
-        if (node.type.name === 'heading') {
-          return 'What’s the title?'
+        if (node.type.name === "heading") {
+          return "What’s the title?";
         }
 
-        return 'Can you add some further context?'
-      },
+        return "Can you add some further context?";
+      }
     }),
-    // not working
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
-    TextStyle.configure({ types: [ListItem.name] }),
-    StarterKit
-      .configure({
-        bulletList: {
-          keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-        },
-        orderedList: {
-          keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-        },
-      }),
+    // TextStyle.configure({ types: [ListItem.name] }),
+
   ]
 
-  const content = ` `
+
+
+  const content = ``
 
   const editor = useEditor({
     extensions,
     content,
-    editorProps: {
-      attributes: {
-        spellcheck: 'false',
-        class: `text-editor__editor`,
-      },
-    },
     /**
      * This option gives us the control to enable the default behavior of rendering the editor immediately.
      */
@@ -530,15 +540,7 @@ export default function NewPost() {
         editor.getHTML()
       );
     },
-
-    editorProps: {
-      attributes: {
-        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
-      },
-    },
   })
-
-
 
 
   /* FIN TIPTAP*/
@@ -674,7 +676,7 @@ export default function NewPost() {
           {/*  */}
 
 
-          <Card variant="outlined" className={styles.tiptap}   >
+          <Card variant="outlined"    >
             <EditorContent editor={editor} />
           </Card>
 

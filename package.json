@@ -64,6 +64,7 @@
   "devDependencies": {
     "@types/node": "20.8.4",
     "prisma": "^5.18.0",
+    "sass": "^1.78.0",
     "typescript": "5.2.2"
   }
 }
