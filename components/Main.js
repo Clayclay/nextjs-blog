@@ -42,7 +42,7 @@ function Main(props) {
         return (
 
 
-          <ReadPost post={post} />
+          <ReadPost post={post} key={post.id} />
 
 
         )

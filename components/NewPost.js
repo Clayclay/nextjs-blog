@@ -16,26 +16,11 @@ import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
 import Youtube from '@tiptap/extension-youtube'
 import Underline from '@tiptap/extension-underline'
-/*
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import HorizontalRule from '@tiptap/extension-horizontal-rule'
-import Blockquote from '@tiptap/extension-blockquote'
-import BulletList from "@tiptap/extension-bullet-list";
-import CodeBlock from "@tiptap/extension-code-block";
-import HardBreak from '@tiptap/extension-hard-break'
-import Heading from '@tiptap/extension-heading'
-import OrderedList from '@tiptap/extension-ordered-list'
-import Bold from '@tiptap/extension-bold'
-import Italic from "@tiptap/extension-italic";
-import Dropcursor from '@tiptap/extension-dropcursor'*/
-//import Iframe from './iframe.ts'
+import Highlight from '@tiptap/extension-highlight'
+import Link from '@tiptap/extension-link'
 
 /*MUI*/
-
 import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
-
-
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -69,18 +54,12 @@ import ToggleButtonGroup, {
 } from '@mui/material/ToggleButtonGroup';
 
 /*ICONS*/
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AlarmIcon from '@mui/icons-material/Alarm';
-import ImageIcon from '@mui/icons-material/Image';
-import CodeIcon from '@mui/icons-material/Code';
+
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
-import VideoCallIcon from '@mui/icons-material/VideoCall';
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ClearIcon from '@mui/icons-material/Clear';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
@@ -89,21 +68,18 @@ import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
-
 import RedoIcon from '@mui/icons-material/Redo';
 import UndoIcon from '@mui/icons-material/Undo';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-
+import AddLinkIcon from '@mui/icons-material/AddLink';
+import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 /* Next Auth */
 
 import { useSession } from "next-auth/react";
-import { ClickAwayListener } from "@mui/material";
-import Undo from "@mui/icons-material/Undo";
-import { red } from "@mui/material/colors";
+
 
 /*  TAGS */
 
@@ -157,6 +133,24 @@ const MenuBar = ({ editor }) => {
     if (url) {
       editor.chain().focus().setImage({ src: url }).run()
     }
+  }, [editor])
+
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes('link').href
+    const url = window.prompt('URL', previousUrl)
+    // cancelled
+    if (url === null) {
+      return
+    }
+    // empty
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink()
+        .run()
+      return
+    }
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+      .run()
   }, [editor])
 
   /*
@@ -416,7 +410,17 @@ const MenuBar = ({ editor }) => {
             onClick={addImage}          >
             <AddPhotoAlternateIcon />
           </ToggleButton>
+          <ToggleButton value="setLink" aria-label="setLink" className={editor.isActive('link') ? 'is-active' : ''}
+            onClick={setLink}          >
+            <AddLinkIcon />
+          </ToggleButton>
+          <ToggleButton value="setLink" aria-label="setLink" onClick={() => editor.chain().focus().unsetLink().run()}
+            disabled={!editor.isActive('link')}
+          >
+            <LinkOffIcon />
+          </ToggleButton>
         </StyledToggleButtonGroup>
+
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
 
         <StyledToggleButtonGroup
@@ -451,7 +455,6 @@ export default function NewPost() {
   const [title, setTitle] = useState('');
   const [publish, setPublish] = useState(false);
   const [TagList, setTagList] = useState([])
-
   const [category, setCategory] = useState('');
 
   const handleCategoryChange = (event) => {
@@ -498,6 +501,7 @@ export default function NewPost() {
    Paragraph,
    Text,  
    */
+    Highlight,
     Underline,
     Youtube.configure({
       controls: false,
@@ -516,10 +520,12 @@ export default function NewPost() {
      }),*/
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     // TextStyle.configure({ types: [ListItem.name] }),
-
+    Link.configure({
+      openOnClick: false,
+      autolink: true,
+      defaultProtocol: 'https',
+    }),
   ]
-
-  const content = ``
 
   const editor = useEditor({
     extensions,
@@ -539,7 +545,6 @@ export default function NewPost() {
       );
     },
   })
-
 
   /* FIN TIPTAP*/
 

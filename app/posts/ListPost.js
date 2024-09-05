@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 /*  TIPTAP  */
 import { useEditor, EditorContent, Editor, BubbleMenu } from "@tiptap/react";
-import styles from '../../components/Tiptap.module.css';
+import "../../components/Tiptap.scss";
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
