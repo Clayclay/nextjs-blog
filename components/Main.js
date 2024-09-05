@@ -17,10 +17,7 @@ import ReadPost from './ReadPost';
 function Main(props) {
 
   const { posts, title } = props;
-
   const PostArray = posts.sort((a, b) => a.createdAt - b.createdAt)
-
-
 
   return (
     <Grid
@@ -34,30 +31,22 @@ function Main(props) {
       }}
     >
 
-
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
       <Divider />
 
       {PostArray.reverse().map((post) => {
-
-
         //console.log(post),
-
         // console.log('date', new Date(post.createdAt).toString()),
-
         return (
 
-          <Stack spacing={2} mt={2} key={post.id}   >
-            <ReadPost post={post} />
-          </Stack>
+
+          <ReadPost post={post} />
 
 
         )
       })}
-
-
 
     </Grid>
   );

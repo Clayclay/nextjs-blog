@@ -443,9 +443,6 @@ const MenuBar = ({ editor }) => {
   )
 }
 
-
-
-
 export default function NewPost() {
   const { data: session } = useSession()
   const router = useRouter()
@@ -462,9 +459,11 @@ export default function NewPost() {
   };
 
   /* TIP TAP */
+  /*
   const CustomDocument = Document.extend({
     content: 'heading block*',
-  })
+  })*/
+
   const extensions = [
     StarterKit
       .configure({
@@ -492,7 +491,7 @@ export default function NewPost() {
     Blockquote, 
     Bold,
     CodeBlock, 
-    Document,  Dropcursor,
+    Dropcursor,
     HardBreak,
     Heading,Italic, Iframe, ListItem,
     OrderedList,
@@ -504,22 +503,21 @@ export default function NewPost() {
       controls: false,
       nocookie: true,
     }),
-    CustomDocument,
-    Placeholder.configure({
-      placeholder: ({ node }) => {
-        if (node.type.name === "heading") {
-          return "What’s the title?";
-        }
-
-        return "Can you add some further context?";
-      }
-    }),
+    Document, // ou custom si on veux formater
+    /*CustomDocument,
+     Placeholder.configure({
+       placeholder: ({ node }) => {
+         if (node.type.name === "heading") {
+           return "What’s the title?";
+         }
+ 
+         return "Can you add some further context?";
+       }
+     }),*/
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     // TextStyle.configure({ types: [ListItem.name] }),
 
   ]
-
-
 
   const content = ``
 
@@ -551,33 +549,21 @@ export default function NewPost() {
     setPublish(event.target.value === "true" ? true : false);
   };
 
-
-
   /*  TAGS  */
   const handleTagChange = (event) => {
-
     const { target: { value } } = event;
-
     setTagList(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
-
-
   };
-
 
   /* POST */
 
-
   async function submitData(e) {
     e.preventDefault();
-
     if (title && session.user) {
-
       try {
-
-
         const res = await fetch('/api/post', {
           method: 'POST',
           headers: {
@@ -595,12 +581,9 @@ export default function NewPost() {
         }
         const data = await res.json()
         console.log('reponse', data, 'data')
-
         // return Response.json({ data })
-
         alert(data.message);
         await router.push(`/posts/${data.result.id}`);
-
       } catch (error) {
         console.error(error);
       }
@@ -674,7 +657,6 @@ export default function NewPost() {
 
           <MenuBar editor={editor} />
           {/*  */}
-
 
           <Card variant="outlined"    >
             <EditorContent editor={editor} />

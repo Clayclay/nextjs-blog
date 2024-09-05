@@ -7,7 +7,7 @@ import Postupdate from "../app/posts/[id]/postupdate.js";
 /*  TIPTAP  */
 
 import { useEditor, EditorContent, Editor, BubbleMenu } from "@tiptap/react";
-import styles from './Tiptap.module.css';
+import "./Tiptap.scss";
 
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
@@ -26,7 +26,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
-
+import Paper from '@mui/material/Paper';
 import { Box } from '@mui/material/';
 
 import Card from '@mui/material/Card';
@@ -36,8 +36,6 @@ import CardContent from '@mui/material/CardContent';
 export default function ReadPost(props) {
 
     const { post } = props;
-
-    console.log(post.content)
 
     const editor = useEditor({
         extensions: [
@@ -91,17 +89,21 @@ export default function ReadPost(props) {
                     {new Date(post.createdAt).toLocaleDateString()} by {post.author.name}
                 </Typography>
             </Box>
-// need ml={1}
 
-            <Card variant="outlined" className={styles.tiptap}>
+
+            <Paper elevation={0} sx={{}} >
 
                 <EditorContent editor={editor} />
-            </Card>
+            </Paper>
+
+
+            <Divider />
+
+        </Stack>
 
 
 
-
-        </Stack>)
+    )
 
 }
 

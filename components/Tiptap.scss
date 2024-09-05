@@ -105,12 +105,6 @@
         height: 0;
         pointer-events: none;
     }
-
-
-
-
-
-
 }
 
 
@@ -118,6 +112,7 @@
     // > * + * {
     //   margin-top: 0.75em;
     // }
+    min-height: 10em;
 
     li p {
         margin: 0;
@@ -163,6 +158,5 @@
 
 :focus-visible {
     color: rgb(107, 77, 96);
-
     outline: none;
 }
