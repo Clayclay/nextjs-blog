@@ -12,7 +12,7 @@ datasource db {
 
 model Post {
   id        String     @default(cuid()) @id
-  title     String
+  title     String  @db.VarChar(255)
   content   String?
   published Boolean @default(false)
   author    User?   @relation(fields: [authorId], references: [id])
@@ -20,6 +20,8 @@ model Post {
   createdAt DateTime @default(now()) @db.Timestamp(6)
   tags      Tag[]
   categories Category[]
+  description String?   @default("description")
+  comments  Comment[]
 }
 
 model Account {
@@ -63,7 +65,7 @@ model User {
   posts         Post[]
   password      String?
   role  Role   @default(USER)
-
+  comments  Comment[]
   @@map("users")
 }
 
@@ -92,4 +94,17 @@ model Category {
   id    Int    @id @default(autoincrement())
   name  String @unique
   posts Post[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  title     String
+  content   String
+
+  posts     Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  String?
+
 }

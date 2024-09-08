@@ -31,3 +31,5 @@ yarn-error.log*
 .env.test.local
 .env.production
 .vercel
+
+.npmrc

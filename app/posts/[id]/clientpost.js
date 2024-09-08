@@ -10,7 +10,6 @@ import { signIn } from "next-auth/react"
 import ReadPost from '../../../components/ReadPost.js';
 /* TIPTAP */
 import "../../../components/Tiptap.scss";
-
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from '@tiptap/starter-kit'
 import { Color } from '@tiptap/extension-color'
@@ -22,6 +21,8 @@ import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
 import Youtube from '@tiptap/extension-youtube'
 import Underline from '@tiptap/extension-underline'
+import Link from '@tiptap/extension-link'
+import FileHandler from '@tiptap-pro/extension-file-handler'
 
 /*MUI*/
 import Card from '@mui/material/Card';
@@ -71,7 +72,8 @@ import UndoIcon from '@mui/icons-material/Undo';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-
+import AddLinkIcon from '@mui/icons-material/AddLink';
+import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 
 /*TAGS*/
@@ -125,15 +127,24 @@ const MenuBar = ({ editor }) => {
         }
     }, [editor])
 
-    /*
-        const addIframe = useCallback(() => {
-          const url = window.prompt('URL')
-    
-          if (url) {
-            editor.chain().focus().setIframe({ src: url }).run()
-          }
-        }, [editor])
-    */
+    const setLink = useCallback(() => {
+        const previousUrl = editor.getAttributes('link').href
+        const url = window.prompt('URL', previousUrl)
+        // cancelled
+        if (url === null) {
+            return
+        }
+        // empty
+        if (url === '') {
+            editor.chain().focus().extendMarkRange('link').unsetLink()
+                .run()
+            return
+        }
+        // update link
+        editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+            .run()
+    }, [editor])
+
     const addYoutubeVideo = () => {
         const url = prompt('Enter YouTube URL')
 
@@ -216,8 +227,7 @@ const MenuBar = ({ editor }) => {
                     size="small"
                     // value={formats}
                     //onChange={handleFormat}
-                    aria-label="text formatting"
-                >
+                    aria-label="text formatting"    >
                     <ToggleButton value="blockquote" aria-label="blockquote"
                         onClick={() => editor.chain().focus().toggleBlockquote().run()}
                         className={editor.isActive('blockquote') ? 'is-active' : ''}>
@@ -250,18 +260,12 @@ const MenuBar = ({ editor }) => {
                     flexWrap: 'wrap',
                 })}
             >
-
                 <StyledToggleButtonGroup
                     size="small"
                     // value={formats}
                     //onChange={handleFormat}
                     aria-label="text formatting"
                 >
-                    {/*<ToggleButton value="h1" aria-label="h1"
-              onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-              className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}>
-              h1
-            </ToggleButton>*/}
                     <ToggleButton value="h2" aria-label="h2"
                         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
                         className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}>
@@ -276,17 +280,7 @@ const MenuBar = ({ editor }) => {
                         onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
                         className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}>
                         h4
-                    </ToggleButton>{/*
-            <ToggleButton value="h5" aria-label="h5"
-              onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-              className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}>
-              h5
-            </ToggleButton>
-            <ToggleButton value="h6" aria-label="h6"
-              onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-              className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}>
-              h6
-            </ToggleButton>*/}
+                    </ToggleButton>
                 </StyledToggleButtonGroup>
                 <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
                 <StyledToggleButtonGroup
@@ -382,6 +376,15 @@ const MenuBar = ({ editor }) => {
                         onClick={addImage}          >
                         <AddPhotoAlternateIcon />
                     </ToggleButton>
+                    <ToggleButton value="setLink" aria-label="setLink" className={editor.isActive('link') ? 'is-active' : ''}
+                        onClick={setLink}          >
+                        <AddLinkIcon />
+                    </ToggleButton>
+                    <ToggleButton value="setLink" aria-label="setLink" onClick={() => editor.chain().focus().unsetLink().run()}
+                        disabled={!editor.isActive('link')}
+                    >
+                        <LinkOffIcon />
+                    </ToggleButton>
                 </StyledToggleButtonGroup>
                 <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
 
@@ -389,8 +392,7 @@ const MenuBar = ({ editor }) => {
                     size="small"
                     // value={formats}
                     //onChange={handleFormat}
-                    aria-label="text formatting"
-                >
+                    aria-label="text formatting"    >
                     <ToggleButton value="undo" aria-label="undo"
                         onClick={() => editor.chain().focus().undo().run()}
                         disabled={!editor.can().chain().focus().undo().run()}>
@@ -401,7 +403,6 @@ const MenuBar = ({ editor }) => {
                         disabled={!editor.can().chain().focus().redo().run()}>
                         <RedoIcon />
                     </ToggleButton>
-
                 </StyledToggleButtonGroup>
             </Paper>
         </Box >
@@ -415,18 +416,13 @@ export default function ClientPost(props) {
     const { data: session } = useSession();
     const role = session?.user.role;
 
-
-
     const { id, post } = props;
     const [title, setTitle] = useState(post.title);
     const [content, setContent] = useState(post.content);
     const [postContent, setpostContent] = useState(post.content);
-
     const [publish, setPublish] = useState(post.published);
-
     const arrTags = post.tags.map((element) => element.name)
     const [TagList, setTagList] = useState(arrTags)
-
 
     const [category, setCategory] = useState('');
 
@@ -481,7 +477,51 @@ export default function ClientPost(props) {
            }
          }),*/
         Color.configure({ types: [TextStyle.name, ListItem.name] }),
+        Link.configure({
+            openOnClick: true,
+            autolink: true,
+            defaultProtocol: 'https',
+        }),
+        FileHandler.configure({
+            allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+            onDrop: (currentEditor, files, pos) => {
+                files.forEach(file => {
+                    const fileReader = new FileReader()
 
+                    fileReader.readAsDataURL(file)
+                    fileReader.onload = () => {
+                        currentEditor.chain().insertContentAt(pos, {
+                            type: 'image',
+                            attrs: {
+                                src: fileReader.result,
+                            },
+                        }).focus().run()
+                    }
+                })
+            },
+            onPaste: (currentEditor, files, htmlContent) => {
+                files.forEach(file => {
+                    if (htmlContent) {
+                        // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
+                        // you could extract the pasted file from this url string and upload it to a server for example
+                        console.log(htmlContent) // eslint-disable-line no-console
+                        return false
+                    }
+
+                    const fileReader = new FileReader()
+
+                    fileReader.readAsDataURL(file)
+                    fileReader.onload = () => {
+                        currentEditor.chain().insertContentAt(currentEditor.state.selection.anchor, {
+                            type: 'image',
+                            attrs: {
+                                src: fileReader.result,
+                            },
+                        }).focus().run()
+                    }
+                })
+            },
+        }),
 
     ]
 

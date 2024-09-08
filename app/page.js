@@ -12,13 +12,26 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 /* QUILL */
 // Importer en dynamic pour coté client quand SERVER 
 import dynamic from 'next/dynamic';
-const Main = dynamic(() => import('../components/Main.js'), { ssr: false });
 
 
 
+import Container from '@mui/material/Container';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
 import Sidebar from '../components/Sidebar.js';
+
+
+
+import AppAppBar from '../components/AppAppBar.js';
+import MainContent from '../components/MainContent';
+//DONT --> import Latest from '../components/Latest';
+//DO --->
+const Latest = dynamic(() => import('../components/Latest.js'), { ssr: false });
+import Footer from '../components/Footer';
+
+
+
+
 
 //**  Prisma **//
 /* access to prisma client */
@@ -106,14 +119,15 @@ export default async function Home({ }) {
   /* A FAIRE voir si on laisse les datas en dur ou si on utilise la BDD */
   const allPosts = await prisma.post.findMany({
     where: {
-      published: true
+      published: true,
     },
     include: {
       //published: { select: true },
       author: {
         select: { name: true },
       },
-
+      tags: {},
+      categories: {},
     },
   });
 
@@ -140,19 +154,17 @@ export default async function Home({ }) {
         ))}
       </Grid>
 
-
-
+      <Container
+        maxWidth="lg"
+        component="main"
+        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+      >
+        <Latest title="From the allPostData" posts={allPosts} />
+      </Container>
       <Grid container spacing={5} sx={{ mt: 3 }}>
 
-        <Main title="From the allPostData" posts={allPosts} />
 
 
-        <Sidebar
-          title={sidebar.title}
-          description={sidebar.description}
-          archives={sidebar.archives}
-          social={sidebar.social}
-        />
       </Grid>
 
 

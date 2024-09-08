@@ -526,7 +526,7 @@ export default function NewPost() {
       defaultProtocol: 'https',
     }),
   ]
-
+  const content = ``
   const editor = useEditor({
     extensions,
     content,

@@ -70,7 +70,7 @@ export default function ReadPost(props) {
         Document,
         Color.configure({ types: [TextStyle.name, ListItem.name] }),
         Link.configure({
-            openOnClick: false,
+            openOnClick: true,
             autolink: true,
             defaultProtocol: 'https',
         }),
