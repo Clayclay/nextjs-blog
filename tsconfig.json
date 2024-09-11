@@ -46,6 +46,7 @@
     "app/register/error.tsx",
     "components/iframe.ts",
     "components/iframe.ts",
+    "app/dashboard/page.js",
   ],
   "exclude": [
     "node_modules"

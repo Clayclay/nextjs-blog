@@ -11,8 +11,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2'
 
 import Pagination from '@mui/material/Pagination';
+
 import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
+
+
 
 /* TIPTAP*/
 import ReadPost from './ReadPost';
@@ -81,13 +84,19 @@ function Main(props) {
     setFocusedCardIndex(null);
   };
 
+  /* Pagination */
 
-  const postNumber = PostArray.length;
-  //console.log(postNumber)
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+
 
   return (
 
     <div>
+
+
+
       <Typography variant="h2" gutterBottom>
         Latest
       </Typography>
@@ -168,7 +177,10 @@ function Main(props) {
         ))}
       </Grid>
       <Box sx={{ display: 'flex', flexDirection: 'row', pt: 4 }}>
-        <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} />
+        <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} page={page} onChange={setPage} />
+
+
+
       </Box>
 
 

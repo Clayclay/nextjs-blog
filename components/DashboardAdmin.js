@@ -4,12 +4,13 @@ import Link from '@mui/material/Link';
 
 export default function DashboardAdmin(props) {
 
-    const { post } = props;
+    const { tags, categories } = props;
+
     //"ADMIN"
     return (
         <>
             <Link href="/posts">List Posts</Link>
-            <NewPost />
+            <NewPost tags={tags} categories={categories} />
         </>
 
 

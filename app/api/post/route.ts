@@ -8,10 +8,10 @@ import prisma from '../../../lib/prisma';
 // Handles POST requests to /api
 export async function POST(request: Request) {
 
-  const { title, email, content, publish, tag, categories } = await request.json()
+  const { title, email, content, publish, tag, categories, description } = await request.json()
 
   //console.log(' OBJET CREER : title', title, 'mail', email, 'content', content, 'tag', tag)
-  console.log('cat', categories, typeof categories)
+  console.log('recu', description, typeof categories)
 
 
   const result = await prisma.post.create({
@@ -31,18 +31,12 @@ export async function POST(request: Request) {
       },
       categories: {
         connectOrCreate:
-
         {
           where: { name: categories },
           create: { name: categories },
         }
-
-
       },
-
-
-
-
+      description: description
     },
     /* categories: {
        connectOrCreate: [{ name: 'Databases' }, { name: 'Tutorials' }],
@@ -65,7 +59,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
   //console.log(searchParams)
   const id = searchParams.get('id');
 
-  const { title, email, content, published, tag, categories } = await request.json()
+  const { title, email, content, published, tag, categories, description } = await request.json()
 
   const post = await prisma.post.update({
     where: {

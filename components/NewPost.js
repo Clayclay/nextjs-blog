@@ -2,7 +2,6 @@
 import React, { useState, useCallback } from "react";
 import { useRouter } from 'next/navigation'
 
-
 /*  TIPTAP  */
 import "./Tiptap.scss";
 import { useEditor, EditorContent, Editor, BubbleMenu } from "@tiptap/react";
@@ -20,7 +19,7 @@ import Highlight from '@tiptap/extension-highlight'
 import Link from '@tiptap/extension-link'
 
 /*MUI*/
-import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
+
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -80,10 +79,6 @@ import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 import { useSession } from "next-auth/react";
 
-
-/*  TAGS */
-
-const Tags = ['Cuisine', 'Culture', 'Ramen', 'Shinjuku']
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -447,13 +442,22 @@ const MenuBar = ({ editor }) => {
   )
 }
 
-export default function NewPost() {
+export default function NewPost(props) {
   const { data: session } = useSession()
   const router = useRouter()
 
   const [postContent, setpostContent] = useState(); // TIP TAP AUSSI
   const [title, setTitle] = useState('');
   const [publish, setPublish] = useState(false);
+
+  const [description, setDescription] = useState('');
+
+
+
+
+  /*  TAGS & CATEGORIES*/
+
+  const { tags, categories } = props;
   const [TagList, setTagList] = useState([])
   const [category, setCategory] = useState('');
 
@@ -576,7 +580,7 @@ export default function NewPost() {
             //'API-Key': process.env.DATA_API_KEY!,
           },
           body: //JSON.stringify(body),
-            JSON.stringify({ title: title, email: session?.user.email, content: postContent, publish: publish, tag: TagList, categories: category }),
+            JSON.stringify({ title: title, email: session?.user.email, content: postContent, publish: publish, tag: TagList, categories: category, description: description }),
         })
 
         if (!res.ok) {
@@ -631,9 +635,10 @@ export default function NewPost() {
               label="category"
               onChange={handleCategoryChange}
             >
-              <MenuItem value={'Cuisine'}>Cuisine</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category.name} value={category.name}>{category.name}</MenuItem>
+              ))}
+
             </Select>
           </FormControl>
 
@@ -649,14 +654,30 @@ export default function NewPost() {
               renderValue={(selected) => selected.join(', ')}
               MenuProps={MenuProps}
             >
-              {Tags.map((Tag) => (
-                <MenuItem key={Tag} value={Tag}>
-                  <Checkbox checked={TagList.indexOf(Tag) > -1} />
-                  <ListItemText primary={Tag} />
+
+
+              {tags.map((Tag) => (
+                <MenuItem key={Tag.name} value={Tag.name}>
+                  <Checkbox checked={TagList.indexOf(Tag.name) > -1} />
+                  <ListItemText primary={Tag.name} />
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
+
+          <TextField
+            required
+            fullWidth
+            //variant="standard"
+            variant="outlined"
+            margin="normal"
+            label="Description"
+            value={description}
+            onChange={(e) => { setDescription(e.target.value) }}
+            sx={{ mt: 4 }}
+          />
+
+
 
           {/*<Tiptap />*/}
 

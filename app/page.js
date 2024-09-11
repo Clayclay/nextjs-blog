@@ -18,8 +18,6 @@ import dynamic from 'next/dynamic';
 import Container from '@mui/material/Container';
 import MainFeaturedPost from '../components/MainFeaturedPost.js';
 import FeaturedPost from '../components/FeaturedPost.js';
-import Sidebar from '../components/Sidebar.js';
-
 
 
 import AppAppBar from '../components/AppAppBar.js';

@@ -1,7 +1,6 @@
-
+/******  SERVER ******/
 import prisma from "../../../lib/prisma.ts";
 
-/******  SERVER ******/
 /*  MUI */
 import Container from '@mui/material/Container';
 
@@ -32,12 +31,18 @@ export default async function Post({ params }) {
         title: true,
         tags: true, // The password field is now selected.
         author: true,
+        categories: true
       },
       where: {
         id: id,
       },
 
     })
+
+    const tags = await prisma.tag.findMany();
+
+    const categories = await prisma.category.findMany();
+
 
 
     return (
@@ -46,24 +51,16 @@ export default async function Post({ params }) {
 
         Page server
 
-        <ClientPost id={id} post={post} />
+        <ClientPost id={id} post={post} tags={tags} categories={categories} />
 
       </Container>
 
     )
-
   }
-
 
   catch (error) {
     return { message: 'Database Error: Failed ', };
   }
-
-
-
-
-
-
 
 }
 

@@ -77,7 +77,7 @@ import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 
 /*TAGS*/
-const Tags = ['Cuisine', 'Culture', 'Ramen', 'Shinjuku']
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -421,15 +421,20 @@ export default function ClientPost(props) {
     const [content, setContent] = useState(post.content);
     const [postContent, setpostContent] = useState(post.content);
     const [publish, setPublish] = useState(post.published);
-    const arrTags = post.tags.map((element) => element.name)
-    const [TagList, setTagList] = useState(arrTags)
 
-    const [category, setCategory] = useState('');
+
+
+    /*  TAGS & CATEGORIES*/
+    const arrTags = post.tags.map((element) => element.name)
+    const arrCathegories = post.categories.map((element) => element.name)
+
+    const { tags, categories } = props;
+    const [TagList, setTagList] = useState(arrTags)
+    const [category, setCategory] = useState(arrCathegories);
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
     };
-
 
     /* TIP TAP */
     /*
@@ -590,6 +595,23 @@ export default function ClientPost(props) {
                             onChange={(e) => { setTitle(e.target.value) }}
                             sx={{ mt: 4 }}
                         />
+                        <FormControl
+                            fullWidth
+                        >
+                            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-category"
+                                id="select-category"
+                                value={category}
+                                label="category"
+                                onChange={handleCategoryChange}
+                            >
+                                {categories.map((category) => (
+                                    <MenuItem key={category.name} value={category.name}>{category.name}</MenuItem>
+                                ))}
+
+                            </Select>
+                        </FormControl>
                         <FormControl sx={{ m: 1, width: 300 }}>
                             <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
                             <Select
@@ -602,10 +624,10 @@ export default function ClientPost(props) {
                                 renderValue={(selected) => selected.join(', ')}
                                 MenuProps={MenuProps}
                             >
-                                {Tags.map((Tag) => (
-                                    <MenuItem key={Tag} value={Tag}>
-                                        <Checkbox checked={TagList.indexOf(Tag) > -1} />
-                                        <ListItemText primary={Tag} />
+                                {tags.map((Tag) => (
+                                    <MenuItem key={Tag.name} value={Tag.name}>
+                                        <Checkbox checked={TagList.indexOf(Tag.name) > -1} />
+                                        <ListItemText primary={Tag.name} />
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -631,7 +653,7 @@ export default function ClientPost(props) {
                             </RadioGroup>
                         </FormControl>
 
-                        <Postupdate id={id} title={title} content={content} publish={publish} tags={TagList} />
+                        <Postupdate id={id} title={title} content={content} publish={publish} categories={category} tags={TagList} />
 
                     </Stack>
 
