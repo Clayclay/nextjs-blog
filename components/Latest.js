@@ -8,13 +8,17 @@ import Link from '@mui/material/Link';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2'
-
+import Grid from '@mui/material/Grid2';
+import Chip from '@mui/material/Chip';
 import Pagination from '@mui/material/Pagination';
 
 import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
+/*PAGINATION */
+import Posts from './Posts'
+import MyPagination from './Pagination'
+import usePagination from "./Pagination";
 
 
 /* TIPTAP*/
@@ -86,15 +90,62 @@ function Main(props) {
 
   /* Pagination */
 
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [allPosts] = useState(PostArray);
+  // const [isLoading, setIsLoading] = useState(false);
+  //const [currentPage, setCurrentPage] = useState(1);
+  //const indexOfLastPost = currentPage * postsPerPage;
+  //const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  //const currentPosts = allPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+  //const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //const totalPosts = allPosts.length
 
 
+  /* MUI*/
+  const [page, setPage] = React.useState(1);
+  const [postsPerPage] = useState(10);
+
+  const count = Math.ceil(allPosts.length / postsPerPage);  // const pageNumbers = Math.ceil(totalPosts / postsPerPage);
+  const _DATA = usePagination(allPosts, postsPerPage);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
+
+
+  /* Pagination */
 
   return (
 
     <div>
 
+      <Pagination
+        count={count}
+        size="large"
+        page={page}
+        variant="outlined"
+        shape="rounded"
+        onChange={handleChange}
+      />
+      {_DATA.currentData().map((post) => (
+        <li
+          className="block text-gray-700 text-sm text-left p-2"
+          key={post.id}
+          id={post.id}
+        >
+          <strong>Title:</strong> {post.title} | <strong>ID:</strong> {post.id}
+        </li>
+      ))}
+
+      {/*
+      <Posts posts={currentPosts} loading={isLoading} />
+      
+      <MyPagination
+        postsPerPage={postsPerPage}
+        totalPosts={allPosts.length}
+        paginate={paginate}
+      />*/}
 
 
       <Typography variant="h2" gutterBottom>
@@ -114,12 +165,19 @@ function Main(props) {
                 height: '100%',
               }}
             >
-              {post.tags.map((tag, index) => (
-                <Typography gutterBottom variant="caption" component="div" key={index}>
-                  {tag.name}
-                </Typography>
-              )
-              )}
+              <Stack direction="row" spacing={1}>
+                {post.tags.map((tag, index) => (
+
+                  <Chip label={tag.name} />
+
+                )
+                )}
+              </Stack>
+
+              {/* 
+              <Typography gutterBottom variant="caption" component="div" key={index} display='inline' >
+                {tag.name}
+              </Typography>*/}
 
               <TitleTypography
                 gutterBottom
@@ -177,9 +235,9 @@ function Main(props) {
         ))}
       </Grid>
       <Box sx={{ display: 'flex', flexDirection: 'row', pt: 4 }}>
-        <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} page={page} onChange={setPage} />
 
-
+        {/*<Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} page={page} onChange={setPage} />
+ */ }
 
       </Box>
 
