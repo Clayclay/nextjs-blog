@@ -16,10 +16,7 @@ import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
 /*PAGINATION */
-import Posts from './Posts'
-import MyPagination from './Pagination'
 import usePagination from "./Pagination";
-
 
 /* TIPTAP*/
 import ReadPost from './ReadPost';
@@ -104,13 +101,12 @@ function Main(props) {
   /* MUI*/
   const [page, setPage] = React.useState(1);
   const [postsPerPage] = useState(10);
-
   const count = Math.ceil(allPosts.length / postsPerPage);  // const pageNumbers = Math.ceil(totalPosts / postsPerPage);
-  const _DATA = usePagination(allPosts, postsPerPage);
+  const PaginationAllPosts = usePagination(allPosts, postsPerPage);
 
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
+    PaginationAllPosts.jump(p);
   };
 
 
@@ -120,40 +116,12 @@ function Main(props) {
 
     <div>
 
-      <Pagination
-        count={count}
-        size="large"
-        page={page}
-        variant="outlined"
-        shape="rounded"
-        onChange={handleChange}
-      />
-      {_DATA.currentData().map((post) => (
-        <li
-          className="block text-gray-700 text-sm text-left p-2"
-          key={post.id}
-          id={post.id}
-        >
-          <strong>Title:</strong> {post.title} | <strong>ID:</strong> {post.id}
-        </li>
-      ))}
-
-      {/*
-      <Posts posts={currentPosts} loading={isLoading} />
-      
-      <MyPagination
-        postsPerPage={postsPerPage}
-        totalPosts={allPosts.length}
-        paginate={paginate}
-      />*/}
-
-
       <Typography variant="h2" gutterBottom>
         Latest
       </Typography>
       <Grid container spacing={8} columns={12} sx={{ my: 4 }}>
-
-        {PostArray.reverse().map((post, index) => (
+        {/* Pour appliquer pagination sur le array ajouter .currentData()*/}
+        {PaginationAllPosts.currentData().reverse().map((post, index) => (
 
           <Grid key={post.id} size={{ xs: 12, sm: 6 }}>
             <Box
@@ -236,7 +204,11 @@ function Main(props) {
       </Grid>
       <Box sx={{ display: 'flex', flexDirection: 'row', pt: 4 }}>
 
-        {/*<Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} page={page} onChange={setPage} />
+
+        <Pagination hidePrevButton hideNextButton count={count} page={page} onChange={handleChange} />
+
+
+        {/*<Pagination hidePrevButton hideNextButton count={10} boundaryCount={10}  />
  */ }
 
       </Box>

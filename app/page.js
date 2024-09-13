@@ -152,18 +152,8 @@ export default async function Home({ }) {
         ))}
       </Grid>
 
-      <Container
-        maxWidth="lg"
-        component="main"
-        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
-      >
-        <Latest title="From the allPostData" posts={allPosts} />
-      </Container>
-      <Grid container spacing={5} sx={{ mt: 3 }}>
+      <Latest title="From the allPostData" posts={allPosts} />
 
-
-
-      </Grid>
 
 
     </div>

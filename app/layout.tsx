@@ -10,8 +10,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 
 //* Components *//
-import Header from '../components/Header';
 
+import AppAppBar from "../components/AppAppBar";
 
 
 const name = 'Clayclay';
@@ -37,8 +37,15 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}><CssBaseline />
             <NextAuthSessionProvider>
-              <Container maxWidth="lg"  >
-                <Header title={siteTitle} />
+
+              <AppAppBar />
+
+
+              <Container
+                maxWidth="lg"
+                component="main"
+                sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+              >
                 <main>
 
                   {children}
@@ -46,6 +53,8 @@ export default function RootLayout({
                 </main>
 
               </Container>
+
+
             </NextAuthSessionProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
