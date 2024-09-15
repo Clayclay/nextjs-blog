@@ -136,7 +136,7 @@ function Main(props) {
               <Stack direction="row" spacing={1}>
                 {post.tags.map((tag, index) => (
 
-                  <Chip label={tag.name} />
+                  <Chip label={tag.name} key={tag.id} />
 
                 )
                 )}

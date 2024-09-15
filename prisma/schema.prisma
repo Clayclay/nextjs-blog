@@ -22,6 +22,8 @@ model Post {
   categories Category[]
   description String?   @default("description")
   comments  Comment[]
+  main      Boolean  @default(false)
+
 }
 
 model Account {
