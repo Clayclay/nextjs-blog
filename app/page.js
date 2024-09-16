@@ -1,6 +1,5 @@
+//* SERVER*//
 
-
-//* Components *//
 //import Main from '../components/Main.js';
 /* QUILL */
 // Importer en dynamic pour coté client quand SERVER 
@@ -12,11 +11,6 @@ import MainContent from '../components/MainContent';
 //DONT --> import Latest from '../components/Latest';
 //DO --->
 const Latest = dynamic(() => import('../components/Latest.js'), { ssr: false });
-
-import Footer from '../components/Footer';
-import AppAppBar from '../components/AppAppBar.js';
-
-
 
 //**  Prisma **//
 /* access to prisma client */

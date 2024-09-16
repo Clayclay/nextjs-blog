@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 //* Components *//
 
 import AppAppBar from "../components/AppAppBar";
-
+import Footer from '../components/Footer';
 
 const name = 'Clayclay';
 const siteTitle = 'Next.js Sample Website';
@@ -45,6 +45,7 @@ export default function RootLayout({
                 {children}
 
               </main>
+              <Footer />
 
             </NextAuthSessionProvider>
           </ThemeProvider>
