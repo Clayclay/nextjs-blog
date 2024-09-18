@@ -6,6 +6,7 @@ import prisma from "../../lib/prisma";
 import dynamic from 'next/dynamic';
 const Dashboard = dynamic(() => import('./dashboard'), { ssr: false });
 
+import Container from '@mui/material/Container';
 
 export default async function DashboardServer() {
 
@@ -17,10 +18,14 @@ export default async function DashboardServer() {
     const categories = await prisma.category.findMany();
 
     return (
-      <>
+      <Container
+        maxWidth="lg"
+        component="main"
+        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+      >
         <Dashboard tags={tags} categories={categories} />
 
-      </>
+      </Container>
 
     )
   }

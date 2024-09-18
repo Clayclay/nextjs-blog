@@ -19,6 +19,12 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
 
 //TODO Filter + connecter avec mes posts + mes categories
+/*
+change la presentation quand plus de contenu
+*/
+
+
+
 
 const cardData = [
     {
@@ -179,8 +185,25 @@ export function Search() {
 
 export default function MainContent(props) {
 
+    /*Filtered */
     const { categories, mainPosts } = props;
-    console.log('user', categories, mainPosts)
+
+    const categoryName = 'Cuisine'
+
+    function filterByCategory(mainPosts, categoryName) {
+        return mainPosts.filter(post =>
+            post.categories.some(category => category.name === categoryName)
+        );
+    }
+
+    console.log(
+        'user',
+        //categories, 
+        //  mainPosts,
+        filterByCategory(mainPosts, categoryName)
+    )
+
+    /* */
 
     const [focusedCardIndex, setFocusedCardIndex] = React.useState(null);
 

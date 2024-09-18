@@ -59,7 +59,9 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
   //console.log(searchParams)
   const id = searchParams.get('id');
 
-  const { title, email, content, published, tag, categories, description } = await request.json()
+  const { title, email, content, published, tag, categories, description, main } = await request.json()
+
+  console.log("post", categories, main)
 
   const post = await prisma.post.update({
     where: {
@@ -70,7 +72,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
       content: content,
       published: published,
       //author: { connect: { email: email } },
-      /*
+      main: main,
       tags: {
         connectOrCreate:
           tag.map((element) => {
@@ -82,16 +84,23 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
       },
       categories: {
         connectOrCreate:
+        {
+          where: { name: categories },
+          create: { name: categories },
+        }
+      }, /*
+      categories: {
+        connectOrCreate:
           categories.map((element) => {
             return {
               where: { name: element },
               create: { name: element },
-            };
+            }
           }),
       },*/
-
-
+      description: description
     },
+
 
   });
 

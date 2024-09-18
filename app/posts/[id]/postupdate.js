@@ -8,8 +8,13 @@ import Button from '@mui/material/Button';
 
 export default function Postupdate(props) {
 
-  const { id, title, content, publish } = props;
+  const { id, title,
+    content, publish,
+    categories, tags,
+    mainPosts
+  } = props;
 
+  console.log('props', props)
   async function DeletePost() {
 
     console.log("on va delete", id);
@@ -39,7 +44,11 @@ export default function Postupdate(props) {
           //'API-Key': process.env.DATA_API_KEY!,
         },
         body:
-          JSON.stringify({ title: title, content: content, published: publish }),
+          JSON.stringify({
+            title: title, content: content, published: publish,
+            categories: categories, tags: tags,
+            main: mainPosts
+          }),
       })
 
 
@@ -52,7 +61,7 @@ export default function Postupdate(props) {
       console.log('reponse', response, 'data')
 
       //return res.json()
-      alert(post.message);
+      //alert(response.message);
 
     }
     catch (error) {

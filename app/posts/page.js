@@ -28,7 +28,12 @@ export default async function Page({ }) {
 
   return (
 
-    <Container sx={{ paddingTop: '15px' }}>
+
+    <Container
+      maxWidth="lg"
+      component="main"
+      sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+    >
       {posts.reverse().map((post) => (
         <ListPost post={post} />
       ))}
@@ -36,3 +41,4 @@ export default async function Page({ }) {
 
   )
 }
+

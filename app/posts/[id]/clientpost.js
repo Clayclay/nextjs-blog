@@ -422,8 +422,6 @@ export default function ClientPost(props) {
     const [postContent, setpostContent] = useState(post.content);
     const [publish, setPublish] = useState(post.published);
 
-
-
     /*  TAGS & CATEGORIES*/
     const arrTags = post.tags.map((element) => element.name)
     const arrCathegories = post.categories.map((element) => element.name)
@@ -435,6 +433,8 @@ export default function ClientPost(props) {
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
     };
+
+
 
     /* TIP TAP */
     /*
@@ -571,6 +571,13 @@ export default function ClientPost(props) {
 
 
     };
+    /* CheckBox MainPosts */
+    const [checkedMainPosts, setCheckedMainPosts] = useState(post.main);
+
+    const handleChangeMainPosts = (event) => {
+        setCheckedMainPosts(event.target.checked);
+    };
+
 
     if (role === 'ADMIN') {
         return (
@@ -640,7 +647,6 @@ export default function ClientPost(props) {
                             <EditorContent editor={editor} />
                         </Card>
                         <FormControl>
-
                             <RadioGroup
                                 row
                                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -653,7 +659,15 @@ export default function ClientPost(props) {
                             </RadioGroup>
                         </FormControl>
 
-                        <Postupdate id={id} title={title} content={content} publish={publish} categories={category} tags={TagList} />
+
+                        <FormControlLabel control={<Checkbox checked={checkedMainPosts} onChange={handleChangeMainPosts} />} label="MainPosts" />
+
+
+                        <Postupdate id={id} title={title}
+                            content={content} publish={publish}
+                            categories={category} tags={TagList}
+                            mainPosts={checkedMainPosts}
+                        />
 
                     </Stack>
 

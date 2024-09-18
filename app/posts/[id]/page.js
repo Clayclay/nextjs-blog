@@ -31,7 +31,9 @@ export default async function Post({ params }) {
         title: true,
         tags: true, // The password field is now selected.
         author: true,
-        categories: true
+        categories: true,
+        main: true
+
       },
       where: {
         id: id,
@@ -47,7 +49,12 @@ export default async function Post({ params }) {
 
     return (
 
-      <Container maxWidth="sm">
+
+      <Container
+        maxWidth="lg"
+        component="main"
+        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+      >
 
         Page server
 
