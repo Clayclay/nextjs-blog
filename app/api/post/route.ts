@@ -59,9 +59,9 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
   //console.log(searchParams)
   const id = searchParams.get('id');
 
-  const { title, email, content, published, tag, categories, description, main } = await request.json()
+  const { title, email, content, published, tags, categories, description, main } = await request.json()
 
-  console.log("post", categories, main)
+  console.log("cat", categories)
 
   const post = await prisma.post.update({
     where: {
@@ -75,7 +75,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
       main: main,
       tags: {
         connectOrCreate:
-          tag.map((element) => {
+          tags.map((element) => {
             return {
               where: { name: element },
               create: { name: element },
@@ -88,8 +88,8 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
           where: { name: categories },
           create: { name: categories },
         }
-      }, /*
-      categories: {
+      },
+      /*categories: {
         connectOrCreate:
           categories.map((element) => {
             return {

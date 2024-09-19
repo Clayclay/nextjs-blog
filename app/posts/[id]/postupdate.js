@@ -14,7 +14,6 @@ export default function Postupdate(props) {
     mainPosts
   } = props;
 
-  console.log('props', props)
   async function DeletePost() {
 
     console.log("on va delete", id);
@@ -34,7 +33,7 @@ export default function Postupdate(props) {
   }
 
   async function UpdatePost() {
-
+    console.log(tags)
     try {
 
       const res = await fetch(`/api/post?id=${id}`, {
@@ -45,9 +44,7 @@ export default function Postupdate(props) {
         },
         body:
           JSON.stringify({
-            title: title, content: content, published: publish,
-            categories: categories, tags: tags,
-            main: mainPosts
+            title: title, content: content, published: publish, categories: categories, tags: tags, main: mainPosts
           }),
       })
 

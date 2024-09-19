@@ -76,7 +76,7 @@ import AddLinkIcon from '@mui/icons-material/AddLink';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 
-/*TAGS*/
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -422,13 +422,18 @@ export default function ClientPost(props) {
     const [postContent, setpostContent] = useState(post.content);
     const [publish, setPublish] = useState(post.published);
 
-    /*  TAGS & CATEGORIES*/
-    const arrTags = post.tags.map((element) => element.name)
-    const arrCathegories = post.categories.map((element) => element.name)
-
+    /*  TAGS */
     const { tags, categories } = props;
+    const arrTags = post.tags.map((element) => element.name)
     const [TagList, setTagList] = useState(arrTags)
-    const [category, setCategory] = useState(arrCathegories);
+
+
+    /*CATEGORIES*/
+    //const arrCathegories = post.categories.map((element) => element.name)
+
+    const [category, setCategory] = useState(post.categories?.name);
+
+    console.log(' post', post.categories?.name, typeof post.categories)
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);

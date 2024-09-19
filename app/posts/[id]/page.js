@@ -41,11 +41,10 @@ export default async function Post({ params }) {
 
     })
 
+
     const tags = await prisma.tag.findMany();
 
     const categories = await prisma.category.findMany();
-
-
 
     return (
 
@@ -58,8 +57,8 @@ export default async function Post({ params }) {
 
         Page server
 
-        <ClientPost id={id} post={post} tags={tags} categories={categories} />
 
+        <ClientPost id={id} post={post} tags={tags} categories={categories} />
       </Container>
 
     )

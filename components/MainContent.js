@@ -192,7 +192,7 @@ export default function MainContent(props) {
 
     function filterByCategory(mainPosts, categoryName) {
         return mainPosts.filter(post =>
-            post.categories.some(category => category.name === categoryName)
+            post.categories?.some(category => category.name === categoryName)
         );
     }
 

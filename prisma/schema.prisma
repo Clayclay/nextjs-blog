@@ -19,7 +19,8 @@ model Post {
   authorId  String?
   createdAt DateTime @default(now()) @db.Timestamp(6)
   tags      Tag[]
-  categories Category[]
+  categories Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
   description String?   @default("description")
   comments  Comment[]
   main      Boolean  @default(false)
@@ -93,7 +94,7 @@ model Tag {
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
+  id     String    @id @default(cuid())
   name  String @unique
   posts Post[]
 }
