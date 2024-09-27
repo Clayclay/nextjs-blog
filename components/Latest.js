@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useCallback } from "react";
 import PropTypes from 'prop-types';
+
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
@@ -11,14 +12,14 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import Chip from '@mui/material/Chip';
 import Pagination from '@mui/material/Pagination';
-
 import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
-/*PAGINATION */
+/*  NAVIGATION  */
+
 import usePagination from "./Pagination";
 
-/* TIPTAP*/
+/* TIPTAP */
 import ReadPost from './ReadPost';
 import NextAuthSessionProvider from "../providers/SessionProvider";
 
@@ -85,9 +86,11 @@ function Main(props) {
     setFocusedCardIndex(null);
   };
 
-  /* Pagination */
+  /*  NAVIGATION  */
 
   const [allPosts] = useState(PostArray);
+
+
   // const [isLoading, setIsLoading] = useState(false);
   //const [currentPage, setCurrentPage] = useState(1);
   //const indexOfLastPost = currentPage * postsPerPage;
@@ -110,7 +113,7 @@ function Main(props) {
   };
 
 
-  /* Pagination */
+
 
   return (
 
@@ -155,7 +158,14 @@ function Main(props) {
                 tabIndex={0}
                 className={focusedCardIndex === index ? 'Mui-focused' : ''}
               >
-                {post.title}
+
+                <Link href={"/posts/" + post.id} sx={{
+                  color: 'black',
+                  textDecoration: 'none',
+                  display: 'inline'
+                }}>
+                  {post.title}
+                </Link>
                 <NavigateNextRoundedIcon
                   className="arrow"
                   sx={{ fontSize: '1rem' }}

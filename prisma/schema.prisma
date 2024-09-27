@@ -24,7 +24,7 @@ model Post {
   description String?   @default("description")
   comments  Comment[]
   main      Boolean  @default(false)
-
+  image         String? 
 }
 
 model Account {
