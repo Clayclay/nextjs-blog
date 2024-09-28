@@ -32,7 +32,8 @@ export default async function Post({ params }) {
         tags: true, // The password field is now selected.
         author: true,
         categories: true,
-        main: true
+        main: true,
+        image: true,
 
       },
       where: {

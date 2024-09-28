@@ -11,7 +11,7 @@ export default function Postupdate(props) {
   const { id, title,
     content, publish,
     categories, tags,
-    mainPosts
+    mainPosts, image
   } = props;
 
   async function DeletePost() {
@@ -33,7 +33,22 @@ export default function Postupdate(props) {
   }
 
   async function UpdatePost() {
-    console.log(tags)
+    //console.log('postupdate.js', tags, image?.name)
+
+    if (image) {
+
+      const formData = new FormData();
+      formData.append("file", image);
+
+      fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+    }
+
     try {
 
       const res = await fetch(`/api/post?id=${id}`, {
@@ -44,7 +59,8 @@ export default function Postupdate(props) {
         },
         body:
           JSON.stringify({
-            title: title, content: content, published: publish, categories: categories, tags: tags, main: mainPosts
+            title: title, content: content, published: publish, categories: categories,
+            tags: tags, main: mainPosts, image: image?.name
           }),
       })
 

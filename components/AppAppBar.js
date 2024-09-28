@@ -133,14 +133,34 @@ export default function AppAppBar() {
                                 <MenuItem>FAQ</MenuItem>
                                 <MenuItem>Blog</MenuItem>
                                 <MenuItem>
-                                    <Button color="primary" variant="contained" fullWidth>
+                                    {/*<Button color="primary" variant="contained" fullWidth>
                                         Sign up
-                                    </Button>
+                                    </Button>*/}
+                                    {isLoggedIn ? (
+                                        <Button color="primary" variant="contained" fullWidth href={'/dashboard'} >Dashboard</Button>
+                                    ) : (
+                                        <Button color="primary" variant="contained" fullWidth href={'/register'} >Subscribe</Button>
+                                    )}
+
                                 </MenuItem>
                                 <MenuItem>
-                                    <Button color="primary" variant="outlined" fullWidth>
+                                    {/* <Button color="primary" variant="outlined" fullWidth>
                                         Sign in
-                                    </Button>
+                                    </Button>*/}
+                                    {session ?
+
+                                        <Button color="primary" variant="outlined" fullWidthonClick={() => signOut()}  /* LinkComponent={Link}  href="/sign-in" */ >
+                                            Sign Out
+                                        </Button>
+
+                                        :
+
+                                        <Button color="primary" variant="outlined" fullWidth onClick={() => signIn()} /* LinkComponent={Link}  href="/sign-in" */ >
+                                            Sign up
+                                        </Button>
+
+                                    }
+
                                 </MenuItem>
                             </Box>
                         </Drawer>

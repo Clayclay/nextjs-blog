@@ -188,7 +188,7 @@ export default function MainContent(props) {
     /*Filtered */
     const { categories, mainPosts } = props;
 
-    const categoryName = 'Cuisine'
+    const categoryName = ''
 
     function filterByCategory(mainPosts, categoryName) {
         return mainPosts.filter(post =>
@@ -198,9 +198,12 @@ export default function MainContent(props) {
 
     console.log(
         'user',
+        mainPosts.map(post =>
+            post.categories
+        ),
         //categories, 
-        //  mainPosts,
-        filterByCategory(mainPosts, categoryName)
+        //mainPosts,
+        // filterByCategory(mainPosts, categoryName)
     )
 
     /* */

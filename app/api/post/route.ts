@@ -8,7 +8,7 @@ import prisma from '../../../lib/prisma';
 // Handles POST requests to /api
 export async function POST(request: Request) {
 
-  const { title, email, content, publish, tag, categories, description } = await request.json()
+  const { title, email, content, publish, tag, categories, description, image, main } = await request.json()
 
   //console.log(' OBJET CREER : title', title, 'mail', email, 'content', content, 'tag', tag)
   console.log('recu', description, typeof categories)
@@ -36,7 +36,9 @@ export async function POST(request: Request) {
           create: { name: categories },
         }
       },
-      description: description
+      description: description,
+      main: main,
+      image: image,
     },
     /* categories: {
        connectOrCreate: [{ name: 'Databases' }, { name: 'Tutorials' }],
@@ -50,6 +52,8 @@ export async function POST(request: Request) {
 
 }
 
+//export const dynamic = 'force-dynamic'
+
 
 export async function PUT(request: NextRequest, res: NextResponse,) {
   //const postId = req.query.id;
@@ -59,7 +63,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
   //console.log(searchParams)
   const id = searchParams.get('id');
 
-  const { title, email, content, published, tags, categories, description, main } = await request.json()
+  const { title, email, content, published, tags, categories, description, main, image } = await request.json()
 
   console.log("cat", categories)
 
@@ -98,7 +102,8 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
             }
           }),
       },*/
-      description: description
+      description: description,
+      image: image,
     },
 
 
