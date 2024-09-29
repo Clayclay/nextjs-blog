@@ -41,6 +41,7 @@ export default async function Home({ }) {
     where: {
       published: true,
     },
+    orderBy: { createdAt: 'asc' },
     include: {
       //published: { select: true },
       author: {
@@ -53,8 +54,7 @@ export default async function Home({ }) {
 
   const categories = await prisma.category.findMany()
 
-  const mainPosts = allPosts.filter((post) => Boolean(post.main)
-  )
+  const mainPosts = allPosts.filter((post) => Boolean(post.main))
 
   /*  <GoogleMapsEmbed
         apiKey={process.env.GOOGLE_MAPS_API_KEY}

@@ -88,7 +88,7 @@ function Main(props) {
 
   /*  NAVIGATION  */
 
-  const [allPosts] = useState(PostArray);
+  const [allPosts] = useState(PostArray.reverse());
 
 
   // const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +124,7 @@ function Main(props) {
       </Typography>
       <Grid container spacing={8} columns={12} sx={{ my: 4 }}>
         {/* Pour appliquer pagination sur le array ajouter .currentData()*/}
-        {PaginationAllPosts.currentData().reverse().map((post, index) => (
+        {PaginationAllPosts.currentData().map((post, index) => (
 
           <Grid key={post.id} size={{ xs: 12, sm: 6 }}>
             <Box
