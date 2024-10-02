@@ -1,5 +1,5 @@
 "use client";
-import * as React from 'react';
+import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
@@ -17,6 +17,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
+import Select from '@mui/material/Select';
 
 //TODO Filter + connecter avec mes posts + mes categories
 /*
@@ -34,8 +35,8 @@ const cardData = [
         description:
             'Our latest engineering tools are designed to streamline workflows and boost productivity. Discover how these innovations are transforming the software development landscape.',
         authors: [
-            { name: 'Remy Sharp', avatar: '/static/images/avatar/1.jpg' },
-            { name: 'Travis Howard', avatar: '/static/images/avatar/2.jpg' },
+            { name: 'Remy Sharp', image: '/static/images/avatar/1.jpg' },
+            { name: 'Travis Howard', image: '/static/images/avatar/2.jpg' },
         ],
     },
     {
@@ -44,7 +45,7 @@ const cardData = [
         title: 'Innovative product features that drive success',
         description:
             'Explore the key features of our latest product release that are helping businesses achieve their goals. From user-friendly interfaces to robust functionality, learn why our product stands out.',
-        authors: [{ name: 'Erica Johns', avatar: '/static/images/avatar/6.jpg' }],
+        authors: [{ name: 'Erica Johns', image: '/static/images/avatar/6.jpg' }],
     },
     {
         img: 'https://picsum.photos/800/450?random=3',
@@ -52,7 +53,7 @@ const cardData = [
         title: 'Designing for the future: trends and insights',
         description:
             'Stay ahead of the curve with the latest design trends and insights. Our design team shares their expertise on creating intuitive and visually stunning user experiences.',
-        authors: [{ name: 'Kate Morrison', avatar: '/static/images/avatar/7.jpg' }],
+        authors: [{ name: 'Kate Morrison', image: '/static/images/avatar/7.jpg' }],
     },
     {
         img: 'https://picsum.photos/800/450?random=4',
@@ -60,7 +61,7 @@ const cardData = [
         title: "Our company's journey: milestones and achievements",
         description:
             "Take a look at our company's journey and the milestones we've achieved along the way. From humble beginnings to industry leader, discover our story of growth and success.",
-        authors: [{ name: 'Cindy Baker', avatar: '/static/images/avatar/3.jpg' }],
+        authors: [{ name: 'Cindy Baker', image: '/static/images/avatar/3.jpg' }],
     },
     {
         img: 'https://picsum.photos/800/450?random=45',
@@ -69,8 +70,8 @@ const cardData = [
         description:
             "Learn about our commitment to sustainability and the innovative engineering solutions we're implementing to create a greener future. Discover the impact of our eco-friendly initiatives.",
         authors: [
-            { name: 'Agnes Walker', avatar: '/static/images/avatar/4.jpg' },
-            { name: 'Trevor Henderson', avatar: '/static/images/avatar/5.jpg' },
+            { name: 'Agnes Walker', image: '/static/images/avatar/4.jpg' },
+            { name: 'Trevor Henderson', image: '/static/images/avatar/5.jpg' },
         ],
     },
     {
@@ -79,7 +80,7 @@ const cardData = [
         title: 'Maximizing efficiency with our latest product updates',
         description:
             'Our recent product updates are designed to help you maximize efficiency and achieve more. Get a detailed overview of the new features and improvements that can elevate your workflow.',
-        authors: [{ name: 'Travis Howard', avatar: '/static/images/avatar/2.jpg' }],
+        authors: [{ name: 'Travis Howard', image: '/static/images/avatar/2.jpg' }],
     },
 ];
 
@@ -139,7 +140,7 @@ function Author({ authors }) {
                         <Avatar
                             key={index}
                             alt={author.name}
-                            src={author.avatar}
+                            src={author.image}
                             sx={{ width: 24, height: 24 }}
                         />
                     ))}
@@ -156,7 +157,7 @@ function Author({ authors }) {
 Author.propTypes = {
     authors: PropTypes.arrayOf(
         PropTypes.shape({
-            avatar: PropTypes.string.isRequired,
+            image: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
         }),
     ).isRequired,
@@ -183,30 +184,45 @@ export function Search() {
     );
 }
 
+export function filterByCategory(mainPosts, categoriesFilter) {
+    // const { categoriesFilter, mainPosts } = props;
+    // console.log('inside function', typeof (categoriesFilter))
+
+    if (categoriesFilter) {
+        return mainPosts.filter(post => post.categories.name === categoriesFilter)//  mainPosts.filter(post => post.categories?.some(category => category?.name === categoryName))
+    }
+    return mainPosts
+}
+
+
 export default function MainContent(props) {
 
-    /*Filtered */
+    /*Filtered  Categories*/
     const { categories, mainPosts } = props;
+    const [categoriesFilter, setCategoriesFilter] = useState(null)
+    const [filteredPosts, setFilteredPosts] = useState([])
 
-    const categoryName = ''
+    useEffect(() => {
+        setFilteredPosts(() => filterByCategory(mainPosts, categoriesFilter))
+    }, [categoriesFilter, mainPosts])
 
-    function filterByCategory(mainPosts, categoryName) {
-        return mainPosts.filter(post =>
-            post.categories?.some(category => category.name === categoryName)
-        );
-    }
+    const handleCategoriesClick = (event) => {
+        console.info('You clicked the filter chip.', event.target.textContent);
+        setCategoriesFilter(event.target.textContent)
+        console.log('event', event)
+    };
 
-    console.log(
-        'user',
-        mainPosts.map(post =>
-            post.categories
-        ),
-        //categories, 
-        //mainPosts,
-        // filterByCategory(mainPosts, categoryName)
+    const handleCategoriesReset = (event) => {
+        setCategoriesFilter(null)
+    };
+
+
+    console.log('result function', categoriesFilter,
+        //filterByCategory(mainPosts, categoriesFilter)
+        filteredPosts.map((element) => element)
     )
+    /*Fin */
 
-    /* */
 
     const [focusedCardIndex, setFocusedCardIndex] = React.useState(null);
 
@@ -218,12 +234,57 @@ export default function MainContent(props) {
         setFocusedCardIndex(null);
     };
 
-    const handleClick = () => {
-        console.info('You clicked the filter chip.');
-    };
+
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+
+
+
+            {filteredPosts?.map((element) =>
+
+                < Grid size={{ xs: 12, md: 6 }}>
+                    <SyledCard
+                        variant="outlined"
+                        onFocus={() => handleFocus(0)}
+                        onBlur={handleBlur}
+                        tabIndex={0}
+                        className={focusedCardIndex === 0 ? 'Mui-focused' : ''}
+                    >
+                        <CardMedia
+                            component="img"
+                            alt="post image"
+                            image={element.image}
+                            aspect-ratio="16 / 9"
+                            sx={{
+                                borderBottom: '1px solid',
+                                borderColor: 'divider',
+                            }}
+                        />
+                        <SyledCardContent>
+                            <Typography gutterBottom variant="caption" component="div">
+                                {
+                                    //  element.tag
+                                }
+                            </Typography>
+                            <Typography gutterBottom variant="h6" component="div">
+                                {element.title}
+                            </Typography>
+                            <StyledTypography variant="body2" color="text.secondary" gutterBottom>
+                                {element.description}
+                            </StyledTypography>
+                        </SyledCardContent>
+                        <Author authors={[element.author]} />
+
+
+                    </SyledCard>
+                </Grid>
+
+            )
+            }
+
+
+
             <div>
                 <Typography variant="h1" gutterBottom>
                     Blog
@@ -263,43 +324,25 @@ export default function MainContent(props) {
                         overflow: 'auto',
                     }}
                 >
-                    <Chip onClick={handleClick} size="medium" label="All categories" />
-                    <Chip
-                        onClick={handleClick}
-                        size="medium"
-                        label="Company"
-                        sx={{
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                        }}
-                    />
-                    <Chip
-                        onClick={handleClick}
-                        size="medium"
-                        label="Product"
-                        sx={{
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                        }}
-                    />
-                    <Chip
-                        onClick={handleClick}
-                        size="medium"
-                        label="Design"
-                        sx={{
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                        }}
-                    />
-                    <Chip
-                        onClick={handleClick}
-                        size="medium"
-                        label="Engineering"
-                        sx={{
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                        }}
-                    />
+                    <Chip onClick={handleCategoriesReset} size="medium" label="All categories" />
+
+                    {
+                        categories.map(element => {
+                            return (
+                                < Chip
+                                    key={element.id}
+                                    onClick={handleCategoriesClick}
+                                    size="medium"
+                                    label={element.name}
+                                    sx={{
+                                        backgroundColor: 'transparent',
+                                        border: 'none',
+                                    }}
+                                />
+                            )
+
+                        })}
+
                 </Box>
                 <Box
                     sx={{
@@ -316,7 +359,10 @@ export default function MainContent(props) {
                     </IconButton>
                 </Box>
             </Box>
+
+
             <Grid container spacing={2} columns={12}>
+                {/* DEBUT CARD */}
                 <Grid size={{ xs: 12, md: 6 }}>
                     <SyledCard
                         variant="outlined"
@@ -349,6 +395,7 @@ export default function MainContent(props) {
                         <Author authors={cardData[0].authors} />
                     </SyledCard>
                 </Grid>
+                {/* Fin CARD */}
                 <Grid size={{ xs: 12, md: 6 }}>
                     <SyledCard
                         variant="outlined"
@@ -520,6 +567,6 @@ export default function MainContent(props) {
                     </SyledCard>
                 </Grid>
             </Grid>
-        </Box>
+        </Box >
     );
 }

@@ -45,7 +45,7 @@ export default async function Home({ }) {
     include: {
       //published: { select: true },
       author: {
-        select: { name: true },
+        select: { name: true, image: true },
       },
       tags: {},
       categories: {},

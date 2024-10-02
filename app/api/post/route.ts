@@ -65,7 +65,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
 
   const { title, email, content, published, tags, categories, description, main, image } = await request.json()
 
-  console.log("cat", categories)
+  console.log("cat", main, categories)
 
   const post = await prisma.post.update({
     where: {

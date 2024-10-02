@@ -14,6 +14,8 @@ export default function Postupdate(props) {
     mainPosts, image
   } = props;
 
+
+  console.log('postUpdate', mainPosts, categories)
   async function DeletePost() {
 
     console.log("on va delete", id);

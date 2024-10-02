@@ -296,7 +296,7 @@ export default function ClientPost(props) {
 
 
 
-
+    console.log('clientPost', category)
     if (role === 'ADMIN') {
         return (
 
@@ -353,6 +353,7 @@ export default function ClientPost(props) {
                                 value={category}
                                 label="category"
                                 onChange={handleCategoryChange}
+                                required
                             >
                                 {categories.map((category) => (
                                     <MenuItem key={category.name} value={category.name}>{category.name}</MenuItem>
