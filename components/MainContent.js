@@ -25,8 +25,6 @@ change la presentation quand plus de contenu
 */
 
 
-
-
 const cardData = [
     {
         img: 'https://picsum.photos/800/450?random=1',
@@ -121,6 +119,7 @@ const StyledTypography = styled(Typography)({
 });
 
 function Author({ authors }) {
+    console.log("authors", authors)
     return (
         <Box
             sx={{
@@ -200,11 +199,12 @@ export default function MainContent(props) {
     /*Filtered  Categories*/
     const { categories, mainPosts } = props;
     const [categoriesFilter, setCategoriesFilter] = useState(null)
-    const [filteredPosts, setFilteredPosts] = useState([])
+    const [filteredPosts, setFilteredPosts] = useState(mainPosts)
+
 
     useEffect(() => {
         setFilteredPosts(() => filterByCategory(mainPosts, categoriesFilter))
-    }, [categoriesFilter, mainPosts])
+    }, [categoriesFilter]);
 
     const handleCategoriesClick = (event) => {
         console.info('You clicked the filter chip.', event.target.textContent);
@@ -217,9 +217,11 @@ export default function MainContent(props) {
     };
 
 
-    console.log('result function', categoriesFilter,
+    console.log('result filter', categoriesFilter,
         //filterByCategory(mainPosts, categoriesFilter)
-        filteredPosts.map((element) => element)
+        'Post 0', filteredPosts[0],
+        //'allpost', filteredPosts
+        //filteredPosts.map((element) => element)
     )
     /*Fin */
 
@@ -238,51 +240,6 @@ export default function MainContent(props) {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-
-
-
-            {filteredPosts?.map((element) =>
-
-                < Grid size={{ xs: 12, md: 6 }}>
-                    <SyledCard
-                        variant="outlined"
-                        onFocus={() => handleFocus(0)}
-                        onBlur={handleBlur}
-                        tabIndex={0}
-                        className={focusedCardIndex === 0 ? 'Mui-focused' : ''}
-                    >
-                        <CardMedia
-                            component="img"
-                            alt="post image"
-                            image={element.image}
-                            aspect-ratio="16 / 9"
-                            sx={{
-                                borderBottom: '1px solid',
-                                borderColor: 'divider',
-                            }}
-                        />
-                        <SyledCardContent>
-                            <Typography gutterBottom variant="caption" component="div">
-                                {
-                                    //  element.tag
-                                }
-                            </Typography>
-                            <Typography gutterBottom variant="h6" component="div">
-                                {element.title}
-                            </Typography>
-                            <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                                {element.description}
-                            </StyledTypography>
-                        </SyledCardContent>
-                        <Author authors={[element.author]} />
-
-
-                    </SyledCard>
-                </Grid>
-
-            )
-            }
-
 
 
             <div>
@@ -363,6 +320,52 @@ export default function MainContent(props) {
 
             <Grid container spacing={2} columns={12}>
                 {/* DEBUT CARD */}
+
+                {/*
+                filteredPosts?.map((element) =>
+
+                    < Grid size={{ xs: 12, md: 6 }}>
+                        <SyledCard
+                            variant="outlined"
+                            onFocus={() => handleFocus(0)}
+                            onBlur={handleBlur}
+                            tabIndex={0}
+                            className={focusedCardIndex === 0 ? 'Mui-focused' : ''}
+                        >
+                            <CardMedia
+                                component="img"
+                                alt="post image"
+                                image={"/uploads/" + element.image}
+                                aspect-ratio="16 / 9"
+                                sx={{
+                                    borderBottom: '1px solid',
+                                    borderColor: 'divider',
+
+                                }}
+                            />
+                            <SyledCardContent>
+                                <Typography gutterBottom variant="caption" component="div">
+                                    {
+                                        //  element.tag
+                                    }
+                                </Typography>
+                                <Typography gutterBottom variant="h6" component="div">
+                                    {element.title}
+                                </Typography>
+                                <StyledTypography variant="body2" color="text.secondary" gutterBottom>
+                                    {element.description}
+                                </StyledTypography>
+                            </SyledCardContent>
+                            <Author authors={[element.author]} />
+
+
+                        </SyledCard>
+                    </Grid>
+
+                )
+                */}
+                {/*  CARD */}
+
                 <Grid size={{ xs: 12, md: 6 }}>
                     <SyledCard
                         variant="outlined"
@@ -374,7 +377,7 @@ export default function MainContent(props) {
                         <CardMedia
                             component="img"
                             alt="green iguana"
-                            image={cardData[0].img}
+                            image={filteredPosts[0].image}
                             aspect-ratio="16 / 9"
                             sx={{
                                 borderBottom: '1px solid',
@@ -383,16 +386,16 @@ export default function MainContent(props) {
                         />
                         <SyledCardContent>
                             <Typography gutterBottom variant="caption" component="div">
-                                {cardData[0].tag}
+                                {filteredPosts[0].tag}
                             </Typography>
                             <Typography gutterBottom variant="h6" component="div">
-                                {cardData[0].title}
+                                {filteredPosts[0].title}
                             </Typography>
                             <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                                {cardData[0].description}
+                                {filteredPosts[0].description}
                             </StyledTypography>
                         </SyledCardContent>
-                        <Author authors={cardData[0].authors} />
+                        <Author authors={[filteredPosts[0].author]} />
                     </SyledCard>
                 </Grid>
                 {/* Fin CARD */}
