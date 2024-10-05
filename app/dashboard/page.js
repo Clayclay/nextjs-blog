@@ -17,13 +17,27 @@ export default async function DashboardServer() {
 
     const categories = await prisma.category.findMany();
 
+    const posts = await prisma.post.findMany({
+      where: { /*published: true*/ },
+      include: {
+        author: {
+          select: { name: true },
+        },
+      },
+      orderBy: [
+        {
+          createdAt: "desc", // or pass "asc" to order ascendingly
+        },
+      ],
+    });
+
     return (
       <Container
         maxWidth="lg"
         component="main"
         sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
       >
-        <Dashboard tags={tags} categories={categories} />
+        <Dashboard tags={tags} categories={categories} posts={posts} />
 
       </Container>
 

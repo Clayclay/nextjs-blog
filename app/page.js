@@ -41,7 +41,7 @@ export default async function Home({ }) {
     where: {
       published: true,
     },
-    orderBy: { createdAt: 'asc' },
+    orderBy: { createdAt: 'desc' },
     include: {
       //published: { select: true },
       author: {

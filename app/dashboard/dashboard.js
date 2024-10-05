@@ -18,12 +18,12 @@ export default function Dashboard(props) {
 
     const { data: session } = useSession();
     const role = session?.user.role;
-    const { tags, categories } = props;
+    const { tags, categories, posts } = props;
 
 
 
     if (role === 'ADMIN') {
-        return <DashboardAdmin tags={tags} categories={categories} />
+        return <DashboardAdmin tags={tags} categories={categories} posts={posts} />
     } else if (role === 'USER') {
         return <DashboardUser />
     } else {

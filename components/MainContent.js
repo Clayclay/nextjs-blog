@@ -18,6 +18,7 @@ import { styled } from '@mui/material/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
 import Select from '@mui/material/Select';
+import { Button } from "@mui/material";
 
 //TODO Filter + connecter avec mes posts + mes categories
 /*
@@ -162,10 +163,22 @@ Author.propTypes = {
     ).isRequired,
 };
 
+{/* ------------------------SEARCH------------------------------ */ }
 export function Search() {
+
+    /*Search*/
+    const [searchInput, setSearchInput] = useState("");
+    const handleSearchChange = (event) => {
+        event.preventDefault()
+        setSearchInput(event.target.value)
+    }
+
     return (
         <FormControl sx={{ width: { xs: '100%', md: '25ch' } }} variant="outlined">
             <OutlinedInput
+
+                onChange={handleSearchChange}
+                value={searchInput}
                 size="small"
                 id="search"
                 placeholder="Search…"
@@ -179,10 +192,11 @@ export function Search() {
                     'aria-label': 'search',
                 }}
             />
+            <Button href="/posts" target="_blank" variant="outlined">MUI Link Button</Button>
         </FormControl>
     );
 }
-
+{/* ----------------------------------FILTER----------------------------------- */ }
 export function filterByCategory(mainPosts, categoriesFilter) {
     // const { categoriesFilter, mainPosts } = props;
     // console.log('inside function', typeof (categoriesFilter))
@@ -195,6 +209,8 @@ export function filterByCategory(mainPosts, categoriesFilter) {
 
 
 export default function MainContent(props) {
+
+
 
     /*Filtered  Categories*/
     const { categories, mainPosts } = props;
@@ -248,20 +264,8 @@ export default function MainContent(props) {
                 </Typography>
                 <Typography>Stay in the loop with the latest about our products</Typography>
             </div>
-            <Box
-                sx={{
-                    display: { xs: 'flex', sm: 'none' },
-                    flexDirection: 'row',
-                    gap: 1,
-                    width: { xs: '100%', md: 'fit-content' },
-                    overflow: 'auto',
-                }}
-            >
-                <Search />
-                <IconButton size="small" aria-label="RSS feed">
-                    <RssFeedRoundedIcon />
-                </IconButton>
-            </Box>
+
+
             <Box
                 sx={{
                     display: 'flex',
@@ -319,51 +323,7 @@ export default function MainContent(props) {
 
 
             <Grid container spacing={2} columns={12}>
-                {/* DEBUT CARD */}
 
-                {/*
-                filteredPosts?.map((element) =>
-
-                    < Grid size={{ xs: 12, md: 6 }}>
-                        <SyledCard
-                            variant="outlined"
-                            onFocus={() => handleFocus(0)}
-                            onBlur={handleBlur}
-                            tabIndex={0}
-                            className={focusedCardIndex === 0 ? 'Mui-focused' : ''}
-                        >
-                            <CardMedia
-                                component="img"
-                                alt="post image"
-                                image={"/uploads/" + element.image}
-                                aspect-ratio="16 / 9"
-                                sx={{
-                                    borderBottom: '1px solid',
-                                    borderColor: 'divider',
-
-                                }}
-                            />
-                            <SyledCardContent>
-                                <Typography gutterBottom variant="caption" component="div">
-                                    {
-                                        //  element.tag
-                                    }
-                                </Typography>
-                                <Typography gutterBottom variant="h6" component="div">
-                                    {element.title}
-                                </Typography>
-                                <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                                    {element.description}
-                                </StyledTypography>
-                            </SyledCardContent>
-                            <Author authors={[element.author]} />
-
-
-                        </SyledCard>
-                    </Grid>
-
-                )
-                */}
                 {/*  CARD */}
 
                 <Grid size={{ xs: 12, md: 6 }}>
@@ -398,6 +358,8 @@ export default function MainContent(props) {
                         <Author authors={[filteredPosts[0].author]} />
                     </SyledCard>
                 </Grid>
+
+
                 {/* Fin CARD */}
                 <Grid size={{ xs: 12, md: 6 }}>
                     <SyledCard

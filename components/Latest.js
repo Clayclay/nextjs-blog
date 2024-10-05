@@ -74,7 +74,8 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
 function Main(props) {
 
   const { posts, title } = props;
-  const PostArray = posts.sort((a, b) => a.createdAt - b.createdAt)
+  console.log('est ce,bon ', posts)
+  //const PostArray = posts.sort((a, b) => a.createdAt - b.createdAt)
 
   const [focusedCardIndex, setFocusedCardIndex] = useState(null);
 
@@ -88,7 +89,7 @@ function Main(props) {
 
   /*  NAVIGATION  */
 
-  const [allPosts] = useState(PostArray.reverse());
+  const [allPosts] = useState(posts /*PostArray.reverse()*/);
 
 
   // const [isLoading, setIsLoading] = useState(false);

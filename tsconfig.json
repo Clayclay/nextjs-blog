@@ -21,7 +21,8 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
@@ -47,6 +48,7 @@
     "components/iframe.ts",
     "components/iframe.ts",
     "app/dashboard/page.js",
+    "app/ui/search.js"
   ],
   "exclude": [
     "node_modules"
