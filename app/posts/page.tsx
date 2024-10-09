@@ -19,6 +19,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
 
+{/* ---------------------------------SEARCH-------------------------------------- */ }
+import Search from '../ui/search'
+import { Suspense } from 'react';
+import InvoicesTableSkeleton from '../ui/skeletons'
+import Table from '../ui/posts/table'
 
 
 import dynamic from 'next/dynamic';
@@ -43,10 +48,18 @@ const allPosts = await prisma.post.findMany({
 const categories = await prisma.category.findMany()
 
 
-export default async function Page({ }) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
 
 
-
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -57,7 +70,19 @@ export default async function Page({ }) {
         sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
       >
 
+        <Search placeholder="Search invoices..." />
+
+
         <ListPost categories={categories} allPosts={allPosts} />
+
+        <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}
+        >
+          <Table query={query} currentPage={currentPage} />
+
+        </Suspense>
+        <div className="mt-5 flex w-full justify-center">
+          {/* <Pagination totalPages={totalPages} /> */}
+        </div>
 
       </Container>
 

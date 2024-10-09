@@ -105,9 +105,7 @@ export default function ListPost(props) {
         setCategoriesFilter(null)
     };
 
-    console.log('result',
-        filteredPosts.map((element) => element)
-    )
+    // console.log('result',  filteredPosts.map((element) => element)   )
 
     {/*------------------------SEARCH--------------------------------- */ }
 
@@ -159,7 +157,7 @@ export default function ListPost(props) {
                 defaultValue={searchParams.get('query')?.toString()}
             />*/}
 
-            <Search placeholder={placeholder} />
+            {/* <Search placeholder={placeholder} />*/}
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
 
