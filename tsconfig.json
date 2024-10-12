@@ -3,8 +3,12 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es6",
     ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -48,7 +52,9 @@
     "components/iframe.ts",
     "components/iframe.ts",
     "app/dashboard/page.js",
-    "app/ui/search.js"
+    "app/ui/search.js",
+    "app/ui/posts/postCardMui.js",
+    "app/ui/posts/table.js"
   ],
   "exclude": [
     "node_modules"
