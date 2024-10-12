@@ -27,7 +27,7 @@ import Table from '../ui/posts/table'
 
 
 import dynamic from 'next/dynamic';
-const ListPost = dynamic(() => import('./ListPost.js'), { ssr: false });
+//const ListPost = dynamic(() => import('./ListPostTEMPO.js/index.js'), { ssr: false });
 
 
 const allPosts = await prisma.post.findMany({
@@ -72,8 +72,6 @@ export default async function Page({
 
         <Search placeholder="Search invoices..." />
 
-
-        <ListPost categories={categories} allPosts={allPosts} />
 
         <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}
         >
