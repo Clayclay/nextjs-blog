@@ -15,6 +15,8 @@ import Pagination from '@mui/material/Pagination';
 import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
+import PostCardMui from "../app/ui/posts/postCardMui";
+
 /*  NAVIGATION  */
 
 import usePagination from "./Pagination";
@@ -127,90 +129,11 @@ function Main(props) {
         {/* Pour appliquer pagination sur le array ajouter .currentData()*/}
         {PaginationAllPosts.currentData().map((post, index) => (
 
-          <Grid key={post.id} size={{ xs: 12, sm: 6 }}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                gap: 1,
-                height: '100%',
-              }}
-            >
-              <Stack direction="row" spacing={1}>
-                {post.tags.map((tag, index) => (
 
-                  <Chip label={tag.name} key={tag.id} />
-
-                )
-                )}
-              </Stack>
-
-              {/* 
-              <Typography gutterBottom variant="caption" component="div" key={index} display='inline' >
-                {tag.name}
-              </Typography>*/}
-
-              <TitleTypography
-                gutterBottom
-                variant="h6"
-                onFocus={() => handleFocus(index)}
-                onBlur={handleBlur}
-                tabIndex={0}
-                className={focusedCardIndex === index ? 'Mui-focused' : ''}
-              >
-
-                <Link href={"/posts/" + post.id} sx={{
-                  color: 'black',
-                  textDecoration: 'none',
-                  display: 'inline'
-                }}>
-                  {post.title}
-                </Link>
-                <NavigateNextRoundedIcon
-                  className="arrow"
-                  sx={{ fontSize: '1rem' }}
-                />
-              </TitleTypography>
-              <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                {post.description}
-              </StyledTypography>
-
-              {/* <Author authors={article.authors} />  */}
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 2,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Box
-                  sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}
-                >
-                  {/*<AvatarGroup max={3}>
-          {authors.map((author, index) => (
-            <Avatar
-              key={index}
-              alt={author.name}
-              src={author.avatar}
-              sx={{ width: 24, height: 24 }}
-            />
-          ))}
-        </AvatarGroup>*/}
-                  <Typography variant="caption">
-                    {/*authors.map((author) => author.name).join(', ')*/}
-                    {post.author.name}
-                  </Typography>
-                </Box>
-                <Typography variant="caption">  {new Date(post.createdAt).toLocaleDateString()}  </Typography>
-              </Box>
+          <PostCardMui post={post} index={index} />
 
 
-            </Box>
-          </Grid>
+
         ))}
       </Grid>
       <Box sx={{ display: 'flex', flexDirection: 'row', pt: 4 }}>

@@ -78,7 +78,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
 
-import MenuBar from '../../../components/MenuBarTiptap'
+import MenuBar from '../../ui/tiptap/MenuBarTiptap.js'
 
 
 const ITEM_HEIGHT = 48;

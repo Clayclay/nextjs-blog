@@ -1,6 +1,11 @@
 "use client";
 import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from 'prop-types';
+
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import Link from "next/link";
+
+/*Mui  */
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Box from '@mui/material/Box';
@@ -165,18 +170,19 @@ Author.propTypes = {
 
 {/* ------------------------SEARCH------------------------------ */ }
 export function Search() {
-
-    /*Search*/
+    const router = useRouter()
     const [searchInput, setSearchInput] = useState("");
-    const handleSearchChange = (event) => {
-        event.preventDefault()
-        setSearchInput(event.target.value)
+    const handleSearchChange = (event) => { event.preventDefault(); setSearchInput(event.target.value) }
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            router.push(`/posts?query=` + searchInput)
+        }
     }
 
     return (
         <FormControl sx={{ width: { xs: '100%', md: '25ch' } }} variant="outlined">
             <OutlinedInput
-
                 onChange={handleSearchChange}
                 value={searchInput}
                 size="small"
@@ -191,9 +197,13 @@ export function Search() {
                 inputProps={{
                     'aria-label': 'search',
                 }}
+                onKeyDown={handleKeyDown}
             />
-            <Button href="/posts" target="_blank" variant="outlined">MUI Link Button</Button>
+
+
+
         </FormControl>
+        /*/posts?query=*/
     );
 }
 {/* ----------------------------------FILTER----------------------------------- */ }
@@ -232,13 +242,13 @@ export default function MainContent(props) {
         setCategoriesFilter(null)
     };
 
-
-    console.log('result filter', categoriesFilter,
-        //filterByCategory(mainPosts, categoriesFilter)
-        'Post 0', filteredPosts[0],
-        //'allpost', filteredPosts
-        //filteredPosts.map((element) => element)
-    )
+    /*
+        console.log('result filter', categoriesFilter,
+            //filterByCategory(mainPosts, categoriesFilter)
+            'Post 0', filteredPosts[0],
+            //'allpost', filteredPosts
+            //filteredPosts.map((element) => element)
+        )*/
     /*Fin */
 
 

@@ -69,7 +69,7 @@ export default function PostCardMui(props) {
 
 
     const { post, title, index } = props;
-    console.log(post)
+    //console.log(post)
     const [focusedCardIndex, setFocusedCardIndex] = useState(null);
 
     const handleFocus = (index) => {

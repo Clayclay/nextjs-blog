@@ -1,16 +1,25 @@
 'use client';
 
 //import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import SearchIcon from '@mui/icons-material/Search';
 //useRouter and usePathname hooks to update the URL.
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
+/* MUI */
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import { styled } from '@mui/material/styles';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Search({ placeholder }: { placeholder: string }) {
 
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
+    const searchParams = useSearchParams();//lets you read the current URL's query string.
+    const pathname = usePathname(); //lets you read the current URL's pathname.
+    //const pathname = '/posts'
     const { replace } = useRouter();
+
+    console.log('searchg', searchParams, 'pathname', pathname)
 
     function handleSearch(term: string) {
         //console.log(term);
@@ -32,7 +41,38 @@ export default function Search({ placeholder }: { placeholder: string }) {
     }
 
     return (
-        <div className="relative flex flex-1 flex-shrink-0">
+
+        <FormControl sx={{ width: { xs: '100%', md: '25ch' } }} variant="outlined">
+            <OutlinedInput
+
+
+                size="small"
+                id="search"
+
+                placeholder={placeholder}
+                onChange={(e) => {
+                    handleSearch(e.target.value);
+                }}
+                defaultValue={searchParams.get('query')?.toString()}
+                sx={{ flexGrow: 1 }}
+                startAdornment={
+                    <InputAdornment position="start" sx={{ color: 'text.primary' }}>
+                        <SearchRoundedIcon fontSize="small" />
+                    </InputAdornment>
+                }
+                inputProps={{
+                    'aria-label': 'search',
+                }}
+            />
+
+        </FormControl>
+
+    );
+}
+
+
+{/*
+     <div className="relative flex flex-1 flex-shrink-0">
             <label htmlFor="search" className="sr-only">
                 Search
             </label>
@@ -46,5 +86,4 @@ export default function Search({ placeholder }: { placeholder: string }) {
             />
             <SearchIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
         </div>
-    );
-}
+    */}

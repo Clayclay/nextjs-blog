@@ -81,7 +81,7 @@ import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 import { useSession } from "next-auth/react";
 
-import MenuBar from './MenuBarTiptap'
+import MenuBar from '../app/ui/tiptap/MenuBarTiptap'
 
 /* MUI*/
 

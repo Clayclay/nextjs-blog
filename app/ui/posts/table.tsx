@@ -66,7 +66,7 @@ export default async function Table({
         },
     })
 
-    console.log('result', data)
+    //console.log('result', data)
     // const invoices = await fetchFilteredInvoices(query, currentPage);
 
     return (
