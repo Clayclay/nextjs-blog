@@ -125,7 +125,7 @@ const StyledTypography = styled(Typography)({
 });
 
 function Author({ authors }) {
-    console.log("authors", authors)
+    // console.log("authors", authors)
     return (
         <Box
             sx={{
@@ -251,6 +251,9 @@ export default function MainContent(props) {
         )*/
     /*Fin */
 
+    console.log('main content', categoriesFilter, mainPosts,
+        'filteredPosts', filteredPosts
+    )
 
     const [focusedCardIndex, setFocusedCardIndex] = React.useState(null);
 
@@ -261,7 +264,6 @@ export default function MainContent(props) {
     const handleBlur = () => {
         setFocusedCardIndex(null);
     };
-
 
 
     return (
@@ -346,7 +348,7 @@ export default function MainContent(props) {
                     >
                         <CardMedia
                             component="img"
-                            alt="green iguana"
+                            alt="image post 1"
                             image={filteredPosts[0].image}
                             aspect-ratio="16 / 9"
                             sx={{

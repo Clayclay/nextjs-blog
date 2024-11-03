@@ -76,7 +76,7 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
 function Main(props) {
 
   const { posts, title } = props;
-  console.log('est ce,bon ', posts)
+  //console.log('est ce,bon ', posts)
   //const PostArray = posts.sort((a, b) => a.createdAt - b.createdAt)
 
   const [focusedCardIndex, setFocusedCardIndex] = useState(null);

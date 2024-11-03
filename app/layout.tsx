@@ -41,9 +41,13 @@ export default function RootLayout({
               <AppAppBar />
 
               <main>
-
-                {children}
-
+                <Container
+                  maxWidth="lg"
+                  component="main"
+                  sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+                >
+                  {children}
+                </Container>
               </main>
               <Footer />
 

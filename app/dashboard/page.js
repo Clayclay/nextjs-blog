@@ -32,14 +32,8 @@ export default async function DashboardServer() {
     });
 
     return (
-      <Container
-        maxWidth="lg"
-        component="main"
-        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
-      >
-        <Dashboard tags={tags} categories={categories} posts={posts} />
 
-      </Container>
+      <Dashboard tags={tags} categories={categories} posts={posts} />
 
     )
   }
