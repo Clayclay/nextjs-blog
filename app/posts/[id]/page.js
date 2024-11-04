@@ -50,17 +50,9 @@ export default async function Post({ params }) {
     return (
 
 
-      <Container
-        maxWidth="lg"
-        component="main"
-        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
-      >
 
-        Page server
+      <ClientPost id={id} post={post} tags={tags} categories={categories} />
 
-
-        <ClientPost id={id} post={post} tags={tags} categories={categories} />
-      </Container>
 
     )
   }

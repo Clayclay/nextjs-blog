@@ -62,29 +62,25 @@ export default async function Page({
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
 
-      <Container
-        maxWidth="lg"
-        component="main"
-        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
-      >
-
-        <Search placeholder="Search invoices..." />
+    <Container
+      maxWidth="lg"
+      component="main"
+      sx={{ display: 'flex', flexDirection: 'column', my: 8, gap: 4 }}
+    >
 
 
-        <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}
-        >
-          <Table query={query} currentPage={currentPage} />
+      <Search placeholder="Search invoices..." />
 
-        </Suspense>
-        <div className="mt-5 flex w-full justify-center">
-          {/* <Pagination totalPages={totalPages} /> */}
-        </div>
 
-      </Container>
+      <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}   >
+        <Table query={query} currentPage={currentPage} />
+      </Suspense>
+      <div className="mt-5 flex w-full justify-center">
+        {/* <Pagination totalPages={totalPages} /> */}
+      </div>
 
-    </Box>
+    </Container>
 
 
   )

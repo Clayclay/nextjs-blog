@@ -10,9 +10,9 @@ import NextAuth from "next-auth/next";
 
 import prisma from "../../../../lib/prisma";
 
-import Credentials from "next-auth/providers/credentials";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
+//import Credentials from "next-auth/providers/credentials";
+//import CredentialsProvider from "next-auth/providers/credentials";
+//import { compare } from "bcrypt";
 
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
