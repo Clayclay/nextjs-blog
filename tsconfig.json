@@ -54,7 +54,8 @@
     "app/dashboard/page.js",
     "app/ui/search.js",
     "app/ui/posts/postCardMui.js",
-    "app/ui/posts/table.js"
+    "app/ui/posts/table.js",
+    "app/api/upload/route.js"
   ],
   "exclude": [
     "node_modules"

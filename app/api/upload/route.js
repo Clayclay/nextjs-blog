@@ -4,9 +4,9 @@ import path from "path";
 import { writeFile } from "fs/promises";
 
 // Define the POST handler for the file upload
-export const POST = async (request: NextRequest) => {
+export const POST = async (req, res) => {
     // Parse the incoming form data
-    const formData = await request.formData();
+    const formData = await req.formData();
 
     // Get the file from the form data
     const file = formData.get("file");
