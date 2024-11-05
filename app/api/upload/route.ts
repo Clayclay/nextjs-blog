@@ -1,12 +1,12 @@
 // Import necessary modules
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
 
 // Define the POST handler for the file upload
-export const POST = async (req: { formData: () => any; }, res: any) => {
+export const POST = async (request: NextRequest) => {
     // Parse the incoming form data
-    const formData = await req.formData();
+    const formData = await request.formData();
 
     // Get the file from the form data
     const file = formData.get("file");
