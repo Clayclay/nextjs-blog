@@ -4,7 +4,7 @@ import path from "path";
 import { writeFile } from "fs/promises";
 
 // Define the POST handler for the file upload
-export const POST = async (req, res) => {
+export const POST = async (req: { formData: () => any; }, res: any) => {
     // Parse the incoming form data
     const formData = await req.formData();
 

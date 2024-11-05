@@ -69,7 +69,7 @@ export default function PostCardMui(props) {
 
 
     const { post, title, index } = props;
-    //console.log(post)
+    //console.log(post.id)
     const [focusedCardIndex, setFocusedCardIndex] = useState(null);
 
     const handleFocus = (index) => {
@@ -94,7 +94,7 @@ export default function PostCardMui(props) {
                 }}
             >
                 <Stack direction="row" spacing={1}>
-                    {post.tags?.map((tag, index) => (
+                    {post.tags?.map((tag) => (
 
                         <Chip label={tag.name} key={tag.id} />
 

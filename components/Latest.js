@@ -130,7 +130,7 @@ function Main(props) {
         {PaginationAllPosts.currentData().map((post, index) => (
 
 
-          <PostCardMui post={post} index={index} />
+          <PostCardMui post={post} index={index} key={post.id} />
 
 
 
