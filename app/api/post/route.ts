@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       published: publish,
       tags: {
         connectOrCreate:
-          tag.map((element) => {
+          tag.map((element: any) => {
             return {
               where: { name: element },
               create: { name: element },
