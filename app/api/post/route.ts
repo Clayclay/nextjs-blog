@@ -79,7 +79,7 @@ export async function PUT(request: NextRequest, res: NextResponse,) {
       main: main,
       tags: {
         connectOrCreate:
-          tags.map((element) => {
+          tags.map((element: any) => {
             return {
               where: { name: element },
               create: { name: element },
